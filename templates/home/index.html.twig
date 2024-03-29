@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!
+{% endblock %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	{# header #}
+	<div class="imgHeaderHome ">
+		<div class="container">
+			<div class="text-white text-center">
+				<h1 class="mt-5">Welcome to Negar Art Gallery</h1>
+				<h5>Where Art Transforms Spaces and Lives!</h5>
+			</div>
+		</div>
+	</div>
+	{# Heptagon #}
+	<div class="text-center">
+		<svg
+			xmlns="http://www.w3.org/2000/svg" width="500" height="500" class="bi bi-heptagon-fill svgHeptagon" viewbox="0 0 16 16">
+			<!-- Define linear gradient -->
+			<defs>
+				<linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+					<stop offset="20%" style="stop-color:#050505"/>
+					<stop offset="100%" style="stop-color:#A62800"/>
+				</linearGradient>
+			</defs>
+			<!-- Use the linear gradient for filling the path -->
+			<path
+			fill="url(#gradient)" stroke="#FA0000" stroke-width="0.06" fill-rule="evenodd" d="M7.779.052a.5.5 0 0 1 .442 0l6.015 2.97a.5.5 0 0 1 .267.34l1.485 6.676a.5.5 0 0 1-.093.415l-4.162 5.354a.5.5 0 0 1-.395.193H4.662a.5.5 0 0 1-.395-.193L.105 10.453a.5.5 0 0 1-.093-.415l1.485-6.676a.5.5 0 0 1 .267-.34z"/>
+			<!-- Add text -->
+			<text x="50%" y="30%" dominant-baseline="middle" text-anchor="middle" fill="#FFFFFF" font-size="0.7">
+				<tspan x="50%" dy="-1.5em">Experience the vivid tapestry</tspan>
+				<tspan x="50%" dy="1em">of art and paint on our website,</tspan>
+				<tspan x="50%" dy="1em">where colors intertwine to tell stories</tspan>
+				<tspan x="50%" dy="1em">untold. With each stroke, immerse</tspan>
+				<tspan x="50%" dy="1em">yourself in the depths of creativity,</tspan>
+				<tspan x="50%" dy="1em">where imagination knows no bounds.</tspan>
+				<tspan x="50%" dy="1em">Discover the transformative power</tspan>
+				<tspan x="50%" dy="1em">of pigments, breathing life into</tspan>
+				<tspan x="50%" dy="1em">visions and emotions. Join us in</tspan>
+				<tspan x="50%" dy="1em">celebrating the timeless allure of</tspan>
+				<tspan x="50%" dy="1em">artistry, where every canvas is a journey</tspan>
+				<tspan x="50%" dy="1em">waiting to unfold. Welcome to a world</tspan>
+				<tspan x="50%" dy="1em">where art and paint unite to ignite</tspan>
+				<tspan x="50%" dy="1em">the soul.</tspan>
+			</text>
+		</svg>
+
+	</div>
+{% endblock %}
