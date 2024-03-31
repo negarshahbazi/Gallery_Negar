@@ -1,19 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register
+{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+	<div class="w-25 divLogin text-center text-white d-flex flex-column justify-content-center align-items-center">
+		<h1>Registeration</h1>
 
-    {{ form_errors(registrationForm) }}
+		{{ form_errors(registrationForm, {
+								'attr': {
+									'id' : 'register-form',
+									'role':'form',
+									'accept-char':'UTF-8',
+									'autocomplete':'off',
+									'data-parsley-validate':true,
+								}
+							}) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+		{{ form_start(registrationForm) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+		{{ form_row(registrationForm.email) }}
+		{{ form_row(registrationForm.plainPassword) }}
+		{{ form_row(registrationForm.agreeTerms) }}
+
+		{# Include your profile form here #}
+        {# {{ include('ProfileType.php', { 'form': profileForm }) }} #}
+
+		<button type="submit" class="btn btn-lg btn-dark text-white">Register</button>
+	
+
+		<div class="links">
+			<a class="text-dark" href="{{ path('app_login') }}">Already have an account? Click here</a>
+
+		</div>
+
+	</div>
+	{{ form_end(registrationForm) }}
 {% endblock %}

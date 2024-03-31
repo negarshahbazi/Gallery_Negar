@@ -25,6 +25,10 @@ class Category
     {
         $this->paints = new ArrayCollection();
     }
+    public function __toString(): string
+    {
+        return $this->getName(); // Assuming getName() returns the category name
+    }
 
     public function getId(): ?int
     {

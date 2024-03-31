@@ -15,6 +15,12 @@ class Photo
 
     #[ORM\Column(length: 255)]
     private ?string $url = null;
+    
+    public function __toString(): string
+    {
+        // Return the filename or any other property that represents the photo as a string
+        return $this->url ?? ''; 
+    }
 
     public function getId(): ?int
     {

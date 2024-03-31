@@ -25,6 +25,10 @@ class Status
     {
         $this->paints = new ArrayCollection();
     }
+    public function __toString(): string
+    {
+        return $this->isAvailable ? 'Available' : 'Not Available'; 
+    }
 
     public function getId(): ?int
     {

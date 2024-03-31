@@ -2,6 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Category;
+use App\Entity\Gender;
+use App\Entity\Paint;
+use App\Entity\Photo;
+use App\Entity\Status;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -13,7 +18,7 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        return parent::index();
+       
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
@@ -41,6 +46,10 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::linkToCrud('Category', 'fas fa-list', Category::class);
+        yield MenuItem::linkToCrud('Gender', 'fas fa-list', Gender::class);
+        yield MenuItem::linkToCrud('Status', 'fas fa-list', Status::class);
+        yield MenuItem::linkToCrud('Photo', 'fas fa-list', Photo::class);
+        yield MenuItem::linkToCrud('Paint', 'fas fa-list', Paint::class);
     }
 }

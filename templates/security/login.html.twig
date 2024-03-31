@@ -14,6 +14,7 @@
 				<div>
 					You are logged in as
 					{{ app.user.userIdentifier }},
+					{# {{ app.user.email}}, #}
 					<a class="text-white" href="{{ path('app_logout') }}">Logout</a>
 				</div>
 			{% endif %}
@@ -25,19 +26,23 @@
 			<input type="password" name="password" id="inputPassword" class="form-control mb-3" autocomplete="current-password" required>
 
 			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+			<div class="checkbox">
+				<input type="checkbox" id="keep-logged" name="remember" value="1"/>
+				<label for="keep-logged">Keep me logged in</label>
+			</div>
 
 			<button class="btn btn-lg btn-dark text-white" type="submit">
-				Submit
+				Login
 			</button>
 
 			<div class="promo-info">
-
 				<a href="{{ path('app_register') }}" class="btn btn-lg gradient secondary waves-effect waves-light mt-20">
 					<span>Sign-up<strong>
 							Free</strong>
 					</span>
 				</a>
 			</div>
+
 		</form>
 	</div>
 {% endblock %}

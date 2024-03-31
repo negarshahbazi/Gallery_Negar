@@ -15,6 +15,8 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class RegistrationController extends AbstractController
 {
+    
+
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
@@ -36,27 +38,30 @@ class RegistrationController extends AbstractController
 
             // do anything else you need here, like send an email
 
-   $email = (new Email())
-            ->from('hello@example.com')
-            ->to('$user->getEmail')
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
-            ->subject('Welcome to Luxury Services !')
-            ->text('Please click on the link below to validate your account creation.')
-            ->html('
+            $email = (new Email())
+                ->from('negar.shahbazi70@gmail.com')
+                ->to($user->getEmail())
+                //->cc('cc@example.com')
+                //->bcc('bcc@example.com')
+                //->replyTo('fabien@example.com')
+                //->priority(Email::PRIORITY_HIGH)
+                ->subject('Welcome to Negar Gallery !')
+                ->text('Please click on the link below to validate your account creation.')
+                ->html('
             <h2>Congratulation, your account has been created !</h2>
             <p>Please click on the link below to validate your account creation.</p>
             ');
 
-        $mailer->send($email);
-
-  
+            $mailer->send($email);
 
 
 
-            return $this->redirectToRoute('app_login');
+
+
+
+       
+                return $this->redirectToRoute('app_login');
+            
         }
 
         return $this->render('registration/register.html.twig', [

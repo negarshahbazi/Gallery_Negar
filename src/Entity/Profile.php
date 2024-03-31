@@ -30,8 +30,6 @@ class Profile
     #[ORM\Column(length: 255)]
     private ?string $address = null;
 
-    #[ORM\Column]
-    private ?int $tel = null;
 
     #[ORM\OneToMany(targetEntity: Payment::class, mappedBy: 'profile')]
     private Collection $payments;
@@ -41,6 +39,9 @@ class Profile
 
     #[ORM\OneToMany(targetEntity: Panier::class, mappedBy: 'profile')]
     private Collection $paniers;
+
+    #[ORM\Column(length: 255)]
+    private ?string $tel = null;
 
     public function __construct()
     {
@@ -114,17 +115,7 @@ class Profile
         return $this;
     }
 
-    public function getTel(): ?int
-    {
-        return $this->tel;
-    }
-
-    public function setTel(int $tel): static
-    {
-        $this->tel = $tel;
-
-        return $this;
-    }
+ 
 
     /**
      * @return Collection<int, Payment>
@@ -212,6 +203,18 @@ class Profile
                 $panier->setProfile(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(string $tel): static
+    {
+        $this->tel = $tel;
 
         return $this;
     }
