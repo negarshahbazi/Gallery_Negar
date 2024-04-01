@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %}
 
 {% block title %}Profile index{% endblock %}
 
@@ -38,4 +38,25 @@
     </table>
 
     <a href="{{ path('app_profile_new') }}">Create new</a>
+{% endblock %} #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+<div class="w-25 divLogin text-center text-white d-flex flex-column justify-content-center align-items-center">
+    <h1>Profile</h1>
+
+    {{ form_errors(profileForm) }}
+
+    {{ form_start(profileForm) }}
+    {{ form_row(profileForm.firstName) }}
+    {{ form_row(profileForm.lastName) }}
+    {{ form_row(profileForm.address) }}
+    {{ form_row(profileForm.tel) }}
+    {{ form_row(profileForm.gender) }}
+
+    <button type="submit" class="btn btn-lg btn-dark text-white">Save Profile</button>
+</div>
+{{ form_end(profileForm) }}
 {% endblock %}

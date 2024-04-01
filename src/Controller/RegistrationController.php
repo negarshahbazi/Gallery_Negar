@@ -15,57 +15,48 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class RegistrationController extends AbstractController
 {
-    
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, MailerInterface $mailer): Response
     {
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
+        $registrationForm = $this->createForm(RegistrationFormType::class, $user);
+        $registrationForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+        if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {
+            // Encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $registrationForm->get('plainPassword')->getData()
                 )
             );
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
 
-            // do anything else you need here, like send an email
-
+            // Send an email
             $email = (new Email())
                 ->from('negar.shahbazi70@gmail.com')
                 ->to($user->getEmail())
-                //->cc('cc@example.com')
-                //->bcc('bcc@example.com')
-                //->replyTo('fabien@example.com')
-                //->priority(Email::PRIORITY_HIGH)
-                ->subject('Welcome to Negar Gallery !')
-                ->text('Please click on the link below to validate your account creation.')
-                ->html('
-            <h2>Congratulation, your account has been created !</h2>
-            <p>Please click on the link below to validate your account creation.</p>
-            ');
+                ->subject('Welcome to Negar Gallery!')
+                ->html('<h2>Congratulations, your account has been created!</h2>');
 
             $mailer->send($email);
 
-
-
-
-
-
-       
-                return $this->redirectToRoute('app_login');
-            
+            // Redirect to profile form after successful registration
+            return $this->redirectToRoute('app_profile_new');
         }
 
         return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
+            'registrationForm' => $registrationForm->createView(),
         ]);
     }
+
 }

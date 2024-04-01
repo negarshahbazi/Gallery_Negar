@@ -22,35 +22,11 @@ class HomeController extends AbstractController
         // Récupérer les informations sur la peinture depuis la base de données
 
         $paintRepository = $this->entityManager->getRepository(Paint::class);
-        $paints = $paintRepository->findAll(); // Supposons que l'ID de la peinture soit 1
-        foreach ($paints as $paint) {
-            // Récupérer gradeCount et gradeTotal de la peinture
-            $title = $paint->getTitle();
-            $photo = $paint->getPhoto();
-            $sizeW = $paint->getSizeW();
-            $sizeH = $paint->getSizeH();
-            $sizeD = $paint->getSizeD();
-            $price = $paint->getPrice();
-            $typeOfWork = $paint->getTypeOfWork();
-            $category = $paint->getCategory();
-            $status = $paint->getStatus();
-            $gradeCount = $paint->getGradeCount();
-            $gradeTotal = $paint->getGradeTotal();
-        }
+        $paints = $paintRepository->findAll(); 
 
 
         return $this->render('home/index.html.twig', [
-            'title' => $title,
-            'photo' => $photo,
-            'sizeW' => $sizeW,
-            'sizeH' => $sizeH,
-            'sizeD' => $sizeD,
-            'price' => $price,
-            'typeOfWork' => $typeOfWork,
-            'category' => $category,
-            'status' => $status,
-            'gradeCount' => $gradeCount,
-            'gradeTotal' => $gradeTotal,
+       'paints' => $paints
 
         ]);
     }

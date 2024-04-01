@@ -62,17 +62,19 @@
 	</div>
 	<section>
 		<div class="container">
-			<div class="row">
-				<div class="col-md-4 divPaint">
-					<img src=" {{ photo }} " alt="">
-					<h3>{{ title }}
-					</h3>
-					<h3>{{ price }}
-						€</h3>
-					<!-- Affichage du nombre total d'étoiles -->
+			<div class="row rowStyle">
+				{% for paint in paints %}
 
-					<!-- /===========/ -->
-				</div>
+					<div class="col-md-3 divPaint">
+						<img src=" {{ paint.photo }} " alt="">
+						<h3>Title:
+							{{ paint.title }}</h3>
+						<h3>{{ paint.price }}€</h3>
+						<!-- Affichage du nombre total d'étoiles -->
+
+						<!-- /===========/ -->
+					</div>
+				{% endfor %}
 			</div>
 		</div>
 	</section>
