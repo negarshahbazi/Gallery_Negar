@@ -31,7 +31,7 @@
 				<div class="collapse navbar-collapse " id="navbarScroll">
 					<ul class="navbar-nav navbar-nav-scroll " style="--bs-scroll-height: 100px;">
 						<li class="nav-item ">
-							<a class="nav-link active text-white" aria-current="page" href="{{ path('app_home') }}">Home</a>
+							<a class="nav-link text-white" aria-current="page" href="{{ path('app_home') }}">Home</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-white" href="#">About Us</a>
@@ -121,25 +121,26 @@
 				<div class="container footer-text">
 					<div class="row text-center">
 
-						<div class="col-xl-4 col-lg-4 col-md-6 mb-30 ">
-							<div class="footer-widget ">
+						<div class="col-xl-4 col-lg-4 col-md-12">
+							<div class="footer-widget d-flex flex-column justify-content-center align-items-center text-center">
 								<div class="footer-widget-heading">
 									<h3>Useful Links</h3>
 								</div>
-								<ul>
-									<li><ahref="{{path('app_home')}}">Home</a></li>
+								<ul class="useful-links">
+									<li><a href="{{path('app_home')}}">Home</a></li>
 									<li><a href="#">About us</a></li>
 									<li><a href="#">Our Services</a></li>
 									<li><a href="#">Contact us</a></li>
 									<li><a href="#">Latest News</a></li>
 								</ul>
+								
 							</div>
 						</div>
 
-						<div class="col-xl-4 col-lg-4 mb-50 ">
+						<div class="col-xl-4 col-lg-4 col-md-12">
 							<div class="footer-widget">
 								<div class="footer-logo">
-									<a href="{{ path('app_home') }}"><img src="./assets/img/télécharger.webp" class="img-fluid rounded-4 opacity-50" alt="logo"></a>
+									<a href="{{ path('app_home') }}"><img src="./assets/img/télécharger.webp" class="img-fluid rounded-pill opacity-75" alt="logo"></a>
 								</div>
 								<div class="footer-text text-white opacity-50 ">
 									At Negar Art Gallery, we are committed to fostering a culture of artistic appreciation and expression. Join us on a journey of discovery, creativity, and inspiration as we celebrate the beauty and power of art together.																																								                                elit,Lorem ipsum dolor sit amet.</p>
@@ -147,7 +148,7 @@
 						</div>
 					</div>
 
-					<div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+					<div class="col-xl-4 col-lg-4 col-md-6 col-md-12 ">
 						<div class="footer-social-icon">
 							<span>Follow us</span>
 							<a href="#">
