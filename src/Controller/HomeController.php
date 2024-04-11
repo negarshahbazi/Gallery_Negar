@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Paint;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,13 +22,14 @@ class HomeController extends AbstractController
     {
         // Récupérer les informations sur la peinture depuis la base de données
 
-        $paintRepository = $this->entityManager->getRepository(Paint::class);
-        $paints = $paintRepository->findAll(); 
+        $paints = $this->entityManager->getRepository(Paint::class)->findAll();
+        $categories = $this->entityManager->getRepository(Category::class)->findAll();
+
 
 
         return $this->render('home/index.html.twig', [
-       'paints' => $paints
-
+       'paints' => $paints,
+       'categories'=> $categories
         ]);
     }
 }

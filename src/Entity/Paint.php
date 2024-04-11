@@ -59,7 +59,7 @@ class Paint
         $this->messages = new ArrayCollection();
         $this->paniers = new ArrayCollection();
     }
-
+  
     public function getId(): ?int
     {
         return $this->id;

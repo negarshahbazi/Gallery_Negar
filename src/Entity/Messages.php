@@ -19,11 +19,15 @@ class Messages
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'messages')]
-    private ?Profile $profile = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'messages')]
     private ?Paint $paint = null;
+
+    #[ORM\ManyToOne(inversedBy: 'messages')]
+    private ?User $user = null;
+
+  
 
     public function getId(): ?int
     {
@@ -54,17 +58,7 @@ class Messages
         return $this;
     }
 
-    public function getProfile(): ?Profile
-    {
-        return $this->profile;
-    }
 
-    public function setProfile(?Profile $profile): static
-    {
-        $this->profile = $profile;
-
-        return $this;
-    }
 
     public function getPaint(): ?Paint
     {
@@ -77,4 +71,18 @@ class Messages
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+
 }

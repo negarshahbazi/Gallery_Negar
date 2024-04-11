@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -32,6 +34,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\OneToMany(targetEntity: Messages::class, mappedBy: 'user')]
+    private Collection $messages;
+
+    public function __construct()
+    {
+        $this->messages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -106,5 +116,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Messages>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Messages $message): static
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages->add($message);
+            $message->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Messages $message): static
+    {
+        if ($this->messages->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getUser() === $this) {
+                $message->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

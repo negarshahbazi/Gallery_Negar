@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PaintController!
+{% endblock %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+
+	{# header #}
+	<div class="imgHeaderPaint ">
+		<p></p>
+	</div>
+	{# paint #}
+	<section class="myPaint">
+		<div class="container">
+			<div class="row rowPaintStyle">
+
+
+				<div class="col-lg-6 col-9 divPaint text-white p-5">
+					<img src="{{ paint.photo }}" alt="{{ paint.title }}">
+
+					<form
+						class="ratings" action="{{ path('app_rate_paint', {'id': paint.id, 'grade': '__VALUE__'}) }}">
+						<!-- Champ caché pour stocker la valeur de la note -->
+						<input type="hidden" id="grade" name="grade" value="">
+						<!-- Génération des étoiles -->
+						<fieldset class="rating ">
+							{% for star in 1..5 %}
+								<input class="input " type="radio" id="star{{ star }}" name="rating" value="{{ star }}"/>
+								<label class="label full" for="star{{ star }}" title="{{ star }} star">&#9733;</label>
+							{% endfor %}
+						</fieldset>
+					
+						<!-- /===========/ -->
+					</form>
+
+
+					<h1 class="titrePaint">{{ paint.title }}</h1>
+					<p>Price:
+						{{ paint.price }}€</p>
+					<p>Size:
+						{{ paint.sizeW }}W *
+						{{ paint.sizeH }}H *
+						{{ paint.sizeD }}D
+					</p>
+					<p>Type of work:
+						{{ paint.typeOfWork}}</p>
+					<p>Category:
+						{{ paint.category}}
+					</p>
+					<p>Status:
+						{{ paint.status}}</p>
+					<div class="d-flex flex-column justify-content-center align-items-end">
+						<button class="btn bg-gradient text-white w-25">Add to cart</button>
+						<button class="btn bg-gradient text-white w-25">Checkout</button>
+					</div>
+					<!-- Autres informations sur le paint -->
+					<div>
+						<!-- /=======commentaire========/ -->
+						<form class=" box mt-5" action="{{ path('app_messages_new') }}" method="post">
+
+							<h6 class="text-white">comment:</h6>
+							{# <label class="text-white-50" for="author">Enter your name:</label>
+							<input class="w-100 bg-transparent text-white border shadow " type="text" name="author" id="author" required> #}
+
+							<label class="text-white-50" for="message">Enter your comment:</label>
+							<textarea class="w-100 bg-transparent text-white border shadow" name="message" id="message" required></textarea>
+						</h6>
+
+
+						<button type="submit" name="but" class="btn bg-gradient text-white m-2">Send</button>
+						<input type="hidden" name="paintId" value="{{ paint.id }}">
+						{# <input type="hidden" name="userId" value="{{ app.user.id }}"> #}
+
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>{% endblock %}{% block javascripts %}
+ <script>
+document.addEventListener('DOMContentLoaded', function () {
+    let ratings = document.querySelectorAll('.ratings');
+
+    ratings.forEach(rating => {
+        let inputs = rating.querySelectorAll('.input');
+
+        inputs.forEach(input => {
+            input.addEventListener('change', () => {
+                // Récupérer la valeur de l'étoile sélectionnée
+                let value = input.value;
+                // Mettre à jour la valeur du champ caché "grade" avec la valeur de la note sélectionnée
+                document.getElementById('grade').setAttribute('value', value);
+                console.log('Note sélectionnée : ' + value);
+
+                // Modifier l'URL d'action du formulaire avec la valeur de la note
+                let form = rating;
+                let action = form.getAttribute('action');
+                action = action.replace('__VALUE__', value);
+				// Remplacer également '__VALUE__' dans l'URL avec la valeur du grade
+                action = action.replace('grade=__VALUE__', 'grade=' + value);
+                console.log(action);
+                form.setAttribute('action', action);
+
+                // Soumettre automatiquement le formulaire
+                form.submit();
+            });
+        });
+    });
+});
+
+</script>{% endblock %}

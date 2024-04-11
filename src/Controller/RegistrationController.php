@@ -51,7 +51,7 @@ class RegistrationController extends AbstractController
             $mailer->send($email);
 
             // Redirect to profile form after successful registration
-            return $this->redirectToRoute('app_profile_new');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('registration/register.html.twig', [
