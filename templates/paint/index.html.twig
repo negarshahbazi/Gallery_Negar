@@ -69,22 +69,8 @@
 					<!-- Autres informations sur le paint -->
 					<div>
 						<!-- /=======commentaire========/ -->
-						<form class=" box mt-5" action="{{ path('app_messages_new') }}" method="post">
-
-							<h6 class="text-white">comment:</h6>
-							{# <label class="text-white-50" for="author">Enter your name:</label>
-							<input class="w-100 bg-transparent text-white border shadow " type="text" name="author" id="author" required> #}
-
-							<label class="text-white-50" for="message">Enter your comment:</label>
-							<textarea class="w-100 bg-transparent text-white border shadow" name="message" id="message" required></textarea>
-						</h6>
-
-
-						<button type="submit" name="but" class="btn bg-gradient text-white m-2">Send</button>
-						<input type="hidden" name="paintId" value="{{ paint.id }}">
-						{# <input type="hidden" name="userId" value="{{ app.user.id }}"> #}
-
-					</form>
+						<p>Comment: </p>
+						 {{ include('messages/_form.html.twig') }}
 				</div>
 			</div>
 

@@ -24,28 +24,31 @@ class MessagesController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_messages_new', methods: ['GET', 'POST'])]
+    #[Route('/new/{id}', name: 'app_messages_new', methods: ['GET', 'POST'])]
     public function new(Paint $paint,Request $request, EntityManagerInterface $entityManager): Response
-    {
+    {;
+        
         $message = new Messages();
 
         $form = $this->createForm(MessagesType::class, $message);
         $form->handleRequest($request);
 
+
+            
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $date=new DateTimeImmutable();
             $message->setCreatedAt($date);
             $message->setPaint($paint);
             $entityManager->persist($message);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_paint', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_paint', ['id' => $paint->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('paint/index.html.twig', [
             'message' => $message,
             'paint' => $paint, // Passer la variable paint au template
-
             'form' => $form->createView(),
         ]);
     }

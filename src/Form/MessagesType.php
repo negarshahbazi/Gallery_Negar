@@ -18,7 +18,14 @@ class MessagesType extends AbstractType
     {
         $builder
             ->add('messages', TextareaType::class, [
-                'label' => 'Your Comment',
+                'label' => ' ',
+                'attr' => [
+                    'class' => 'custom-textarea', // Ajoutez une classe CSS personnalisée
+                    'style' => 'width: 90%;background-color: rgba(255, 255, 255, 0.6);color: white;', // Définissez la largeur de la zone de texte
+                    'placeholder' => 'Enter your message here...', // Ajoutez un texte de rappel (placeholder)
+
+                  
+                ],
             ])
             // ->add('createdAt', null, [
             //     'widget' => 'single_text',
@@ -26,14 +33,14 @@ class MessagesType extends AbstractType
             // ->add('name', TextType::class, [
             //     'label' => 'Your Name',
             // ])
-            ->add('paint', EntityType::class, [
-                'class' => Paint::class,
-                'choice_label' => 'id',
-            ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
+            // ->add('paint', EntityType::class, [
+            //     'class' => Paint::class,
+            //     'choice_label' => 'id',
+            // ])
+            // ->add('user', EntityType::class, [
+            //     'class' => User::class,
+            //     'choice_label' => 'id',
+            // ])
         ;
     }
 
