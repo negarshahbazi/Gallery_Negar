@@ -19,11 +19,13 @@ class Panier
     #[ORM\Column]
     private ?int $panierTotal = null;
 
-    #[ORM\ManyToOne(inversedBy: 'paniers')]
-    private ?Profile $profile = null;
+   
 
     #[ORM\ManyToOne(inversedBy: 'paniers')]
     private ?Paint $paint = null;
+
+    #[ORM\ManyToOne(inversedBy: 'paniers')]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -54,17 +56,7 @@ class Panier
         return $this;
     }
 
-    public function getProfile(): ?Profile
-    {
-        return $this->profile;
-    }
-
-    public function setProfile(?Profile $profile): static
-    {
-        $this->profile = $profile;
-
-        return $this;
-    }
+  
 
     public function getPaint(): ?Paint
     {
@@ -74,6 +66,18 @@ class Panier
     public function setPaint(?Paint $paint): static
     {
         $this->paint = $paint;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
