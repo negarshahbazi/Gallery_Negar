@@ -21,6 +21,10 @@ class CategoryCrudController extends AbstractCrudController
         return [
          
             TextField::new('name'),
+            TextField::new('explique'),
+            TextField::new('year'),
+            TextField::new('url'),
+          
            
         ];
     }

@@ -2,8 +2,9 @@
 
 {% block title %}Hello PaintController!
 {% endblock %}
+{% block stylesheets %}
 
-{% block body %}
+
 	<style>
 		.example-wrapper {
 			margin: 1em auto;
@@ -16,6 +17,9 @@
 			padding: 2px 6px;
 		}
 	</style>
+{% endblock %}
+
+{% block body %}
 
 
 	{# header #}
@@ -23,13 +27,47 @@
 		<p></p>
 	</div>
 	{# paint #}
+	<div class="d-flex justify-content-between align-items-center titrPoster">
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<img class="vahshi" src="{{ asset('../../assets/img/portrait-young-woman-who-is-posing-covered-with-black-paint__1_-removebg-preview.png') }}" alt="photo">
+		</div>
+		<h1 class="text-white text-center">NEGAR GALLERY</h1>
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<img class="vahshi" src="{{ asset('../../assets/img/young-woman-who-is-posing-covered-with-black-paint__1_-removebg-preview.png') }}" alt="photo">
+
+		</div>
+	</div>
 	<section class="myPaint">
 		<div class="container">
-			<div class="row rowPaintStyle">
+			<div class="row rowPaintStyle divPaint">
 
 
-				<div class="col-lg-6 col-9 divPaint text-white p-5">
+				<div class="col-lg-6   text-white p-5">
 					<img src="{{ paint.photo }}" alt="{{ paint.title }}">
+				</div>
+				<div class="col-lg-6  text-white p-5">
+
+
+					<h1 class="titrePaint">{{ paint.title }}</h1>
+					<p>
+						<span class="colorTextPaint">Price:</span>
+						{{ paint.price }}€</p>
+					<p>
+						<span class="colorTextPaint">Size:</span>
+						{{ paint.sizeW }}W *
+						{{ paint.sizeH }}H *
+						{{ paint.sizeD }}D
+					</p>
+					<p>
+						<span class="colorTextPaint">Type of work:</span>
+						{{ paint.typeOfWork}}</p>
+					<p>
+						<span class="colorTextPaint">Category:</span>
+						{{ paint.category}}
+					</p>
+					<p>
+						<span class="colorTextPaint">Status:</span>
+						{{ paint.status}}</p>
 
 					<form
 						class="ratings" action="{{ path('app_rate_paint', {'id': paint.id, 'grade': '__VALUE__'}) }}">
@@ -52,23 +90,6 @@
 
 						<!-- /===========/ -->
 					</form>
-
-
-					<h1 class="titrePaint">{{ paint.title }}</h1>
-					<p>Price:
-						{{ paint.price }}€</p>
-					<p>Size:
-						{{ paint.sizeW }}W *
-						{{ paint.sizeH }}H *
-						{{ paint.sizeD }}D
-					</p>
-					<p>Type of work:
-						{{ paint.typeOfWork}}</p>
-					<p>Category:
-						{{ paint.category}}
-					</p>
-					<p>Status:
-						{{ paint.status}}</p>
 					<div class="d-flex flex-column justify-content-center align-items-end">
 						<button class="btn bg-gradient text-white w-25">Add to cart</button>
 						<button class="btn bg-gradient text-white w-25">Checkout</button>
@@ -76,48 +97,48 @@
 					<!-- Autres informations sur le paint -->
 					<div>
 						<!-- /=======commentaire========/ -->
-						<p>Comment:
+						<p class="colorTextPaint">Comment:
 						</p>
 						{{ include('messages/_form.html.twig') }}
 
 					</div>
-				</div>
 
+				</div>
 			</div>
 		</div>
+
 	</section>
+
+
 {% endblock %}
 {% block javascripts %}
 	 <script>
-				document.addEventListener('DOMContentLoaded', function () {
-				    let ratings = document.querySelectorAll('.ratings');
-				
-				    ratings.forEach(rating => {
-				        let inputs = rating.querySelectorAll('.input');
-				
-				        inputs.forEach(input => {
-				            input.addEventListener('change', () => {
-				                // Récupérer la valeur de l'étoile sélectionnée
-				                let value = input.value;
-				                // Mettre à jour la valeur du champ caché "grade" avec la valeur de la note sélectionnée
-				                document.getElementById('grade').setAttribute('value', value);
-				                console.log('Note sélectionnée : ' + value);
-				
-				                // Modifier l'URL d'action du formulaire avec la valeur de la note
-				                let form = rating;
-				                let action = form.getAttribute('action');
-				                action = action.replace('__VALUE__', value);
-								// Remplacer également '__VALUE__' dans l'URL avec la valeur du grade
-				                action = action.replace('grade=__VALUE__', 'grade=' + value);
-				                console.log(action);
-				                form.setAttribute('action', action);
-				
-				                // Soumettre automatiquement le formulaire
-				                form.submit();
-				            });
-				        });
-				    });
-				});
-				
-				</script>
+								document.addEventListener('DOMContentLoaded', function () {
+									 let ratings = document.querySelectorAll('.ratings');
+															
+									ratings.forEach(rating => {
+									let inputs = rating.querySelectorAll('.input');
+															
+									 inputs.forEach(input => {
+															            input.addEventListener('change', () => {
+									// Récupérer la valeur de l'étoile sélectionnée
+									 let value = input.value;
+									// Mettre à jour la valeur du champ caché "grade" avec la valeur de la note sélectionnée
+									 document.getElementById('grade').setAttribute('value', value);
+									console.log('Note sélectionnée : ' + value);
+									// Modifier l'URL d'action du formulaire avec la valeur de la note
+									 let form = rating;
+									 let action = form.getAttribute('action');
+									action = action.replace('__VALUE__', value);
+									// Remplacer également '__VALUE__' dans l'URL avec la valeur du grade
+									 action = action.replace('grade=__VALUE__', 'grade=' + value);
+									console.log(action);
+									 form.setAttribute('action', action);
+							// Soumettre automatiquement le formulaire
+									form.submit();
+								});
+								});
+							});
+							});
+							</script>
 {% endblock %}

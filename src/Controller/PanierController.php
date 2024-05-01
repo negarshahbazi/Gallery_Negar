@@ -55,22 +55,21 @@ class PanierController extends AbstractController
     {
 
 
-$panier = new Panier();
-            $user = $this->getUser();
-       
-            $panier->setPaint($paint);
-            $panier->setUser($user);
-            $panier->setPanierCount(1);
-       
-            $panier->setPanierTotal($panier->getPanierTotal()+$panier->getPanierCount());
-    
-            $entityManager->persist($panier);
-            $entityManager->flush();
-    
-            return $this->redirectToRoute('app_home');
+        $panier = new Panier();
+        $user = $this->getUser();
 
+        $panier->setPaint($paint);
+        $panier->setUser($user);
+        $panier->setPanierCount(1);
+
+        $panier->setPanierTotal($panier->getPanierTotal() + $panier->getPanierCount());
+
+        $entityManager->persist($panier);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_home');
     }
-    
+
 
     #[Route('/{id}/edit', name: 'app_panier_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Panier $panier, EntityManagerInterface $entityManager): Response

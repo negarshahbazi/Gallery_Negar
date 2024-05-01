@@ -21,6 +21,17 @@ class Category
     #[ORM\OneToMany(targetEntity: Paint::class, mappedBy: 'category')]
     private Collection $paints;
 
+    #[ORM\Column(length: 255)]
+    private ?string $explique = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $year = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $url = null;
+
+
+
     public function __construct()
     {
         $this->paints = new ArrayCollection();
@@ -76,4 +87,42 @@ class Category
 
         return $this;
     }
+
+    public function getExplique(): ?string
+    {
+        return $this->explique;
+    }
+
+    public function setExplique(string $explique): static
+    {
+        $this->explique = $explique;
+
+        return $this;
+    }
+
+    public function getYear(): ?string
+    {
+        return $this->year;
+    }
+
+    public function setYear(string $year): static
+    {
+        $this->year = $year;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(string $url): static
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+ 
 }

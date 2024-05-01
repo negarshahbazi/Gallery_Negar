@@ -21,48 +21,58 @@ class HomeController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
-        #[Route('/', name: 'app_home')]
+    #[Route('/', name: 'app_home')]
     public function panier(Request $request, EntityManagerInterface $entityManager, PaintRepository $paintRepository): Response
-    {    $paints = $this->entityManager->getRepository(Paint::class)->findAll();
+    {  // Initialiser tous les compteurs à zéro
+        $panierCount = 0;
+
+        $paints = $this->entityManager->getRepository(Paint::class)->findAll();
         $categories = $this->entityManager->getRepository(Category::class)->findAll();
 
-        $panier = new Panier();
+   
         $user = $this->getUser();
-        
-      
-        
-        $form = $this->createForm(PanierType::class, $panier);
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-       
-            $panier = $form->getData();
-              // Gérer le changement du compteur du panier
-              $panierCount = $panier->getPanierCount();
-              if ($panierCount === 1) {
-                  $panier->setPanierCount(0);
-              } else {
-                  $panier->setPanierCount(1);
-              }
-            $panier->setPanierCount(1);
-        
-        
-       
-
-            
-
+        $panier = $entityManager->getRepository(Panier::class)->findOneBy(['user' => $user]);
+        if (!$panier) {
+            $panier = new Panier();
+            $panier->setUser($user);
+            $panier->setPanierCount(0); // Initialiser le panier à 0 s'il n'existe pas encore
             $entityManager->persist($panier);
             $entityManager->flush();
+        }
+        $form = $this->createForm(PanierType::class, $panier);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $panier = $form->getData();
+            
+            if ($panierCount === 1) {
+                // Si le panier a déjà été ajouté, supprimez-le
+                $panier->setPanierCount(0);
+                $entityManager->remove($panier);
+                $entityManager->flush();
+                $panierCount = $panier->getPanierCount();
+            } else {
+                // Sinon, créez une nouvelle entrée dans le panier
+                $newPanier = new Panier();
+                $newPanier->setUser($user);
+                $newPanier->setPanierCount(1);
+                $panierCount = $panier->getPanierCount();
+                // Ajoutez d'autres champs si nécessaire
+                $entityManager->persist($newPanier);
+                $entityManager->flush();
+            }
+
             return $this->redirectToRoute('app_home');
         }
 
         return $this->render('home/index.html.twig', [
             'panier' => $panier,
+            'panierCount' => $panierCount,
             'user' => $user,
             'form' => $form->createView(),
             'paints' => $paints,
-            'categories'=> $categories
-            
+            'categories' => $categories
+
         ]);
     }
 }

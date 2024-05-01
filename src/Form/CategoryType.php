@@ -13,6 +13,10 @@ class CategoryType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('explique')
+            ->add('year')
+            ->add('url')
+         
         ;
     }
 

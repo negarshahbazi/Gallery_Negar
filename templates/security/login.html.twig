@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	<div class="w-25 divLogin text-center">
+	<div class="w-75 divLogin text-center">
 		<form method="post">
 			{% if error %}
 				<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -19,19 +19,21 @@
 				</div>
 			{% endif %}
 
-			<h1 class="h3 mb-3 font-weight-normal text-white">Please sign in</h1>
-			<label class="text-white " for="inputEmail">Email</label>
-			<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mb-3" autocomplete="email" required autofocus>
-			<label class="text-white" for="inputPassword">Password</label>
-			<input type="password" name="password" id="inputPassword" class="form-control mb-3" autocomplete="current-password" required>
+			<h1 class="h3 mb-3 font-weight-normal text-white mb-5">Please sign in</h1>
+			<div class="form-group">
+				<input type="email" value="{{ last_username }}" name="email" placeholder="Email" class="form-control mb-3" autocomplete="email" required autofocus style="width: 400px; background-color: transparent; color:white">
+			</div>
+			<div class="form-group">
 
+				<input type="password" name="password" placeholder="Password" class="form-control mb-3" autocomplete="current-password" required style="width: 400px; background-color: transparent;">
+			</div>
 			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 			<div class="checkbox">
 				<input type="checkbox" id="keep-logged" name="remember" value="1"/>
 				<label for="keep-logged">Keep me logged in</label>
 			</div>
 
-			<button class="btn btn-lg btn-dark text-white" type="submit">
+			<button class="btn btn-lg btn-dark text-white mt-5" type="submit">
 				Login
 			</button>
 

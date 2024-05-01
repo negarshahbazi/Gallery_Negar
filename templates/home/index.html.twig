@@ -27,38 +27,38 @@
 		</div>
 	</div>
 	{# Heptagon #}
-	<div class="text-center svgHeptagon">
+	<div class="text-center svgHeptagon ">
 		<svg
-			xmlns="http://www.w3.org/2000/svg" width="500" height="500" class="bi bi-heptagon-fill " viewbox="0 0 16 16">
+			xmlns="http://www.w3.org/2000/svg" width="500" height="500" class="bi bi-heptagon-fill  " viewbox="0 0 16 16">
 			<!-- Define linear gradient -->
 			<defs>
 				<linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-					<stop offset="20%" style="stop-color:#050505"/>
-					<stop offset="100%" style="stop-color:#A62800"/>
+
+					<stop offset="100%" style="stop-color:#b38c52"/>
 				</linearGradient>
 			</defs>
 			<!-- Use the linear gradient for filling the path -->
 			<path
-			fill="url(#gradient)" stroke="#FA0000" stroke-width="0.06" fill-rule="evenodd" d="M7.779.052a.5.5 0 0 1 .442 0l6.015 2.97a.5.5 0 0 1 .267.34l1.485 6.676a.5.5 0 0 1-.093.415l-4.162 5.354a.5.5 0 0 1-.395.193H4.662a.5.5 0 0 1-.395-.193L.105 10.453a.5.5 0 0 1-.093-.415l1.485-6.676a.5.5 0 0 1 .267-.34z"/>
+			fill="url(#gradient)" stroke="#" stroke-width="0.06" fill-rule="evenodd" d="M7.779.052a.5.5 0 0 1 .442 0l6.015 2.97a.5.5 0 0 1 .267.34l1.485 6.676a.5.5 0 0 1-.093.415l-4.162 5.354a.5.5 0 0 1-.395.193H4.662a.5.5 0 0 1-.395-.193L.105 10.453a.5.5 0 0 1-.093-.415l1.485-6.676a.5.5 0 0 1 .267-.34z"/>
 			<!-- Add text -->
-			<text x="50%" y="30%" dominant-baseline="middle" text-anchor="middle" fill="#FFFFFF" font-size="0.7">
-				<tspan x="50%" dy="-1.5em">Experience the vivid tapestry</tspan>
-				<tspan x="50%" dy="1em">of art and paint on our website,</tspan>
-				<tspan x="50%" dy="1em">where colors intertwine to tell stories</tspan>
-				<tspan x="50%" dy="1em">untold. With each stroke, immerse</tspan>
-				<tspan x="50%" dy="1em">yourself in the depths of creativity,</tspan>
-				<tspan x="50%" dy="1em">where imagination knows no bounds.</tspan>
-				<tspan x="50%" dy="1em">Discover the transformative power</tspan>
-				<tspan x="50%" dy="1em">of pigments, breathing life into</tspan>
-				<tspan x="50%" dy="1em">visions and emotions. Join us in</tspan>
-				<tspan x="50%" dy="1em">celebrating the timeless allure of</tspan>
-				<tspan x="50%" dy="1em">artistry, where every canvas is a journey</tspan>
-				<tspan x="50%" dy="1em">waiting to unfold. Welcome to a world</tspan>
-				<tspan x="50%" dy="1em">where art and paint unite to ignite</tspan>
-				<tspan x="50%" dy="1em">the soul.</tspan>
+			<text x="50%" y="20%" dominant-baseline="middle" text-anchor="middle" fill="#FFFFFF" font-size="0.5">
+				<tspan x="50%" dy="1.5em">Experience the vivid tapestry</tspan>
+				<tspan x="50%" dy="1.5em">of art and paint on our website,</tspan>
+				<tspan x="50%" dy="1.5em">where colors intertwine to tell stories</tspan>
+				<tspan x="50%" dy="1.5em">untold. With each stroke, immerse</tspan>
+				<tspan x="50%" dy="1.5em">yourself in the depths of creativity,</tspan>
+				<tspan x="50%" dy="1.5em">where imagination knows no bounds.</tspan>
+				<tspan x="50%" dy="1.5em">Discover the transformative power</tspan>
+				<tspan x="50%" dy="1.5em">of pigments, breathing life into</tspan>
+				<tspan x="50%" dy="1.5em">visions and emotions. Join us in</tspan>
+				<tspan x="50%" dy="1.5em">celebrating the timeless allure of</tspan>
+				<tspan x="50%" dy="1.5em">artistry, where every canvas is a journey</tspan>
+				<tspan x="50%" dy="1.5em">waiting to unfold. Welcome to a world</tspan>
+				<tspan x="50%" dy="1.5em">where art and paint unite to ignite</tspan>
+				<tspan x="50%" dy="1.5em">the soul.</tspan>
 			</text>
 		</svg>
-
+		<div class="svgShadow"></div>
 	</div>
 	{# endHeptagon #}
 
@@ -92,19 +92,20 @@
 	<div class="container ">
 		<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
 			<div class="carousel-inner">
-				{% for chunk in paints|batch(3) %}
+				{% for chunk in paints|batch(12) %}
 					<div class="carousel-item {% if loop.first %}active{% endif %}">
 						<div class="container">
 							<div class="row rowStyle justify-content-center align-items-center ">
 								{% for paint in chunk %}
-									<div class="col-lg-3 col-md-6  divPaints m-3 text-black text-white">
+									<div class="col-lg-3  col-md-4 col-sm-6 divPaints m-3 text-black text-white ">
 										<div
-											class="divImage mb-4">
+											class=" divImage mb-4">
 											<!-- Ajout de la classe mb-4 pour l'espacement entre les images -->
+
 											<a href="{{ path('app_paint', { id: paint.id }) }}"><img src="{{ paint.photo }}" alt="" class="img-fluid"></a>
 										</div>
 										<div>
-											<h3>{{ paint.title }}</h3>
+											<h3 class="textColor">{{ paint.title }}</h3>
 											<div class="d-flex justify-content-end mb-3">
 												<h5>{{ paint.price }}€</h5>
 											</div>
@@ -121,18 +122,21 @@
 														{% endif %}
 													{% endfor %}
 												</fieldset>
-												{% set panierCount = 0 %}
 
-												<a href="{{ path('app_panier_show', { id: paint.id }) }}">
+
+												<a href="{{ path('app_panier_show', { id: paint.id }) }}" class="panier-link">
 													<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="yellow" class="bi bi-cart4" viewbox="0 0 16 16">
 														<path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
 													</svg>
-													<div style="position: relative; margin-left: 5px;">
-														<div style="position: absolute; top: -30px; right: -10px; width: 20px; height: 20px; border-radius: 50%; background-color: green; color: #FFFFFF; display: flex; justify-content: center; align-items: center;">
-															{{ panierCount }}
-														</div>
-													</div>
+													{# {% if panier is not null and panier.paint is not null and panier.paint.id == paint.id %} #}
+
+													<span class="count">0</span>
+													{# {% endif %} #}
+
+													{# {{ dump( panier) }} #}
+
 												</a>
+
 											</div>
 										</div>
 									</div>
@@ -153,37 +157,163 @@
 		</div>
 	</div>
 </section>
-{# line pub #}
-<section class="d-flex justify-content-center align-items-center text-center">
-	<div class="row backVideo m-5 ">
-		<div class="col-7">
-			<video class="videoReel" autoplay loop muted>
-				<source
-				src="{{ asset('assets/img/IMG_7171.MOV') }}" type="video/mp4">
-				<!-- Fournissez un message alternatif pour les navigateurs qui ne prennent pas en charge la balise vidéo -->
-				Votre navigateur ne prend pas en charge la lecture de vidéos.
-			</video>
-		</div>
-		<div class="sp-container col-5">
-			<div class="sp-content">
-				<div class="sp-globe"></div>
-				<h2 class="frame-1">
-					If you like to learn more</h2>
-				<h2 class="frame-2">about art categories,</h2>
-				<h2 class="frame-3">join me</h2>
 
-				<h2 class="frame-5">
-					<span>NEGAR,</span>
-					<span>ART,</span>
-					<span>GALLERY.</span>
-					<div>
-						<a class=" text-decoration-none sp-circle-link " href="#">by Negar</a>
-					</div>
-				</h2>
+{# paint #}
+<!--Timeline carousel-->
+<div class="d-flex justify-content-between align-items-center titrPoster">
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<img class="vahshi" src="{{ asset('../../assets/img/young-woman-who-is-posing-covered-with-black-paint-removebg-preview.png') }}" alt="photo">
+		</div>
+		<h1 class="text-white">The classification of the arts</h1>
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<img class="vahshi" src="{{ asset('../../assets/img/portrait-young-woman-who-is-posing-covered-with-black-paint__3_-removebg-preview.png') }}" alt="photo">
+
+		</div>
+	</div>
+<section class="timeline-carousel">
+	
+	<div
+		class="timeline-carousel__item-wrapper " data-js="timeline-carousel">
+		<!--Timeline item-->
+		{% for category in categories %}
+			<div class="timeline-carousel__item">
+				<div class="timeline-carousel__image">
+					<div class="media-wrapper media-wrapper--overlay"><img class="media-wrapper"src={{ category.url }}></div>
+				</div>
+				<div class="timeline-carousel__item-inner">
+					<span class="nameCategory ml-3">{{ category.name}}</span>
+					<span class="month ml-3">{{ category.year}}</span>
+					<p class="ml-3">
+						{{ category.explique}}</p>
+					<a href="#" class="read-more">Read more</a>
+				</div>
+			</div>
+		{% endfor %}
+
+
+		<!--/Timeline item-->
+
+	</section>
+
+	{# line pub #}
+	<section class="d-flex justify-content-center align-items-center text-center">
+		<div class="row backVideo m-5 ">
+			<div class="col-7">
+				<video class="videoReel" autoplay loop muted>
+					<source
+					src="{{ asset('assets/img/IMG_7171.MOV') }}" type="video/mp4">
+					<!-- Fournissez un message alternatif pour les navigateurs qui ne prennent pas en charge la balise vidéo -->
+					Votre navigateur ne prend pas en charge la lecture de vidéos.
+				</video>
+			</div>
+			<div class="sp-container col-5">
+				<div class="sp-content">
+					<div class="sp-globe"></div>
+					<h2 class="frame-1">
+						If you like to learn more</h2>
+					<h2 class="frame-2">about art categories,</h2>
+					<h2 class="frame-3">join me</h2>
+
+					<h2 class="frame-5">
+						<span>NEGAR,</span>
+						<span>ART,</span>
+						<span>GALLERY.</span>
+						{# <div>
+													<a class=" text-decoration-none sp-circle-link " href="#">by Negar</a>
+												</div> #}
+					</h2>
+				</div>
+
 			</div>
 
+
 		</div>
+	</section>
 
 
-	</div>
-</section>{% endblock %}
+{% endblock %}
+{% block javascripts %}
+	 <script>
+									$.js = function (el) {
+									    return $('[data-js=' + el + ']')
+									};
+									
+									function carousel() {
+									  $.js('timeline-carousel').slick({
+									    infinite: false,
+									    arrows: false,
+									    dots: true,
+									    autoplay: false,
+									    speed: 1100,
+									    slidesToShow: 2,
+									    slidesToScroll: 2,
+									    responsive: [
+									      {
+									        breakpoint: 800,
+									        settings: {
+									          slidesToShow: 1,
+									          slidesToScroll: 1
+									        }
+									      }]
+									  });
+									}
+									
+									carousel();
+									
+									</script>
+
+	{# 
+			   <script>
+			    document.addEventListener('DOMContentLoaded', function() {
+			        const panierLinks = document.querySelectorAll('.panier-link');
+			        panierLinks.forEach(function(link) {
+			            link.addEventListener('click', function(event) {
+			                // Empêcher le clic sur le lien si l'utilisateur n'est pas connecté
+			                if (!isLoggedIn()) {
+			                    event.preventDefault(); // Empêcher le lien de se comporter comme un lien normal
+			                    // Rediriger l'utilisateur vers la page de connexion
+			                    window.location.href = '{{ path('app_login') }}'; // Remplacez 'app_login' par le nom de la route vers votre page de connexion
+			                    return;
+			                }
+			
+			                // Le reste du code pour gérer le clic sur le bouton "Ajouter au panier"
+			                event.preventDefault(); // Empêcher le lien de se comporter comme un lien normal
+			                const countElement = this.querySelector('.count');
+			                let count = parseInt(countElement.textContent);
+			                if (count === 0) {
+			                    countElement.textContent = 1;
+			                } else {
+			                    countElement.textContent = 0;
+			                }
+			            });
+			        });
+			    });
+			
+			    // Fonction pour vérifier si l'utilisateur est connecté
+			    function isLoggedIn() {
+			    // Vérifier si une session utilisateur est active
+			    return <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
+			    }
+			</script>
+	#}
+	{# 
+			   <script>
+				document.addEventListener('DOMContentLoaded', function() {
+					        const panierLinks = document.querySelectorAll('.panier-link');
+					        panierLinks.forEach(function(link) {
+					            link.addEventListener('click', function(event) {
+					                event.preventDefault(); // Empêcher le lien de se comporter comme un lien normal
+					                const panierIcon = this.querySelector('.bi-cart4');
+					                const countElement = this.querySelector('.count');
+					                let count = parseInt(countElement.textContent);
+					                if (count === 0) {
+					                    countElement.textContent = 1;
+					                } else {
+					                    countElement.textContent = 0;
+					                }
+					            });
+					        });
+					    });
+					</script>
+
+#}{% endblock %}
