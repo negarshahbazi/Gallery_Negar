@@ -51,6 +51,30 @@ class PanierController extends AbstractController
     
         return $this->redirectToRoute('app_home');
     }
+    #[Route('/cart/{id}', name: 'app_panier_cart')]
+    public function myCart(Paint $paint, EntityManagerInterface $entityManager, PanierRepository $panierRepository): Response
+    {  
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }      
+        $existingPanier = $panierRepository->findOneBy(['user' => $user, 'paint' => $paint]);    
+        if ($existingPanier) {
+            $entityManager->remove($existingPanier);
+            $entityManager->flush();
+        } else {
+            $newPanier = new Panier();
+            $newPanier->setPaint($paint);
+            $newPanier->setUser($user);
+            $newPanier->setPanierCount(1);
+           
+    
+            $entityManager->persist($newPanier);
+            $entityManager->flush();
+        }
+    
+        return $this->redirectToRoute('app_home_cart');
+    }
 
     #[Route('/{id}/edit', name: 'app_panier_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Panier $panier, EntityManagerInterface $entityManager): Response

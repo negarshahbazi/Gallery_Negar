@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/category')]
@@ -46,8 +47,8 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_category_show', methods: ['GET'])]
-    public function show(Category $category, PaintRepository $paintRepository, CategoryRepository $categoryRepository, EntityManagerInterface $entityManager): Response
-    {
+    public function show(Category $category, PaintRepository $paintRepository, CategoryRepository $categoryRepository, EntityManagerInterface $entityManager,SessionInterface $session): Response
+    { $panierCount = $session->get('panierCount', 0);
         // Récupérer tous les paints associés à cette catégorie
         $user = $this->getUser();
         $paints = $paintRepository->findBy(['category' => $category]);
@@ -57,6 +58,7 @@ class CategoryController extends AbstractController
             'categories'=> $categoryRepository->findAll(),
             'paints' =>$paints,
             'paniers' => $paniers,
+            'panierCount' => $panierCount,
         ]);
     }
 
@@ -75,6 +77,7 @@ class CategoryController extends AbstractController
         return $this->render('category/edit.html.twig', [
             'category' => $category,
             'form' => $form,
+           
         ]);
     }
 
