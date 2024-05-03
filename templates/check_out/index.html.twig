@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CheckOutController!
+{% endblock %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	<div class="d-flex justify-content-between align-items-center titrPoster">
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<img class="vahshi" src="{{ asset('../../assets/img/young-woman-who-is-posing-covered-with-black-paint-removebg-preview.png') }}" alt="photo">
+		</div>
+		<h1 class="text-white">CheckOut({{ panierCount }})</h1>
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<img class="vahshi" src="{{ asset('../../assets/img/portrait-young-woman-who-is-posing-covered-with-black-paint__3_-removebg-preview.png') }}" alt="photo">
+
+		</div>
+	</div>
+
+	<section class="">
+		<div class="row d-flex justify-content-center align-items-center">
+
+
+			<div class="col-xl-5  d-flex justify-content-end align-items-center">
+				<div class="form-container">
+					<form class="form">
+						<div class="form-group">
+							<label for="email">Company Email</label>
+							<input required="" name="email" id="email" type="text">
+						</div>
+						<div class="form-group">
+							<label for="textarea">How Can We Help You?</label>
+							<textarea required="" cols="50" rows="10" id="textarea" name="textarea"></textarea>
+						</div>
+						<button type="submit" class="form-submit-btn">Submit</button>
+					</form>
+				</div>
+			</div>
+
+			<div class="col-xl-6  d-flex justify-content-center align-items-center">
+				<img class="imageCart " src="../../assets/img/female-person-silhouette-sitting-chair-writing-down-shadow-white-background-young-removebg-preview.png" alt="">
+			</div>
+
+		</div>
+
+
+	</section>
+{% endblock %}

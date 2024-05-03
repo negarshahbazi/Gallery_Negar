@@ -96,4 +96,5 @@ class PaintController extends AbstractController
         // Rediriger vers la page de détails de la peinture
         return $this->redirectToRoute('app_paint', ['id' => $paint->getId()]);
     }
+    
 }

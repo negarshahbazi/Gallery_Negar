@@ -81,7 +81,9 @@
 
 		</div>
 		<div class="d-flex justify-content-center align-items-center mb-5">
-			<button class=" btn fs-4 bg-gradient text-white  buttonCart shadow-lg ">Checkout({{ panierCount }})</button>
+			<a href="{{ path('app_check_out') }}" class="btn fs-4 bg-gradient text-white  buttonCart shadow-lg">Checkout({{ panierCount }})</a>
+
+
 			<button class=" btn fs-4 bg-gradient text-white  buttonCart shadow-lg">Total:
 				{{totalPrice}}€
 			</button>
