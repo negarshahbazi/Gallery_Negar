@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -23,11 +24,13 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, MailerInterface $mailer): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, MailerInterface $mailer, SessionInterface $session): Response
     {
         $user = new User();
         $registrationForm = $this->createForm(RegistrationFormType::class, $user);
         $registrationForm->handleRequest($request);
+
+        $panierCount = $session->get('panierCount', 0);
 
         if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {
             // Encode the plain password
@@ -56,6 +59,7 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $registrationForm->createView(),
+            'panierCount' => $panierCount,
         ]);
     }
 

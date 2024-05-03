@@ -23,11 +23,14 @@
 
 
 	{# header #}
-	<div class="imgHeaderPaint ">
-		<p></p>
+	<div class="imgHeaderPaint d-flex flex-column justify-content-center align-items-center">
+		<p class="d-flex justify-content-start align-items-center text-white ml-5 imgHeaderPaintText">
+			Step into the enchanting world of paint, where artists breathe life into blank canvases, transforming them into vibrant landscapes and captivating scenes. Here, colors dance freely, each brushstroke telling a story of joy, sorrow, love, and dreams. It's a realm where imagination knows no bounds, inviting us to explore the wonders of the universe through the eyes of an artist. In this magical world, boundaries blur, and possibilities are endless, as creativity takes flight on wings of color and light, celebrating the boundless beauty of life itself.</p>
+
+
 	</div>
 	{# paint #}
-	<div class="d-flex justify-content-between align-items-center titrPoster">
+	<div class="d-flex justify-content-between align-items-center titrPoster ">
 		<div class="d-flex flex-column justify-content-center align-items-center">
 			<img class="vahshi" src="{{ asset('../../assets/img/portrait-young-woman-who-is-posing-covered-with-black-paint__1_-removebg-preview.png') }}" alt="photo">
 		</div>
@@ -108,37 +111,84 @@
 		</div>
 
 	</section>
+	<div class="row  m-5 slang  d-flex justify-content-center align-items-center p-4">
+		<div class="col-md-3 d-flex  justify-content-center align-items-center">
+
+			<video class="videoReel w-100" autoplay loop muted>
+				<source
+				src="{{ asset('assets/img/_import_6127233c0ae8b3.17073247.mp4') }}" type="video/mp4">
+				<!-- Fournissez un message alternatif pour les navigateurs qui ne prennent pas en charge la balise vidéo -->
+				Votre navigateur ne prend pas en charge la lecture de vidéos.
+			</video>
+		</div>
+		<div class="col-md-3 d-flex  justify-content-center align-items-center">
+
+			<video class="videoReel w-100" autoplay loop muted>
+				<source
+				src="{{ asset('assets/img/_import_6127275d233ad0.35564992.mp4') }}" type="video/mp4">
+				<!-- Fournissez un message alternatif pour les navigateurs qui ne prennent pas en charge la balise vidéo -->
+				Votre navigateur ne prend pas en charge la lecture de vidéos.
+			</video>
+		</div>
+		<div class="col-md-3 d-flex  justify-content-center align-items-center">
+
+			<video class="videoReel w-100" autoplay loop muted>
+				<source
+				src="{{ asset('assets/img/_import_6127230f39b435.32971824.mp4') }}" type="video/mp4">
+				<!-- Fournissez un message alternatif pour les navigateurs qui ne prennent pas en charge la balise vidéo -->
+				Votre navigateur ne prend pas en charge la lecture de vidéos.
+			</video>
+		</div>
+		<div class="col-md-3 d-flex  justify-content-center align-items-center">
+
+			<video class="videoReel w-100" autoplay loop muted>
+				<source
+				src="{{ asset('assets/img/_import_612727cfe7a4c8.34817151.mp4') }}" type="video/mp4">
+				<!-- Fournissez un message alternatif pour les navigateurs qui ne prennent pas en charge la balise vidéo -->
+				Votre navigateur ne prend pas en charge la lecture de vidéos.
+			</video>
+		</div>
+
+		<div class="col-md-10 d-flex justify-content-center align-items-center">
+			<div class="backTextPub mt-4 ">
+				<h5 class="text-white">Immerse yourself in a world where each stroke of the brush tells a story, where every sculpture captures the essence of emotion, and where every photograph freezes a moment in time. From classical masterpieces to contemporary innovations, our gallery celebrates the richness and diversity of artistic expression.</h5>
 
 
+			</div>
+
+
+		</div>
+
+	</div>
 {% endblock %}
 {% block javascripts %}
 	 <script>
-								document.addEventListener('DOMContentLoaded', function () {
-									 let ratings = document.querySelectorAll('.ratings');
-															
-									ratings.forEach(rating => {
-									let inputs = rating.querySelectorAll('.input');
-															
-									 inputs.forEach(input => {
-															            input.addEventListener('change', () => {
-									// Récupérer la valeur de l'étoile sélectionnée
-									 let value = input.value;
-									// Mettre à jour la valeur du champ caché "grade" avec la valeur de la note sélectionnée
-									 document.getElementById('grade').setAttribute('value', value);
-									console.log('Note sélectionnée : ' + value);
-									// Modifier l'URL d'action du formulaire avec la valeur de la note
-									 let form = rating;
-									 let action = form.getAttribute('action');
-									action = action.replace('__VALUE__', value);
-									// Remplacer également '__VALUE__' dans l'URL avec la valeur du grade
-									 action = action.replace('grade=__VALUE__', 'grade=' + value);
-									console.log(action);
-									 form.setAttribute('action', action);
-							// Soumettre automatiquement le formulaire
-									form.submit();
-								});
-								});
-							});
-							});
-							</script>
+												document.addEventListener('DOMContentLoaded', function () {
+													 let ratings = document.querySelectorAll('.ratings');
+																			
+													ratings.forEach(rating => {
+													let inputs = rating.querySelectorAll('.input');
+																			
+													 inputs.forEach(input => {
+																			            input.addEventListener('change', () => {
+													// Récupérer la valeur de l'étoile sélectionnée
+													 let value = input.value;
+													// Mettre à jour la valeur du champ caché "grade" avec la valeur de la note sélectionnée
+													 document.getElementById('grade').setAttribute('value', value);
+													console.log('Note sélectionnée : ' + value);
+													// Modifier l'URL d'action du formulaire avec la valeur de la note
+													 let form = rating;
+													 let action = form.getAttribute('action');
+													action = action.replace('__VALUE__', value);
+													// Remplacer également '__VALUE__' dans l'URL avec la valeur du grade
+													 action = action.replace('grade=__VALUE__', 'grade=' + value);
+													console.log(action);
+													 form.setAttribute('action', action);
+											// Soumettre automatiquement le formulaire
+													form.submit();
+												});
+												});
+											});
+											});
+											</script>
 {% endblock %}

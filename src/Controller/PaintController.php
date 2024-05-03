@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Messages;
 use App\Entity\Paint;
 use App\Form\MessagesType;
+use App\Repository\MessagesRepository;
+use App\Repository\PanierRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -12,12 +14,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class PaintController extends AbstractController
 {
     #[Route('/paint/{id}', name: 'app_paint')]
-    public function index(Paint $paint, Request $request, EntityManagerInterface $entityManager): Response
+    public function index(Paint $paint, Request $request,MessagesRepository $messagesRepository, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {   $message = new Messages();
         // Vérifier si l'utilisateur a déjà commenté cette peinture
         $user = $this->getUser();
@@ -26,6 +28,8 @@ class PaintController extends AbstractController
         $form = $this->createForm(MessagesType::class, $message);
         $form->handleRequest($request);
 
+        $panierCount = $session->get('panierCount', 0);
+
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$user) {
                 // Stocker le message d'alerte dans la session
@@ -33,7 +37,7 @@ class PaintController extends AbstractController
                 return $this->redirectToRoute('app_paint', ['id' => $paint->getId()]);
             }
             // Rechercher un message existant de cet utilisateur sur cette peinture
-            $existingMessage = $entityManager->getRepository(Messages::class)->findOneBy([
+            $existingMessage = $messagesRepository->findOneBy([
                 'paint' => $paint,
                 'user' => $user
             ]);
@@ -54,6 +58,7 @@ class PaintController extends AbstractController
         }
         return $this->render('paint/index.html.twig', [
             'message' => $message,
+            'panierCount' => $panierCount,
             'paint' => $paint, // Passer la variable paint au template
             'user' => $this->getUser(),
             'form' => $form->createView(),

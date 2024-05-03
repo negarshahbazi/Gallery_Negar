@@ -23,28 +23,28 @@ class RegistrationFormType extends AbstractType
             ->add('firstName', null, [
                 'label' => ' ',
                 'attr' => [
-                    'style' => 'width: 400px; border-radius: 30px; margin-bottom: 5px; background-color: rgba(255, 255, 255, 0.5); height: 50px;',
+                    'style' => 'width: 400px; border-radius: 30px; margin-bottom: 5px; background-color: rgba(255, 255, 255, 0.5); height: 50px; opacity:0.5',
                     'placeholder' => 'Enter your first name',
                 ],
             ])
             ->add('lastName', null, [
                 'label' => ' ',
                 'attr' => [
-                    'style' => 'width: 400px; border-radius: 30px; margin-bottom: 5px; background-color: rgba(255, 255, 255, 0.5); height: 50px;',
+                    'style' => 'width: 400px; border-radius: 30px; margin-bottom: 5px; background-color: rgba(255, 255, 255, 0.5); height: 50px;opacity:0.5',
                     'placeholder' => 'Enter your last name',
                 ],
             ])
             ->add('address', null, [
                 'label' => ' ',
                 'attr' => [
-                    'style' => 'width: 400px; border-radius: 30px; margin-bottom: 5px; background-color: rgba(255, 255, 255, 0.5); height: 50px;',
+                    'style' => 'width: 400px; border-radius: 30px; margin-bottom: 5px; background-color: rgba(255, 255, 255, 0.5); height: 50px;opacity:0.5',
                     'placeholder' => 'Enter your address',
                 ],
             ])
             ->add('tel', null, [
                 'label' => ' ',
                 'attr' => [
-                    'style' => 'width: 400px;border-radius: 30px; margin-bottom: 5px; background-color: rgba(255, 255, 255, 0.5); height: 50px;',
+                    'style' => 'width: 400px;border-radius: 30px; margin-bottom: 5px; background-color: rgba(255, 255, 255, 0.5); height: 50px;opacity:0.5',
                     'placeholder' => 'Enter your telephone number',
                 ],
             ])
@@ -55,14 +55,14 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'gender-field',
                     'id' => 'gender-field',
-                    'style' => 'width: 400px; border-radius: 30px; margin-bottom: 5px; background-color: rgba(255, 255, 255, 0.5); height: 50px;',
+                    'style' => 'width: 400px; border-radius: 30px; margin-bottom: 5px; background-color: rgba(255, 255, 255, 0.5); height: 50px;opacity:0.5',
                 ],
             ])
             ->add('email', EmailType::class, [
                 'label' => ' ',
                 'attr' => [
                     'placeholder' => 'Enter your email',
-                    'style' => 'width: 400px; color: white; border-radius: 30px; margin-bottom: 5px; background-color: rgba(255, 255, 255, 0.5); height: 50px;',
+                    'style' => 'width: 400px; color: white; border-radius: 30px; margin-bottom: 5px; background-color: rgba(255, 255, 255, 0.5); height: 50px;opacity:0.5',
                 ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
@@ -83,7 +83,7 @@ class RegistrationFormType extends AbstractType
                 'label' => ' ',
                 'attr' => [
                     'placeholder' => 'Enter your password',
-                    'style' => 'width: 400px; color: white; border-radius: 30px; margin-bottom: 5px; background-color: rgba(255, 255, 255, 0.5); height: 50px;',
+                    'style' => 'width: 400px; color: white; border-radius: 30px; margin-bottom: 5px; background-color: rgba(255, 255, 255, 0.5); height: 50px;opacity:0.5',
                 ],
                 'mapped' => false,
                 'constraints' => [

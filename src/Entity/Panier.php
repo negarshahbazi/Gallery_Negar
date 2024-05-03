@@ -16,8 +16,7 @@ class Panier
     #[ORM\Column]
     private ?int $panierCount = null;
 
-    #[ORM\Column]
-    private ?int $panierTotal = null;
+    
 
    
 
@@ -44,17 +43,9 @@ class Panier
         return $this;
     }
 
-    public function getPanierTotal(): ?int
-    {
-        return $this->panierTotal;
-    }
+ 
 
-    public function setPanierTotal(int $panierTotal): static
-    {
-        $this->panierTotal = $panierTotal;
-
-        return $this;
-    }
+  
 
   
 

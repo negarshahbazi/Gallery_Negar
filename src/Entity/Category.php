@@ -30,6 +30,9 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $url = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $famous = null;
+
 
 
     public function __construct()
@@ -120,6 +123,18 @@ class Category
     public function setUrl(string $url): static
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getFamous(): ?string
+    {
+        return $this->famous;
+    }
+
+    public function setFamous(string $famous): static
+    {
+        $this->famous = $famous;
 
         return $this;
     }

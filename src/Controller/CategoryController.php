@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Panier;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use App\Repository\PaintRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,14 +46,17 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_category_show', methods: ['GET'])]
-    public function show(Category $category, PaintRepository $paintRepository, CategoryRepository $categoryRepository): Response
+    public function show(Category $category, PaintRepository $paintRepository, CategoryRepository $categoryRepository, EntityManagerInterface $entityManager): Response
     {
         // Récupérer tous les paints associés à cette catégorie
+        $user = $this->getUser();
         $paints = $paintRepository->findBy(['category' => $category]);
+        $paniers = $entityManager->getRepository(Panier::class)->findBy(['user' => $user]);
 
         return $this->render('home/index.html.twig', [
             'categories'=> $categoryRepository->findAll(),
-            'paints' =>$paints
+            'paints' =>$paints,
+            'paniers' => $paniers,
         ]);
     }
 

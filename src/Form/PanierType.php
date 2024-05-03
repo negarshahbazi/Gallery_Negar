@@ -16,7 +16,7 @@ class PanierType extends AbstractType
     {
         $builder
             ->add('panierCount')
-            ->add('panierTotal')
+            // ->add('panierTotal')
             // ->add('paint', EntityType::class, [
             //     'class' => Paint::class,
             //     'choice_label' => 'id',

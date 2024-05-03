@@ -235,25 +235,7 @@ class Paint
         return $this->paniers;
     }
 
-    public function addPanier(Panier $panier): static
-    {
-        if (!$this->paniers->contains($panier)) {
-            $this->paniers->add($panier);
-            $panier->setPaint($this);
-        }
 
-        return $this;
-    }
 
-    public function removePanier(Panier $panier): static
-    {
-        if ($this->paniers->removeElement($panier)) {
-            // set the owning side to null (unless already changed)
-            if ($panier->getPaint() === $this) {
-                $panier->setPaint(null);
-            }
-        }
-
-        return $this;
-    }
+   
 }

@@ -16,11 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/panier')]
 class PanierController extends AbstractController
 {
-    private $entityManager;
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
+
     #[Route('/', name: 'app_panier_index', methods: ['GET'])]
     public function index(PanierRepository $panierRepository): Response
     {
@@ -29,47 +25,32 @@ class PanierController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_panier_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $panier = new Panier();
-        $form = $this->createForm(PanierType::class, $panier);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($panier);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_panier_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('panier/new.html.twig', [
-            'panier' => $panier,
-            'form' => $form,
-        ]);
-    }
 
 
-    #[Route('/{id}', name: 'app_panier_show')]
-    public function show(Paint $paint, EntityManagerInterface $entityManager): Response
-    {
-
-
-        $panier = new Panier();
+    #[Route('/{id}', name: 'app_panier_new')]
+    public function myPanier(Paint $paint, EntityManagerInterface $entityManager, PanierRepository $panierRepository): Response
+    {  
         $user = $this->getUser();
-
-        $panier->setPaint($paint);
-        $panier->setUser($user);
-        $panier->setPanierCount(1);
-
-        $panier->setPanierTotal($panier->getPanierTotal() + $panier->getPanierCount());
-
-        $entityManager->persist($panier);
-        $entityManager->flush();
-
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }      
+        $existingPanier = $panierRepository->findOneBy(['user' => $user, 'paint' => $paint]);    
+        if ($existingPanier) {
+            $entityManager->remove($existingPanier);
+            $entityManager->flush();
+        } else {
+            $newPanier = new Panier();
+            $newPanier->setPaint($paint);
+            $newPanier->setUser($user);
+            $newPanier->setPanierCount(1);
+           
+    
+            $entityManager->persist($newPanier);
+            $entityManager->flush();
+        }
+    
         return $this->redirectToRoute('app_home');
     }
-
 
     #[Route('/{id}/edit', name: 'app_panier_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Panier $panier, EntityManagerInterface $entityManager): Response
