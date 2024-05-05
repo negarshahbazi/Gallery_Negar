@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Entity\Gender;
+use App\Entity\Method;
 use App\Entity\Paint;
 use App\Entity\Photo;
 use App\Entity\Status;
@@ -51,5 +52,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Status', 'fas fa-list', Status::class);
         yield MenuItem::linkToCrud('Photo', 'fas fa-list', Photo::class);
         yield MenuItem::linkToCrud('Paint', 'fas fa-list', Paint::class);
+        yield MenuItem::linkToCrud('method', 'fas fa-list', Method::class);
     }
 }

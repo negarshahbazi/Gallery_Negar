@@ -34,7 +34,7 @@
 			<defs>
 				<linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
 
-					<stop offset="100%" style="stop-color:#b38c52"/>
+					<stop offset="100%" style="stop-color:#b78727 "/>
 				</linearGradient>
 			</defs>
 			<!-- Use the linear gradient for filling the path -->
@@ -60,7 +60,20 @@
 		</svg>
 		<div class="svgShadow"></div>
 	</div>
-	{# endHeptagon #}
+	{# cardcute #}
+	<section>
+		<div class="container ">
+			<div class="row d-flex justify-content-between align-items-center cardCute shadow-lg">
+				<div class="col-3 d-flex justify-content-center align-items-center ">
+					<img class="img1" src="../../assets/img/side-view-woman-posing-with-high-heels-removebg-preview.png " alt=""></div>
+				<div class="col-6 d-flex justify-content-center align-items-center ">
+					<h4 class="text-center paragraf" style="color:#b78727">The art of painting is a timeless expression of creativity, emotion, and imagination. Through delicate brushstrokes, vibrant colors, and intricate details, painters capture the essence of their subject matter, whether it be a serene landscape, a captivating portrait, or an abstract composition. Each stroke of the brush tells a story, evoking feelings and sparking contemplation in the viewer's mind. Painting transcends language barriers, speaking directly to the soul and inviting us to explore the depths of human experience through the boundless realm of art.</h4>
+				</div>
+				<div class="col-3 d-flex justify-content-center align-items-center "><img class="img2" src="../../assets/img/side-view-woman-posing-with-sky-background-removebg-preview.png" alt=""></div>
+			</div>
+		</div>
+	</section>
+	
 
 	{# category #}
 	<div class="text-center textCube mb-5">
@@ -88,21 +101,23 @@
 </div>
 {# paints #}
 
-<section>
-	<div class="container ">
-		<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-			<div class="carousel-inner">
+<section class="mb-5">
+	<div class="container mb-5">
+		<div id="carouselExample" class="carousel slide mb-5" data-bs-ride="carousel">
+			<div class="carousel-inner ">
 				{% for chunk in paints|batch(12) %}
 					<div class="carousel-item {% if loop.first %}active{% endif %}">
 						<div class="container">
 							<div class="row rowStyle justify-content-center align-items-center ">
 								{% for paint in chunk %}
-									<div class="col-lg-3  col-md-4 col-sm-6 divPaints m-3 text-black text-white ">
-										<div
-											class=" divImage mb-4">
-											<!-- Ajout de la classe mb-4 pour l'espacement entre les images -->
+									<div class="col-lg-3 backGen col-md-4 col-sm-6 divPaints m-3 text-black text-white">
+										<div class="container">
+											<div
+												class=" divImage mb-4">
+												<!-- Ajout de la classe mb-4 pour l'espacement entre les images -->
 
-											<a href="{{ path('app_paint', { id: paint.id }) }}"><img src="{{ paint.photo }}" alt="" class="img-fluid"></a>
+												<a href="{{ path('app_paint', { id: paint.id }) }}"><img src="{{ paint.photo }}" alt="" class="img-fluid"></a>
+											</div>
 										</div>
 										<div class="">
 											<h3 class="textColor">{{ paint.title }}</h3>
@@ -167,6 +182,7 @@
 			</div>
 		</div>
 	</div>
+
 </section>
 <div class="wrapper d-flex justify-content-center align-items-center text-center">
 	<div class="circle"></div>
@@ -201,6 +217,7 @@
 						<span class="nameCategory ml-3">{{ category.name}}</span>
 
 						<span class="month ml-3">{{ category.year}}</span>
+						<div class="">
 						<p class="ml-3 ">
 							{{ category.explique}}</p>
 						<span class="text-white">
@@ -210,9 +227,11 @@
 								</b>
 							</span>
 							{{ category.famous}}</span>
+							</div>
 						{# <a href="#" class="read-more mt-3">Read more</a> #}
-						<a href="#" class="btn-shine">Read more</a>
-
+						<div class="backGold">
+							<a href="#" class="btn-shine ">Read more</a>
+						</div>
 
 					</div>
 
@@ -250,8 +269,8 @@
 						<span>ART,</span>
 						<span>GALLERY.</span>
 						{# <div>
-																									<a class=" text-decoration-none sp-circle-link " href="#">by Negar</a>
-																								</div> #}
+																																																	<a class=" text-decoration-none sp-circle-link " href="#">by Negar</a>
+																																																</div> #}
 					</h2>
 				</div>
 
@@ -265,35 +284,33 @@
 {% endblock %}
 {% block javascripts %}
 	 <script>
-		$.js = function (el) {
-		    return $('[data-js=' + el + ']')
-		};
-		
-		function carousel() {
-		  $.js('timeline-carousel').slick({
-		    infinite: false,
-		    arrows: false,
-		    dots: true,
-		    autoplay: false,
-		    speed: 1100,
-		    slidesToShow: 2,
-		    slidesToScroll: 2,
-		    responsive: [
-		      {
-		        breakpoint: 800,
-		        settings: {
-		          slidesToShow: 1,
-		          slidesToScroll: 1
-		        }
-		      }]
-		  });
-		}
-		
-		carousel();
-		
-		</script>
+						$.js = function (el) {
+						    return $('[data-js=' + el + ']')
+						};
+						
+						function carousel() {
+						  $.js('timeline-carousel').slick({
+						    infinite: false,
+						    arrows: false,
+						    dots: true,
+						    autoplay: false,
+						    speed: 1100,
+						    slidesToShow: 2,
+						    slidesToScroll: 2,
+						    responsive: [
+						      {
+						        breakpoint: 800,
+						        settings: {
+						          slidesToShow: 1,
+						          slidesToScroll: 1
+						        }
+						      }]
+						  });
+						}
+						
+						carousel();
+						
+						</script>
 
-	{
-	
-	#}
+
 {% endblock %}

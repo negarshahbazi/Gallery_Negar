@@ -16,11 +16,14 @@ class Payment
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'payments')]
-    private ?Profile $profile = null;
+
+
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Paint $paint = null;
+    private ?User $user = null;
+
+    #[ORM\ManyToOne(inversedBy: 'payments')]
+    private ?Method $method = null;
 
     public function getId(): ?int
     {
@@ -39,26 +42,30 @@ class Payment
         return $this;
     }
 
-    public function getProfile(): ?Profile
+ 
+
+ 
+
+    public function getUser(): ?User
     {
-        return $this->profile;
+        return $this->user;
     }
 
-    public function setProfile(?Profile $profile): static
+    public function setUser(?User $user): static
     {
-        $this->profile = $profile;
+        $this->user = $user;
 
         return $this;
     }
 
-    public function getPaint(): ?Paint
+    public function getMethod(): ?Method
     {
-        return $this->paint;
+        return $this->method;
     }
 
-    public function setPaint(?Paint $paint): static
+    public function setMethod(?Method $method): static
     {
-        $this->paint = $paint;
+        $this->method = $method;
 
         return $this;
     }

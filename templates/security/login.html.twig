@@ -4,8 +4,18 @@
 {% endblock %}
 
 {% block body %}
-	<div class="w-75 divLogin text-center">
-		<form method="post">
+	<div class="d-flex justify-content-between align-items-center titrPoster">
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<img class="vahshi" src="{{ asset('../../assets/img/young-woman-who-is-posing-covered-with-black-paint-removebg-preview.png') }}" alt="photo">
+		</div>
+		<h1 class="text-white">Login</h1>
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<img class="vahshi" src="{{ asset('../../assets/img/portrait-young-woman-who-is-posing-covered-with-black-paint__3_-removebg-preview.png') }}" alt="photo">
+
+		</div>
+	</div>
+	<div class=" divLogin text-center form-container">
+		<form method="post" >
 			{% if error %}
 				<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 			{% endif %}
@@ -19,13 +29,13 @@
 				</div>
 			{% endif %}
 
-			<h1 class="h3 mb-3 font-weight-normal text-white mb-5">Please sign in</h1>
-			<div class="form-group">
-				<input type="email" value="{{ last_username }}" name="email" placeholder="Email" class="form-control mb-3" autocomplete="email" required autofocus style="width: 400px; background-color: transparent; color:white">
+			<h1 class="h3 font-weight-normal text-white mb-5">Please sign in</h1>
+			<div class="form-group ">
+				<input type="email" value="{{ last_username }}" name="email" placeholder="Email" class="form-control  mb-2 w-100" autocomplete="email" required autofocus style="width: 400px; background-color: transparent; color:white">
 			</div>
 			<div class="form-group">
 
-				<input type="password" name="password" placeholder="Password" class="form-control mb-3" autocomplete="current-password" required style="width: 400px; background-color: transparent;">
+				<input type="password" name="password" placeholder="Password" class="form-control mb-2 w-100" autocomplete="current-password" required style="width: 400px; background-color: transparent;">
 			</div>
 			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 			<div class="checkbox">
@@ -33,12 +43,12 @@
 				<label for="keep-logged">Keep me logged in</label>
 			</div>
 
-			<button class="btn btn-lg btn-dark text-white mt-5" type="submit">
+			<button class="btn btn-lg btn-dark text-white mt-5 " type="submit">
 				Login
 			</button>
 
 			<div class="promo-info">
-				<a href="{{ path('app_register') }}" class="btn btn-lg gradient secondary waves-effect waves-light mt-20">
+				<a href="{{ path('app_register') }}" class="btn btn-lg  gradient secondary waves-effect waves-light mt-20">
 					<span>Sign-up<strong>
 							Free</strong>
 					</span>
@@ -47,4 +57,6 @@
 
 		</form>
 	</div>
+
+
 {% endblock %}

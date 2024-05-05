@@ -21,7 +21,7 @@
 		<div class="d-flex flex-column justify-content-center align-items-center">
 			<img class="vahshi" src="{{ asset('../../assets/img/young-woman-who-is-posing-covered-with-black-paint-removebg-preview.png') }}" alt="photo">
 		</div>
-		<h1 class="text-white">CheckOut({{ panierCount }})</h1>
+		<h1 class="text-white">Order confirmation({{ panierCount }})</h1>
 		<div class="d-flex flex-column justify-content-center align-items-center">
 			<img class="vahshi" src="{{ asset('../../assets/img/portrait-young-woman-who-is-posing-covered-with-black-paint__3_-removebg-preview.png') }}" alt="photo">
 
@@ -29,27 +29,45 @@
 	</div>
 
 	<section class="">
-		<div class="row d-flex justify-content-center align-items-center">
+		<div class="row d-flex justify-content-center align-items-center ">
 
 
-			<div class="col-xl-5  d-flex justify-content-end align-items-center">
+			<div class="col-lg-6 col-md-5 d-flex justify-content-center align-items-center m-5">
 				<div class="form-container">
-					<form class="form">
+					{# {% include 'check_out/_form.html.twig' %} #}
+					<form class="form" method="POST" action="{{ path('app_user_edit', {'id': app.user.id}) }}">
 						<div class="form-group">
-							<label for="email">Company Email</label>
-							<input required="" name="email" id="email" type="text">
+							<label for="name">First Name</label>
+							<input name="name" class="" type="text" value="{{ user.firstName }}" placeholder="{{ user.firstName }}">
 						</div>
 						<div class="form-group">
-							<label for="textarea">How Can We Help You?</label>
-							<textarea required="" cols="50" rows="10" id="textarea" name="textarea"></textarea>
+							<label for="family">Last Name</label>
+							<input name="name" class="" type="text" value="{{ user.lastName }}" placeholder="{{ user.firstName }}">
 						</div>
-						<button type="submit" class="form-submit-btn">Submit</button>
+						<div class="form-group">
+							<label for="name">Address</label>
+							<input name="name" class="" type="text" value="{{ user.address }}" placeholder="{{ user.firstName }}">
+						</div>
+						<div class="form-group">
+							<label for="name">Phone</label>
+							<input name="name" class="" type="text" value="{{ user.tel }}" placeholder="{{ user.firstName }}">
+						</div>
+						<button type="submit" class="form-submit-btn">Edit</button>
 					</form>
+					<div>
+					<h4>Method peyment</h4>
+					<select name="" id="" class="bg-transparent w-100 border-2 text-light fs-5">
+					<option value="paypal" class="bg-transparent text-dark" >Paypal</option>
+					<option value="stripe" class="bg-transparent text-dark">stripe</option>
+					</select>
+					</div>
+
+
 				</div>
 			</div>
 
-			<div class="col-xl-6  d-flex justify-content-center align-items-center">
-				<img class="imageCart " src="../../assets/img/female-person-silhouette-sitting-chair-writing-down-shadow-white-background-young-removebg-preview.png" alt="">
+			<div class="col-lg-5 col-md-6 d-sm-none  d-md-flex justify-content-start align-items-end">
+				<img class="imageCart border-bottom border-black shadow-bottom-lg" src="../../assets/img/female-person-silhouette-sitting-chair-writing-down-shadow-white-background-young-removebg-preview.png" alt="">
 			</div>
 
 		</div>
