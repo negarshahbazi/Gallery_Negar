@@ -1,0 +1,16 @@
+{{ form_start(form) }}
+{{ form_widget(form, {'attr': {'class': 'my-custom-input '}}) }}
+<button class=" text-white shadow-lg buttonStyleContact">{{ button_label|default('Save') }}</button>
+<div class="d-flex justify-content-center align-items-center">
+	<a href="mailto:negarshahbazi.official@gmail.com" class="contact-link">
+		<img class="phone" src="{{asset('../../assets/img/dark-style-valentines-day-celebration-removebg-preview.png')}}" alt="Email me">
+        <span class="hover-text">Email me</span> <!-- Texte à afficher au survol -->
+
+	<a href="tel:+601762669" class="contact-link">
+		<img class="phone"  src="{{asset('../../assets/img/5056-removebg-preview.png')}}" alt="Call me">
+        <span class="hover-text">Call me</span> <!-- Texte à afficher au survol -->
+
+
+		</a>
+	</div>
+	{{ form_end(form) }}

@@ -29,12 +29,12 @@
 	</div>
 
 	<section>
-		<div class="row">
-			<div class="col-xl-6 ">
-				<img class="imageCart " src="../../assets/img/silhouette-portrait-young-adult-woman-looking-mysterious-generative-ai-removebg-preview.png" alt="">
+		<div class="row d-flex justify-content-center align-items-center">
+			<div class="col-xl-6 d-flex justify-content-center align-items-center">
+				<img class=" " src="../../assets/img/silhouette-portrait-young-adult-woman-looking-mysterious-generative-ai-removebg-preview.png" alt="">
 			</div>
 
-			<div class="col-xl-5 ">
+			<div class="col-xl-6 d-flex justify-content-center align-items-center">
 				<div class="container m-5">
 					{% for paint in paints %}
 						<div class="row text-white styleCart m-3 d-flex justify-content-between align-items-center shadow-lg">
@@ -81,7 +81,7 @@
 
 		</div>
 		<div class="d-flex justify-content-center align-items-center mb-5">
-			<a href="{{ path('app_check_out') }}" class="btn fs-4 bg-gradient text-white  buttonCart shadow-lg">Checkout({{ panierCount }})</a>
+			<a href="{{ path('app_user_edit', {'id': app.user.id}) }}" class="btn fs-4 bg-gradient text-white  buttonCart shadow-lg">Checkout({{ panierCount }})</a>
 
 
 			<button class=" btn fs-4 bg-gradient text-white  buttonCart shadow-lg">Total:

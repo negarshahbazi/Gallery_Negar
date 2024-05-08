@@ -64,16 +64,19 @@
 	<section>
 		<div class="container ">
 			<div class="row d-flex justify-content-between align-items-center cardCute shadow-lg">
-				<div class="col-3 d-flex justify-content-center align-items-center ">
+				<div class="col-3  d-flex justify-content-center align-items-center ">
 					<img class="img1" src="../../assets/img/side-view-woman-posing-with-high-heels-removebg-preview.png " alt=""></div>
-				<div class="col-6 d-flex justify-content-center align-items-center ">
-					<h4 class="text-center paragraf" style="color:#b78727">The art of painting is a timeless expression of creativity, emotion, and imagination. Through delicate brushstrokes, vibrant colors, and intricate details, painters capture the essence of their subject matter, whether it be a serene landscape, a captivating portrait, or an abstract composition. Each stroke of the brush tells a story, evoking feelings and sparking contemplation in the viewer's mind. Painting transcends language barriers, speaking directly to the soul and inviting us to explore the depths of human experience through the boundless realm of art.</h4>
+				<div class="col-6  d-flex justify-content-center align-items-center ">
+					<h4 class="text-center paragraf" style="color:#b78727">
+						"La peinture est la poésie silencieuse de l'âme, capturant les émotions, les histoires et les rêves dans un langage visuel intemporel."</h4>
 				</div>
-				<div class="col-3 d-flex justify-content-center align-items-center "><img class="img2" src="../../assets/img/side-view-woman-posing-with-sky-background-removebg-preview.png" alt=""></div>
+				
+
+				<div class="col-3 d-flex justify-content-center align-items-end hightDiv"><img class="img2 d-flex justify-content-center align-items-end" src="../../assets/img/side-view-woman-posing-with-sky-background-removebg-preview.png" alt=""></div>
 			</div>
 		</div>
 	</section>
-	
+
 
 	{# category #}
 	<div class="text-center textCube mb-5">
@@ -104,8 +107,8 @@
 <section class="mb-5">
 	<div class="container mb-5">
 		<div id="carouselExample" class="carousel slide mb-5" data-bs-ride="carousel">
-			<div class="carousel-inner ">
-				{% for chunk in paints|batch(12) %}
+			<div class="carousel-inner">
+				{% for chunk in paints|batch(9) %}
 					<div class="carousel-item {% if loop.first %}active{% endif %}">
 						<div class="container">
 							<div class="row rowStyle justify-content-center align-items-center ">
@@ -206,28 +209,27 @@
 </div>
 <section class="timeline-carousel ">
 
-	<div
-		class="timeline-carousel__item-wrapper " data-js="timeline-carousel">
-		<!--Timeline item-->
+	<div class="timeline-carousel__item-wrapper " data-js="timeline-carousel">
+
 		{% for category in categories %}
 			<div class="timeline-carousel__item ">
-				<div class=" row timeline-carousel__image d-flex justify-content-center align-items-center mb-3">
+				<div class="row timeline-carousel__image d-flex justify-content-between align-items-center mb-3">
 					<div class="col-xl-3 col-lg-6 media-wrapper media-wrapper--overlay "><img class="media-wrapper rounded" src={{ category.url }}></div>
-					<div class="col-xl-9 col-lg-6 media-wrapper media-wrapper--overlay timeline-carousel__item-inner">
+					<div class="col-xl-8 col-lg-6 media-wrapper media-wrapper--overlay timeline-carousel__item-inner">
 						<span class="nameCategory ml-3">{{ category.name}}</span>
 
 						<span class="month ml-3">{{ category.year}}</span>
 						<div class="">
-						<p class="ml-3 ">
-							{{ category.explique}}</p>
-						<span class="text-white">
-							<span>
-								<b>The most famous painters in
-									{{ category.name}}:
-								</b>
-							</span>
-							{{ category.famous}}</span>
-							</div>
+							<p class="ml-3 ">
+								{{ category.explique}}</p>
+							<span class="text-white">
+								<span>
+									<b>The most famous painters in
+										{{ category.name}}:
+									</b>
+								</span>
+								{{ category.famous}}</span>
+						</div>
 						{# <a href="#" class="read-more mt-3">Read more</a> #}
 						<div class="backGold">
 							<a href="#" class="btn-shine ">Read more</a>
@@ -240,77 +242,64 @@
 			</div>
 		{% endfor %}
 
+	</div>
+</section>
 
-		<!--/Timeline item-->
-
-	</section>
-
-	{# line pub #}
-	<section class="d-flex justify-content-center align-items-center text-center">
-		<div class="row backVideo m-5 ">
-			<div class="col-7">
-				<video class="videoReel" autoplay loop muted>
-					<source
-					src="{{ asset('assets/img/IMG_7171.MOV') }}" type="video/mp4">
-					<!-- Fournissez un message alternatif pour les navigateurs qui ne prennent pas en charge la balise vidéo -->
-					Votre navigateur ne prend pas en charge la lecture de vidéos.
-				</video>
+{# line pub #}
+<section class="d-flex justify-content-center align-items-center text-center">
+	<div class="row backVideo m-5 d-flex justify-content-center align-items-center text-center">
+		<div class="col-7">
+			<video class="videoReel" autoplay loop muted>
+				<source
+				src="{{ asset('assets/img/IMG_7171.MOV') }}" type="video/mp4">
+				<!-- Fournissez un message alternatif pour les navigateurs qui ne prennent pas en charge la balise vidéo -->
+				Votre navigateur ne prend pas en charge la lecture de vidéos.
+			</video>
+		</div>
+		<div class="sp-container col-5">
+			<div class="sp-content">
+				<div class="sp-globe"></div>
+				<h2 class="frame-1">If you like to learn more</h2>
+				<h2 class="frame-2">about art categories,</h2>
+				<h2 class="frame-3">join me</h2>
+				<h2 class="frame-5">
+					<span>NEGAR,</span>
+					<span>ART,</span>
+					<span>GALLERY.</span>
+					{# <div><a class=" text-decoration-none sp-circle-link " href="#">by Negar</a></div> #}
+				</h2>
 			</div>
-			<div class="sp-container col-5">
-				<div class="sp-content">
-					<div class="sp-globe"></div>
-					<h2 class="frame-1">
-						If you like to learn more</h2>
-					<h2 class="frame-2">about art categories,</h2>
-					<h2 class="frame-3">join me</h2>
-
-					<h2 class="frame-5">
-						<span>NEGAR,</span>
-						<span>ART,</span>
-						<span>GALLERY.</span>
-						{# <div>
-																																																	<a class=" text-decoration-none sp-circle-link " href="#">by Negar</a>
-																																																</div> #}
-					</h2>
-				</div>
-
-			</div>
-
 
 		</div>
-	</section>
 
 
-{% endblock %}
-{% block javascripts %}
-	 <script>
-						$.js = function (el) {
-						    return $('[data-js=' + el + ']')
-						};
-						
-						function carousel() {
-						  $.js('timeline-carousel').slick({
-						    infinite: false,
-						    arrows: false,
-						    dots: true,
-						    autoplay: false,
-						    speed: 1100,
-						    slidesToShow: 2,
-						    slidesToScroll: 2,
-						    responsive: [
-						      {
-						        breakpoint: 800,
-						        settings: {
-						          slidesToShow: 1,
-						          slidesToScroll: 1
-						        }
-						      }]
-						  });
-						}
-						
-						carousel();
-						
-						</script>
-
-
-{% endblock %}
+	</div>
+</section>{% endblock %}{% block javascripts %}
+ <script>
+							$.js = function (el) {
+							    return $('[data-js=' + el + ']')
+							};
+							
+							function carousel() {
+							  $.js('timeline-carousel').slick({
+							    infinite: false,
+							    arrows: false,
+							    dots: true,
+							    autoplay: false,
+							    speed: 1100,
+							    slidesToShow: 2,
+							    slidesToScroll: 2,
+							    responsive: [
+							      {
+							        breakpoint: 800,
+							        settings: {
+							          slidesToShow: 1,
+							          slidesToScroll: 1
+							        }
+							      }]
+							  });
+							}
+							
+							carousel();
+							
+							</script>{% endblock %}

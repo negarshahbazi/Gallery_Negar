@@ -28,13 +28,12 @@ class CartController extends AbstractController
             $paintId = $item->getPaint();
             $paints = $paintRepository->findBy(['id' => $paintId]);
             foreach ($paints as $paint) {
-
-
                 $paintDetails[] = $paint;
                 $totalPrice += $paint->getPrice();
             }
         }
-
+        // Stocker le totalPrice dans la session
+        $session->set('totalPrice', $totalPrice);
 
         return $this->render('cart/index.html.twig', [
             'controller_name' => 'CartController',

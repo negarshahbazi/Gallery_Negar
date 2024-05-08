@@ -18,17 +18,12 @@ class Gender
     #[ORM\Column(length: 255)]
     private ?string $gender = null;
 
-    #[ORM\OneToMany(targetEntity: Profile::class, mappedBy: 'gender')]
-    private Collection $profiles;
+
 
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'gender')]
     private Collection $users;
 
-    public function __construct()
-    {
-        $this->profiles = new ArrayCollection();
-        $this->users = new ArrayCollection();
-    }
+   
 
     public function getId(): ?int
     {
@@ -50,32 +45,10 @@ class Gender
     /**
      * @return Collection<int, Profile>
      */
-    public function getProfiles(): Collection
-    {
-        return $this->profiles;
-    }
 
-    public function addProfile(Profile $profile): static
-    {
-        if (!$this->profiles->contains($profile)) {
-            $this->profiles->add($profile);
-            $profile->setGender($this);
-        }
 
-        return $this;
-    }
+ 
 
-    public function removeProfile(Profile $profile): static
-    {
-        if ($this->profiles->removeElement($profile)) {
-            // set the owning side to null (unless already changed)
-            if ($profile->getGender() === $this) {
-                $profile->setGender(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, User>

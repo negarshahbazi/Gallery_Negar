@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Contact
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex justify-content-between align-items-center titrPoster">
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<img class="vahshi" src="{{ asset('../../assets/img/young-woman-who-is-posing-covered-with-black-paint-removebg-preview.png') }}" alt="photo">
+		</div>
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<h1 class="text-white">Contact us</h1>
+			<h5 class="text-white text-center  textContact">Thank you for your interest in contacting us. We value your feedback, inquiries, and suggestions. Please feel free to reach out to us using the contact information provided below or by filling out the contact form. We will do our best to respond to you as soon as possible.</h5>
+		</div>
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<img class="vahshi" src="{{ asset('../../assets/img/portrait-young-woman-who-is-posing-covered-with-black-paint__3_-removebg-preview.png') }}" alt="photo">
+
+		</div>
+	</div>
+	<a class="text-center text-decoration-none text-white mx-auto" href="{{ path('app_home') }}"><img class="backButton"src="{{asset('../../assets/img/left-arrow_4518010-removebg-preview.png')}}" alt=""></a>
+	<section>
+		<div class="container-fluid ">
+			<div class="row d-flex justify-content-center align-items-center">
+				<div class="col-xl-6 d-flex flex-column justify-content-center align-items-center "><img class="imageContact"src="{{ asset('../../assets/img/dramatic-portrait-caucasian-young-girl-dark-isolated-white-studio-background-sunlight-line-dark-face-human-nature-hidden-things-psycology-concept-art-elegant-creative-photo-removebg-preview.png') }}" alt=""></div>
+				<div class="col-xl-6 d-flex flex-column justify-content-start align-items-center my-custom-form">
+					{{ include('contact/_form.html.twig') }}</div>
+				{% for flash_message in app.flashes('success') %}
+					<div class="alert alert-success text-center" role="alert">
+						{{ flash_message }}
+					</div>
+				{% endfor %}
+				
+			</div>
+		</div>
+		<div class="w-100 ">
+			<iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d356444.8545684043!2d4.155777028980085!3d45.73660100746031!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f5af5a4302d623%3A0x77b76af46a2f3e19!2sGarage404!5e0!3m2!1sen!2sfr!4v1715180252350!5m2!1sen!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+		</div>
+	</section>
+
+{% endblock %}

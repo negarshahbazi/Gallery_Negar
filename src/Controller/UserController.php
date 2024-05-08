@@ -2,43 +2,162 @@
 
 namespace App\Controller;
 
+use Stripe\Stripe;
+use PayPalCheckoutSdk\Core\PayPalHttpClient;
+use PayPalCheckoutSdk\Core\SandboxEnvironment;
+use PayPalCheckoutSdk\Orders\OrdersCreateRequest;
+use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/user')]
 class UserController extends AbstractController
 {
-    #[Route('/user', name: 'app_user')]
-    public function index(): Response
+    #[Route('/', name: 'app_user_index', methods: ['GET'])]
+    public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+            'users' => $userRepository->findAll(),
         ]);
     }
-    #[Route('/user/edit/{id}', name: 'app_user_edit', methods: ['POST'])]
-    public function editUserInfo(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
-    {  $panierCount = $session->get('panierCount', 0);
 
-        $user = $this->getUser();
-
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
-        }
+    #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
+    {
+        $panierCount = $session->get('panierCount', 0);
+        $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_check_out', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
-        return $this->render('registration/register.html.twig', [
-            'form' => $form->createView(),
-            'panierCount' => $panierCount, // Fixed syntax error by replacing semicolon with comma
+
+        return $this->render('user/new.html.twig', [
+            'user' => $user,
+            'form' => $form,
+            'panierCount' => $panierCount
         ]);
+    }
+
+    #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
+    public function show(User $user, SessionInterface $session): Response
+    {
+        $panierCount = $session->get('panierCount', 0);
+        return $this->render('user/show.html.twig', [
+            'user' => $user,
+            'panierCount' => $panierCount
+        ]);
+    }
+    #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, SessionInterface $session): Response
+    {
+        $panierCount = $session->get('panierCount', 0);
+        $totalPrice = $session->get('totalPrice', 0);
+        // dd($totalPrice);
+
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $formData = $form->getData();
+            $methodPayment = $user->getMethodPayment();
+
+            if ($methodPayment === 'stripe') {
+
+                Stripe::setApiKey($this->getParameter('stripe_key'));
+                header('Content-Type: application/json');
+                $YOUR_DOMAIN = 'http://127.0.0.1:8000/';
+
+                $paymentIntent = \Stripe\Checkout\Session::create([
+                    'payment_method_types' => ['card'],
+                    'line_items' => [
+                        [
+                            'price_data' => [
+                                'unit_amount' => $totalPrice * 100, // Convertir le prix total en centimes
+                                'currency' => 'eur',
+                                'product_data' => [
+                                    'name' => 'Nom du produit',
+                                    // Autres informations sur le produit...
+                                ],
+                            ],
+                            'quantity' => $panierCount,
+                        ],
+                    ],
+                    'mode' => 'payment',
+                    'success_url' => $YOUR_DOMAIN . '/',
+                    'cancel_url' => $YOUR_DOMAIN . '/',
+                ]);
+
+
+
+                return $this->redirect($paymentIntent->url);
+            } else if ($methodPayment === 'paypal') {
+                $YOUR_DOMAIN = 'http://127.0.0.1:8000/';
+
+
+                $environment = new SandboxEnvironment($this->getParameter('paypalClientId'), $this->getParameter('paypalSecret'));
+                $client = new PayPalHttpClient($environment);
+
+                $request = new OrdersCreateRequest();
+                $request->prefer('return=representation');
+                $request->body = [
+                    "intent" => "CAPTURE",
+                    "purchase_units" => [[
+                        "amount" => [
+                            "currency_code" => "EUR",
+                            "value" =>  $totalPrice // Montant à payer
+                        ]
+                    ]],
+                    'success_url' => $YOUR_DOMAIN . '/',
+                    'cancel_url' => $YOUR_DOMAIN . '/',
+                ];
+                $response = $client->execute($request);
+                // Obtenez l'URL d'approbation PayPal
+                $approvalUrl = $response->result->links[1]->href;
+
+                // Rediriger vers l'URL d'approbation PayPal
+                
+                if (!empty($approvalUrl)) {
+                    // dd($approvalUrl) ;
+                    return new RedirectResponse($approvalUrl);
+                } else {
+                 
+                    dump("Approval URL is empty. Handle the error.");
+                }
+            }
+
+            $entityManager->flush();
+
+
+            return $this->redirectToRoute('app_user_edit', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form,
+            'panierCount' => $panierCount
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
+    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($user);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 }
