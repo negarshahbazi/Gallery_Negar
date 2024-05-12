@@ -17,6 +17,8 @@ class CategoryType extends AbstractType
             ->add('year')
             ->add('url')
             ->add('famous')
+            ->add('readMore')
+
         ;
     }
 

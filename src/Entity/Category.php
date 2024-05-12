@@ -33,6 +33,9 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $famous = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $readMore = null;
+
 
 
     public function __construct()
@@ -135,6 +138,18 @@ class Category
     public function setFamous(string $famous): static
     {
         $this->famous = $famous;
+
+        return $this;
+    }
+
+    public function getReadMore(): ?string
+    {
+        return $this->readMore;
+    }
+
+    public function setReadMore(string $readMore): static
+    {
+        $this->readMore = $readMore;
 
         return $this;
     }

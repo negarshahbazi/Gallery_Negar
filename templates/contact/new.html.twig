@@ -4,6 +4,12 @@
 {% endblock %}
 
 {% block body %}
+  <style>
+        body {
+            background: linear-gradient(#510000, #820101);
+        }
+    </style>
+
 	<div class="d-flex justify-content-between align-items-center titrPoster">
 		<div class="d-flex flex-column justify-content-center align-items-center">
 			<img class="vahshi" src="{{ asset('../../assets/img/young-woman-who-is-posing-covered-with-black-paint-removebg-preview.png') }}" alt="photo">
@@ -17,11 +23,11 @@
 
 		</div>
 	</div>
-	<a class="text-center text-decoration-none text-white mx-auto" href="{{ path('app_home') }}"><img class="backButton"src="{{asset('../../assets/img/left-arrow_4518010-removebg-preview.png')}}" alt=""></a>
+	<a class="text-center text-decoration-none text-white mx-auto" href="{{ path('app_home') }}"><img class="backButton" src="{{asset('../../assets/img/left-arrow_4518010-removebg-preview.png')}}" alt=""></a>
 	<section>
 		<div class="container-fluid ">
 			<div class="row d-flex justify-content-center align-items-center">
-				<div class="col-xl-6 d-flex flex-column justify-content-center align-items-center "><img class="imageContact"src="{{ asset('../../assets/img/dramatic-portrait-caucasian-young-girl-dark-isolated-white-studio-background-sunlight-line-dark-face-human-nature-hidden-things-psycology-concept-art-elegant-creative-photo-removebg-preview.png') }}" alt=""></div>
+				<div class="col-xl-6 d-flex flex-column justify-content-center align-items-center "><img class="imageContact" src="{{ asset('../../assets/img/dramatic-portrait-caucasian-young-girl-dark-isolated-white-studio-background-sunlight-line-dark-face-human-nature-hidden-things-psycology-concept-art-elegant-creative-photo-removebg-preview.png') }}" alt=""></div>
 				<div class="col-xl-6 d-flex flex-column justify-content-start align-items-center my-custom-form">
 					{{ include('contact/_form.html.twig') }}</div>
 				{% for flash_message in app.flashes('success') %}
@@ -29,7 +35,7 @@
 						{{ flash_message }}
 					</div>
 				{% endfor %}
-				
+
 			</div>
 		</div>
 		<div class="w-100 ">

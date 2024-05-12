@@ -86,5 +86,19 @@ class HomeController extends AbstractController
         ]);
     }
   
+    #[Route('/paint/gallery', name: 'app_gallery')]
+    public function gallery(PaintRepository $paintRepository,  SessionInterface $session, EntityManagerInterface $entityManager): Response
+    {   
+      $panierCount = $session->get('panierCount', 0);
+      $paints = $paintRepository->findAll();
+   
 
+
+     
+    
+    return $this->render('home/gallery.html.twig', [
+        'paints' => $paints,
+        'panierCount' => $panierCount
+    ]);
+}
 }

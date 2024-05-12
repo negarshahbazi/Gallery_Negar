@@ -4,18 +4,13 @@
 {% endblock %}
 
 {% block body %}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
+
+    <style>
+        body {
+            background: linear-gradient(#510000, #820101);
+        }
+    </style>
+
 
 	<div class="d-flex justify-content-between align-items-center titrPoster">
 		<div class="d-flex flex-column justify-content-center align-items-center">
@@ -29,6 +24,9 @@
 	</div>
 
 	<section>
+		<div class="w-100">
+			<a class="text-center text-decoration-none text-white mx-auto" href="{{ path('app_home') }}"><img class="backButton  d-flex justify-content-start align-items-center" src="{{asset('../../assets/img/left-arrow_4518010-removebg-preview.png')}}" alt=""></a>
+		</div>
 		<div class="row d-flex justify-content-center align-items-center">
 			<div class="col-xl-6 d-flex justify-content-center align-items-center">
 				<img class=" " src="../../assets/img/silhouette-portrait-young-adult-woman-looking-mysterious-generative-ai-removebg-preview.png" alt="">

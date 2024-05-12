@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<style>
+		body {
+			;
+			/* background: white; */
+		}
+	</style>
+
+	<div class="backGroundGallery">
+		<div class="w-100">
+			<a class="text-center text-decoration-none text-white mx-auto" href="{{ path('app_home') }}"><img class="backButton  d-flex justify-content-start align-items-center" src="{{asset('../../assets/img/left-arrow_4518010-removebg-preview.png')}}" alt=""></a>
+		</div>
+		<h1 class="colorTitle">The latest paintings</h1>
+		<div class="gallery">
+			<input type="checkbox">
+			<img class="shadow-lg" src="{{asset('assets/img/cubism2.jpg')}}" alt="">
+			<img class="shadow-lg" src="{{asset('assets/img/cubism3.jpg')}}" alt="">
+			<img class="shadow-lg" src="{{asset('assets/img/cubism4.jpg')}}" alt="">
+			<img class="shadow-lg" src="{{asset('assets/img/magic6.jpg')}}" alt="">
+			<img class="shadow-lg" src="{{asset('assets/img/magic7.jpg')}}" alt="">
+			<img class="shadow-lg" src="{{asset('assets/img/magic8.jpg')}}" alt="">
+			<img class="shadow-lg" src="{{asset('assets/img/cubism4.jpg')}}" alt="">
+			<img class="shadow-lg" src="{{asset('assets/img/f.jpg')}}" alt="">
+			<img class="shadow-lg" src="{{asset('assets/img/magic2.jpg')}}" alt="">
+		</div>
+	</div>
+	<div class=" d-flex w-100 justify-content-start align-items-center bg-black position-relative">
+
+		<video class="videoReel" autoplay loop muted>
+			<source src="{{ asset('assets/img/1118474_Macro_4k_Pulse_1280x720.mp4') }}" type="video/mp4">
+		</video>
+<h1 class="textCol text-center shadow-lg position-absolute top-50 translate-middle-y" style="left: 25%; transform: translateX(-50%);">Don't let the walls of your home be empty and lonely without works of art!</h1>
+	</div>
+	
+	<div class="latest">
+		
+			<div class=" w-100 d-flex justify-content-center align-items-center">
+				<img class="shadow-lg different img-lg " src="{{asset('assets/img/magic2.jpg')}}" alt="">
+			</div>
+
+			<div class=" w-100 d-flex justify-content-center align-items-center">
+				<img class="shadow-lg different img-lg " src="{{asset('assets/img/magic3.jpg')}}" alt="">
+			</div>
+
+			<div class=" w-100 d-flex justify-content-center align-items-center">
+				<img class="shadow-lg different img-lg " src="{{asset('assets/img/magic4.jpg')}}" alt="">
+			</div>
+		
+		<div class=" w-100 d-flex justify-content-center align-items-center">
+				<img class="shadow-lg different img-lg " src="{{asset('assets/img/magic7.jpg')}}" alt="">
+			</div>
+
+			<div class=" w-100 d-flex justify-content-center align-items-center">
+				<img class="shadow-lg different img-lg " src="{{asset('assets/img/magic5.jpg')}}" alt="">
+			</div>
+
+			<div class=" w-100 d-flex justify-content-center align-items-center">
+				<img class="shadow-lg different img-lg " src="{{asset('assets/img/magic6.jpg')}}" alt="">
+			</div>
+
+			<div class=" w-100 d-flex justify-content-center align-items-center">
+				<img class="shadow-lg different img-lg " src="{{asset('assets/img/magic8.jpg')}}" alt="">
+			</div>
+				<div class=" w-100 d-flex justify-content-center align-items-center">
+				<img class="shadow-lg different img-lg " src="{{asset('assets/img/magic9.jpg')}}" alt="">
+			</div>
+	</div>
+
+{% endblock %}

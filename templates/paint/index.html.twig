@@ -20,10 +20,17 @@
 {% endblock %}
 
 {% block body %}
-
+ <style>
+        body {
+            background: linear-gradient(#510000, #820101);
+        }
+    </style>
 
 	{# header #}
 	<div class="imgHeaderPaint d-flex flex-column justify-content-center align-items-center">
+		<div class="w-100">
+			<a class="text-center text-decoration-none text-white mx-auto" href="{{ path('app_home') }}"><img class="backButton  d-flex justify-content-start align-items-center" src="{{asset('../../assets/img/left-arrow_4518010-removebg-preview.png')}}" alt=""></a>
+		</div>
 		<p class="d-flex justify-content-start align-items-center text-white ml-5 imgHeaderPaintText">
 			Step into the enchanting world of paint, where artists breathe life into blank canvases, transforming them into vibrant landscapes and captivating scenes. Here, colors dance freely, each brushstroke telling a story of joy, sorrow, love, and dreams. It's a realm where imagination knows no bounds, inviting us to explore the wonders of the universe through the eyes of an artist. In this magical world, boundaries blur, and possibilities are endless, as creativity takes flight on wings of color and light, celebrating the boundless beauty of life itself.</p>
 
@@ -115,37 +122,28 @@
 		<div class="col-md-3 d-flex  justify-content-center align-items-center">
 
 			<video class="videoReel w-100 shadow-lg" autoplay loop muted>
-				<source
-				src="{{ asset('assets/img/_import_6127233c0ae8b3.17073247.mp4') }}" type="video/mp4">
-				<!-- Fournissez un message alternatif pour les navigateurs qui ne prennent pas en charge la balise vidéo -->
-				Votre navigateur ne prend pas en charge la lecture de vidéos.
+				<source src="{{ asset('assets/img/_import_6127233c0ae8b3.17073247.mp4') }}" type="video/mp4">
 			</video>
 		</div>
 		<div class="col-md-3 d-flex  justify-content-center align-items-center">
 
 			<video class="videoReel w-100 shadow-lg" autoplay loop muted>
-				<source
-				src="{{ asset('assets/img/_import_6127275d233ad0.35564992.mp4') }}" type="video/mp4">
-				<!-- Fournissez un message alternatif pour les navigateurs qui ne prennent pas en charge la balise vidéo -->
-				Votre navigateur ne prend pas en charge la lecture de vidéos.
+				<source src="{{ asset('assets/img/_import_6127275d233ad0.35564992.mp4') }}" type="video/mp4">
+
 			</video>
 		</div>
 		<div class="col-md-3 d-flex  justify-content-center align-items-center">
 
 			<video class="videoReel w-100 shadow-lg" autoplay loop muted>
-				<source
-				src="{{ asset('assets/img/_import_6127230f39b435.32971824.mp4') }}" type="video/mp4">
-				<!-- Fournissez un message alternatif pour les navigateurs qui ne prennent pas en charge la balise vidéo -->
-				Votre navigateur ne prend pas en charge la lecture de vidéos.
+				<source src="{{ asset('assets/img/_import_6127230f39b435.32971824.mp4') }}" type="video/mp4">
+
 			</video>
 		</div>
 		<div class="col-md-3 d-flex  justify-content-center align-items-center">
 
 			<video class="videoReel w-100 shadow-lg" autoplay loop muted>
-				<source
-				src="{{ asset('assets/img/_import_612727cfe7a4c8.34817151.mp4') }}" type="video/mp4">
-				<!-- Fournissez un message alternatif pour les navigateurs qui ne prennent pas en charge la balise vidéo -->
-				Votre navigateur ne prend pas en charge la lecture de vidéos.
+				<source src="{{ asset('assets/img/_import_612727cfe7a4c8.34817151.mp4') }}" type="video/mp4">
+
 			</video>
 		</div>
 
@@ -163,32 +161,32 @@
 {% endblock %}
 {% block javascripts %}
 	 <script>
-													document.addEventListener('DOMContentLoaded', function () {
-														 let ratings = document.querySelectorAll('.ratings');
-																				
-														ratings.forEach(rating => {
-														let inputs = rating.querySelectorAll('.input');
-																				
-														 inputs.forEach(input => {
-																				            input.addEventListener('change', () => {
-														// Récupérer la valeur de l'étoile sélectionnée
-														 let value = input.value;
-														// Mettre à jour la valeur du champ caché "grade" avec la valeur de la note sélectionnée
-														 document.getElementById('grade').setAttribute('value', value);
-														console.log('Note sélectionnée : ' + value);
-														// Modifier l'URL d'action du formulaire avec la valeur de la note
-														 let form = rating;
-														 let action = form.getAttribute('action');
-														action = action.replace('__VALUE__', value);
-														// Remplacer également '__VALUE__' dans l'URL avec la valeur du grade
-														 action = action.replace('grade=__VALUE__', 'grade=' + value);
-														console.log(action);
-														 form.setAttribute('action', action);
-												// Soumettre automatiquement le formulaire
-														form.submit();
+														document.addEventListener('DOMContentLoaded', function () {
+															 let ratings = document.querySelectorAll('.ratings');
+																					
+															ratings.forEach(rating => {
+															let inputs = rating.querySelectorAll('.input');
+																					
+															 inputs.forEach(input => {
+																					            input.addEventListener('change', () => {
+															// Récupérer la valeur de l'étoile sélectionnée
+															 let value = input.value;
+															// Mettre à jour la valeur du champ caché "grade" avec la valeur de la note sélectionnée
+															 document.getElementById('grade').setAttribute('value', value);
+															console.log('Note sélectionnée : ' + value);
+															// Modifier l'URL d'action du formulaire avec la valeur de la note
+															 let form = rating;
+															 let action = form.getAttribute('action');
+															action = action.replace('__VALUE__', value);
+															// Remplacer également '__VALUE__' dans l'URL avec la valeur du grade
+															 action = action.replace('grade=__VALUE__', 'grade=' + value);
+															console.log(action);
+															 form.setAttribute('action', action);
+													// Soumettre automatiquement le formulaire
+															form.submit();
+														});
+														});
 													});
 													});
-												});
-												});
-												</script>
+													</script>
 {% endblock %}

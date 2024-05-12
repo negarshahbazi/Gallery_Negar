@@ -5,17 +5,11 @@
 
 {% block body %}
 	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
+		body {
+			background: linear-gradient(#510000, #820101);
 		}
 	</style>
+
 
 	{# header #}
 	<div class="imgHeaderHome ">
@@ -60,17 +54,21 @@
 		</svg>
 		<div class="svgShadow"></div>
 	</div>
+	
 	{# cardcute #}
 	<section>
 		<div class="container ">
 			<div class="row d-flex justify-content-between align-items-center cardCute shadow-lg">
 				<div class="col-3  d-flex justify-content-center align-items-center ">
 					<img class="img1" src="../../assets/img/side-view-woman-posing-with-high-heels-removebg-preview.png " alt=""></div>
-				<div class="col-6  d-flex justify-content-center align-items-center ">
-					<h4 class="text-center paragraf" style="color:#b78727">
-						"La peinture est la poésie silencieuse de l'âme, capturant les émotions, les histoires et les rêves dans un langage visuel intemporel."</h4>
+				<div class="col-6  d-flex flex-column justify-content-center align-items-center ">
+					<h4 class="text-center paragraf">
+						"Painting is the silent poetry of the soul"</h4>
+					<a class="btn bg-gradient d-flex justify-content-center align-items-center" href="{{path('app_gallery')}}">
+						<span class="linkGallery ">Gallery</span>
+					</a>
+
 				</div>
-				
 
 				<div class="col-3 d-flex justify-content-center align-items-end hightDiv"><img class="img2 d-flex justify-content-center align-items-end" src="../../assets/img/side-view-woman-posing-with-sky-background-removebg-preview.png" alt=""></div>
 			</div>
@@ -232,7 +230,7 @@
 						</div>
 						{# <a href="#" class="read-more mt-3">Read more</a> #}
 						<div class="backGold">
-							<a href="#" class="btn-shine ">Read more</a>
+							<a href="{{ category.readMore}}" class="btn-shine ">Read more</a>
 						</div>
 
 					</div>
@@ -244,7 +242,39 @@
 
 	</div>
 </section>
-
+{# services #}
+<section>
+	<div class="text-white d-flex flex-column justify-content-center align-items-center bg-gray">
+		<h1 class="mb-4">Our Services</h1>
+		<p class="w-50 text-center">At Negar, we believe in the transformative power of art. Our gallery is a vibrant hub of creativity, offering an exquisite collection of paintings that evoke emotion, inspire imagination, and elevate everyday experiences. Whether you're a seasoned art collector or a first-time buyer, Negar is your premier destination for discovering and acquiring exceptional artworks that speak to your soul.</p>
+	</div>
+	<div class="container d-flex flex-column justify-content-center align-items-center">
+		<div class="row d-flex justify-content-center align-items-start">
+			<div class="col-lg-3  text-center d-flex flex-column justify-content-start align-items-center serviceCol">
+				<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#510000" class="bi bi-bar-chart" viewbox="0 0 16 16">
+					<path d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/>
+				</svg>
+				<h2 class="m-3 titreService">Art Consultation and Curation:</h2>
+				<p > Let our expert team guide you through your art-buying journey with personalized art consultation and curation services. Whether you're seeking advice on selecting the right artwork for your home or need assistance in curating a cohesive art collection, we're here to help. Benefit from our extensive knowledge of the art world and our passion for connecting people with meaningful works of art.</p>
+			</div>
+			<div class="col-lg-3 text-center d-flex flex-column justify-content-start align-items-center serviceCol">
+				<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#510000" class="bi bi-lightbulb" viewbox="0 0 16 16">
+					<path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13a.5.5 0 0 1 0 1 .5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1 0-1 .5.5 0 0 1 0-1 .5.5 0 0 1-.46-.302l-.761-1.77a2 2 0 0 0-.453-.618A5.98 5.98 0 0 1 2 6m6-5a5 5 0 0 0-3.479 8.592c.263.254.514.564.676.941L5.83 12h4.342l.632-1.467c.162-.377.413-.687.676-.941A5 5 0 0 0 8 1"/>
+				</svg>
+				<h2 class="m-3 titreService">Online Art Sales and Auctions:</h2>
+				<p>Experience the convenience of buying art online through Negar's secure platform. Browse our extensive catalog of paintings from the comfort of your home, and purchase your favorite pieces with confidence. Additionally, stay tuned for exclusive art auctions featuring rare and collectible artworks, where you can bid on coveted pieces and expand your art collection with ease.</p>
+			</div>
+			<div class="col-lg-3 text-center d-flex flex-column justify-content-start align-items-center serviceCol">
+				<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#510000" class="bi bi-palette" viewbox="0 0 16 16">
+					<path d="M8 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3m4 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M5.5 7a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+					<path d="M16 8c0 3.15-1.866 2.585-3.567 2.07C11.42 9.763 10.465 9.473 10 10c-.603.683-.475 1.819-.351 2.92C9.826 14.495 9.996 16 8 16a8 8 0 1 1 8-8m-8 7c.611 0 .654-.171.655-.176.078-.146.124-.464.07-1.119-.014-.168-.037-.37-.061-.591-.052-.464-.112-1.005-.118-1.462-.01-.707.083-1.61.704-2.314.369-.417.845-.578 1.272-.618.404-.038.812.026 1.16.104.343.077.702.186 1.025.284l.028.008c.346.105.658.199.953.266.653.148.904.083.991.024C14.717 9.38 15 9.161 15 8a7 7 0 1 0-7 7"/>
+				</svg>
+				<h2 class="m-3 titreService">Curated Collections:</h2>
+				<p>Immerse yourself in our meticulously curated collections, showcasing a diverse range of artistic styles, themes, and mediums.  Each painting in our gallery is carefully selected to captivate and inspire our visitors. Explore our curated collections and find the perfect piece to enrich your space and reflect your unique taste.</p>
+			</div>
+		</div>
+	</div>
+</section>
 {# line pub #}
 <section class="d-flex justify-content-center align-items-center text-center">
 	<div class="row backVideo m-5 d-flex justify-content-center align-items-center text-center">
@@ -274,7 +304,11 @@
 
 
 	</div>
-</section>{% endblock %}{% block javascripts %}
+</section>
+
+
+
+{% endblock %}{% block javascripts %}
  <script>
 							$.js = function (el) {
 							    return $('[data-js=' + el + ']')

@@ -6,6 +6,7 @@ use App\Entity\Messages;
 use App\Entity\Paint;
 use App\Form\MessagesType;
 use App\Repository\MessagesRepository;
+use App\Repository\PaintRepository;
 use App\Repository\PanierRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -96,5 +97,6 @@ class PaintController extends AbstractController
         // Rediriger vers la page de détails de la peinture
         return $this->redirectToRoute('app_paint', ['id' => $paint->getId()]);
     }
-    
+
+
 }
