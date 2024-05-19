@@ -1,12 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AboutController!{% endblock %}
+{% block title %}Hello AboutController!
+{% endblock %}
 
 {% block body %}
-  <style>
-        body {
-            background: linear-gradient(#510000, #820101);
-        }
-    </style>
+	<style>
+		body {
+			background: linear-gradient(#510000, #820101);
+		}
+	</style>
+	<div class="d-flex justify-content-between align-items-center titrPoster">
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<img class="vahshi" src="{{ asset('../../assets/img/young-woman-who-is-posing-covered-with-black-paint-removebg-preview.png') }}" alt="photo">
+		</div>
+		<h1 class="text-white">About us</h1>
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<img class="vahshi" src="{{ asset('../../assets/img/portrait-young-woman-who-is-posing-covered-with-black-paint__3_-removebg-preview.png') }}" alt="photo">
 
+		</div>
+	</div>
+    	<div class="w-100">
+			<a class="text-center text-decoration-none text-white mx-auto" href="{{ path('app_home') }}"><img class="backButton  d-flex justify-content-start align-items-center" src="{{asset('../../assets/img/left-arrow_4518010-removebg-preview.png')}}" alt=""></a>
+		</div>
+	<section >
+		<div class="row d-flex justify-content-between align-items-center">
+			<div class="col-4 ">
+				<img class="pinceau" src="{{asset('assets/img/squeezed-paints-near-tubes.png')}}" alt="">
+			</div>
+			<div class="col-4 d-flex justify-content-center align-items-center">	
+            	<h4 class="textAbout">Welcome to Negar Art Gallery: Where Art Transforms Spaces and Lives! At Negar, we believe in the transformative power of art. Our gallery is a vibrant hub of creativity, offering an exquisite collection of paintings that evoke emotion, inspire imagination, and elevate everyday experiences. Whether you're a seasoned art collector or a first-time buyer, Negar is your premier destination for discovering and acquiring exceptional artworks that speak to your soul.</h4></div>
+			<div class="col-4 d-flex justify-content-end align-items-center">
+              	<img class="pinceau" src="{{asset('assets/img/squeezed-paints-near-tubesc.png')}}" alt="">
+
+            </div>
+		</div>
+		
+
+		
+	</section>
 {% endblock %}

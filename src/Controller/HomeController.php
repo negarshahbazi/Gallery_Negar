@@ -31,10 +31,13 @@ class HomeController extends AbstractController
 
    
         $user = $this->getUser();
+      
         $paniers = $panierRepository->findBy(['user' => $user]);
 
       
         $panierCount = 0;
+
+
 
         foreach ($paniers as $key => $value) {
             $panierCount += $value->getPanierCount();
@@ -100,5 +103,16 @@ class HomeController extends AbstractController
         'paints' => $paints,
         'panierCount' => $panierCount
     ]);
+}
+
+#[Route('/about', name: 'app_about')]
+public function about( SessionInterface $session): Response
+{   
+  $panierCount = $session->get('panierCount', 0);
+
+return $this->render('about/index.html.twig', [
+
+    'panierCount' => $panierCount
+]);
 }
 }
