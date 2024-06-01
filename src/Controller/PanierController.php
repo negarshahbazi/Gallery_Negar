@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Paint;
 use App\Entity\Panier;
 use App\Form\PanierType;
+use App\Repository\MessagesRepository;
 use App\Repository\PanierRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,13 +29,14 @@ class PanierController extends AbstractController
 
 
     #[Route('/{id}', name: 'app_panier_new')]
-    public function myPanier(Paint $paint, EntityManagerInterface $entityManager, PanierRepository $panierRepository): Response
+    public function myPanier(Paint $paint, EntityManagerInterface $entityManager, PanierRepository $panierRepository,MessagesRepository $messagesRepository): Response
     {  
         $user = $this->getUser();
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }      
         $existingPanier = $panierRepository->findOneBy(['user' => $user, 'paint' => $paint]);    
+        $messages = $messagesRepository->findAll();
         if ($existingPanier) {
             $entityManager->remove($existingPanier);
             $entityManager->flush();

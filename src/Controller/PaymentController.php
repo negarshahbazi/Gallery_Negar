@@ -39,7 +39,6 @@ class PaymentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $payment->setUser($user);
             $payment->setCreatedAt(new \DateTimeImmutable());
-            // $payment->setMethod();
             $entityManager->persist($payment);
             $entityManager->flush();
 
@@ -69,6 +68,7 @@ class PaymentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_payment_index', [], Response::HTTP_SEE_OTHER);

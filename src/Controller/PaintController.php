@@ -21,7 +21,10 @@ class PaintController extends AbstractController
 {
     #[Route('/paint/{id}', name: 'app_paint')]
     public function index(Paint $paint, Request $request,MessagesRepository $messagesRepository, EntityManagerInterface $entityManager, SessionInterface $session): Response
-    {   $message = new Messages();
+    {  //Rechercher les messages existants  sur cette peinture
+        $messages = $messagesRepository->findBy(['paint' => $paint]);
+        
+        $message = new Messages();
         // Vérifier si l'utilisateur a déjà commenté cette peinture
         $user = $this->getUser();
         $alreadyCommented = false;
@@ -42,6 +45,8 @@ class PaintController extends AbstractController
                 'paint' => $paint,
                 'user' => $user
             ]);
+            
+         
             if ($existingMessage) {
                 $this->addFlash('info', 'You have already commented on this painting.');
                 $alreadyCommented = true;
@@ -63,7 +68,8 @@ class PaintController extends AbstractController
             'paint' => $paint, // Passer la variable paint au template
             'user' => $this->getUser(),
             'form' => $form->createView(),
-            'alreadyCommented' => $alreadyCommented
+            'alreadyCommented' => $alreadyCommented,
+            'messages' => $messages,
         ]);
     }
 

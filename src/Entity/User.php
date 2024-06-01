@@ -56,14 +56,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Gender $gender = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $methodPayment = null;
+ 
 
     /**
      * @var Collection<int, Contact>
      */
     #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'user')]
     private Collection $contacts;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $methodPayment = null;
 
     public function __construct()
     {
@@ -267,17 +269,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getMethodPayment(): ?string
-    {
-        return $this->methodPayment;
-    }
 
-    public function setMethodPayment(string $methodPayment): static
-    {
-        $this->methodPayment = $methodPayment;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Contact>
@@ -287,24 +279,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->contacts;
     }
 
-    public function addContact(Contact $contact): static
-    {
-        if (!$this->contacts->contains($contact)) {
-            $this->contacts->add($contact);
-            $contact->setUser($this);
-        }
+    // public function addContact(Contact $contact): static
+    // {
+    //     if (!$this->contacts->contains($contact)) {
+    //         $this->contacts->add($contact);
+    //         $contact->setUser($this);
+    //     }
 
-        return $this;
+    //     return $this;
+    // }
+
+    // public function removeContact(Contact $contact): static
+    // {
+    //     if ($this->contacts->removeElement($contact)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($contact->getUser() === $this) {
+    //             $contact->setUser(null);
+    //         }
+    //     }
+
+    //     return $this;
+    // }
+
+    public function getMethodPayment(): ?string
+    {
+        return $this->methodPayment;
     }
 
-    public function removeContact(Contact $contact): static
+    public function setMethodPayment(?string $methodPayment): static
     {
-        if ($this->contacts->removeElement($contact)) {
-            // set the owning side to null (unless already changed)
-            if ($contact->getUser() === $this) {
-                $contact->setUser(null);
-            }
-        }
+        $this->methodPayment = $methodPayment;
 
         return $this;
     }

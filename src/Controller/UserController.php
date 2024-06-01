@@ -70,8 +70,15 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // $formData = $form->getData();
-            $methodPayment = $user->getMethodPayment();
+            $user = $form->getData(); // Update the $user variable with the form data
+            $methodPayment = $form->get('methodPayment')->getData(); // Get the method payment from the form
+    
+            // Set the method payment on the user entity
+            $user->setMethodPayment($methodPayment);
+    
+            // Persist the user object
+            $entityManager->persist($user);
+            $entityManager->flush();         
 
             if ($methodPayment === 'stripe') {
 
@@ -137,7 +144,7 @@ class UserController extends AbstractController
                 }
             }
 
-            $entityManager->flush();
+            
 
 
             return $this->redirectToRoute('app_user_edit', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);

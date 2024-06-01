@@ -20,11 +20,11 @@
 {% endblock %}
 
 {% block body %}
- <style>
-        body {
-            background: linear-gradient(#510000, #820101);
-        }
-    </style>
+	<style>
+		body {
+			background: linear-gradient(#510000, #820101);
+		}
+	</style>
 
 	{# header #}
 	<div class="imgHeaderPaint d-flex flex-column justify-content-center align-items-center">
@@ -110,7 +110,20 @@
 						<p class="colorTextPaint">Comment:
 						</p>
 						{{ include('messages/_form.html.twig') }}
-
+						{# {{ dump(messages) }}; #}
+						{% if messages is not empty %}
+							{% for message in messages %}
+								<div>
+									<div class="w-100 textareaPaint">
+										<span class="nomTextArea">{{ message.user.firstName }}</span>:
+										{{ message.messages }}
+										<span class="dateTextArea">({{ message.createdAt|date('Y-m-d H:i:s') }})</span>
+									</div>
+								</div>
+							{% endfor %}
+						{% else %}
+							<p>No messages found.</p>
+						{% endif %}
 					</div>
 
 				</div>
@@ -161,32 +174,32 @@
 {% endblock %}
 {% block javascripts %}
 	 <script>
-														document.addEventListener('DOMContentLoaded', function () {
-															 let ratings = document.querySelectorAll('.ratings');
-																					
-															ratings.forEach(rating => {
-															let inputs = rating.querySelectorAll('.input');
-																					
-															 inputs.forEach(input => {
-																					            input.addEventListener('change', () => {
-															// Récupérer la valeur de l'étoile sélectionnée
-															 let value = input.value;
-															// Mettre à jour la valeur du champ caché "grade" avec la valeur de la note sélectionnée
-															 document.getElementById('grade').setAttribute('value', value);
-															console.log('Note sélectionnée : ' + value);
-															// Modifier l'URL d'action du formulaire avec la valeur de la note
-															 let form = rating;
-															 let action = form.getAttribute('action');
-															action = action.replace('__VALUE__', value);
-															// Remplacer également '__VALUE__' dans l'URL avec la valeur du grade
-															 action = action.replace('grade=__VALUE__', 'grade=' + value);
-															console.log(action);
-															 form.setAttribute('action', action);
-													// Soumettre automatiquement le formulaire
-															form.submit();
-														});
-														});
-													});
-													});
-													</script>
+																	document.addEventListener('DOMContentLoaded', function () {
+																		 let ratings = document.querySelectorAll('.ratings');
+																								
+																		ratings.forEach(rating => {
+																		let inputs = rating.querySelectorAll('.input');
+																								
+																		 inputs.forEach(input => {
+																								            input.addEventListener('change', () => {
+																		// Récupérer la valeur de l'étoile sélectionnée
+																		 let value = input.value;
+																		// Mettre à jour la valeur du champ caché "grade" avec la valeur de la note sélectionnée
+																		 document.getElementById('grade').setAttribute('value', value);
+																		console.log('Note sélectionnée : ' + value);
+																		// Modifier l'URL d'action du formulaire avec la valeur de la note
+																		 let form = rating;
+																		 let action = form.getAttribute('action');
+																		action = action.replace('__VALUE__', value);
+																		// Remplacer également '__VALUE__' dans l'URL avec la valeur du grade
+																		 action = action.replace('grade=__VALUE__', 'grade=' + value);
+																		console.log(action);
+																		 form.setAttribute('action', action);
+																// Soumettre automatiquement le formulaire
+																		form.submit();
+																	});
+																	});
+																});
+																});
+																</script>
 {% endblock %}
