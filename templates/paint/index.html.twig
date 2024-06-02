@@ -53,30 +53,55 @@
 
 
 				<div class="col-lg-6   text-white p-5">
-					<img class="shadow-lg" src="{{ paint.photo }}" alt="{{ paint.title }}">
+					<img class="shadow-lg imgPaint" src="{{ paint.photo }}" alt="{{ paint.title }}">
 				</div>
 				<div class="col-lg-6  text-white p-5">
 
 
-					<h1 class="titrePaint">{{ paint.title }}</h1>
+					<h1 class="titrePaint">{{ paint.title }}    <span class="line"></span>
+
+					</h1>
 					<p>
-						<span class="colorTextPaint">Price:</span>
+						<span class="colorTextPaint">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-tags" viewbox="0 0 16 16">
+								<path d="M3 2v4.586l7 7L14.586 9l-7-7zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586z"/>
+								<path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1z"/>
+							</svg>
+							Price:</span>
 						{{ paint.price }}€</p>
 					<p>
-						<span class="colorTextPaint">Size:</span>
+						<span class="colorTextPaint">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-aspect-ratio" viewbox="0 0 16 16">
+								<path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h13A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5zM1.5 3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z"/>
+								<path d="M2 4.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H3v2.5a.5.5 0 0 1-1 0zm12 7a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H13V8.5a.5.5 0 0 1 1 0z"/>
+							</svg>
+							Size:</span>
 						{{ paint.sizeW }}W *
 						{{ paint.sizeH }}H *
 						{{ paint.sizeD }}D
 					</p>
 					<p>
-						<span class="colorTextPaint">Type of work:</span>
+						<span class="colorTextPaint">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-palette" viewbox="0 0 16 16">
+								<path d="M8 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3m4 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M5.5 7a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+								<path d="M16 8c0 3.15-1.866 2.585-3.567 2.07C11.42 9.763 10.465 9.473 10 10c-.603.683-.475 1.819-.351 2.92C9.826 14.495 9.996 16 8 16a8 8 0 1 1 8-8m-8 7c.611 0 .654-.171.655-.176.078-.146.124-.464.07-1.119-.014-.168-.037-.37-.061-.591-.052-.464-.112-1.005-.118-1.462-.01-.707.083-1.61.704-2.314.369-.417.845-.578 1.272-.618.404-.038.812.026 1.16.104.343.077.702.186 1.025.284l.028.008c.346.105.658.199.953.266.653.148.904.083.991.024C14.717 9.38 15 9.161 15 8a7 7 0 1 0-7 7"/>
+							</svg>
+							Type of work:</span>
 						{{ paint.typeOfWork}}</p>
 					<p>
-						<span class="colorTextPaint">Category:</span>
+						<span class="colorTextPaint">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewbox="0 0 16 16">
+								<path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+							</svg>
+							Category:</span>
 						{{ paint.category}}
 					</p>
 					<p>
-						<span class="colorTextPaint">Status:</span>
+						<span class="colorTextPaint">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-toggle-on" viewbox="0 0 16 16">
+								<path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8"/>
+							</svg>
+							Status:</span>
 						{{ paint.status}}</p>
 
 					<form
@@ -111,19 +136,21 @@
 						</p>
 						{{ include('messages/_form.html.twig') }}
 						{# {{ dump(messages) }}; #}
-						{% if messages is not empty %}
-							{% for message in messages %}
-								<div>
-									<div class="w-100 textareaPaint">
-										<span class="nomTextArea">{{ message.user.firstName }}</span>:
-										{{ message.messages }}
-										<span class="dateTextArea">({{ message.createdAt|date('Y-m-d H:i:s') }})</span>
+						<div class="message-container">
+							{% if messages is not empty %}
+								{% for message in messages %}
+									<div>
+										<div class="w-100 textareaPaint">
+											<span class="nomTextArea">{{ message.user.firstName }}</span>:
+											{{ message.messages }}
+											<span class="dateTextArea">({{ message.createdAt|date('Y-m-d H:i:s') }})</span>
+										</div>
 									</div>
-								</div>
-							{% endfor %}
-						{% else %}
-							<p>No messages found.</p>
-						{% endif %}
+								{% endfor %}
+							{% else %}
+								<p>No messages found.</p>
+							{% endif %}
+						</div>
 					</div>
 
 				</div>
@@ -160,7 +187,7 @@
 			</video>
 		</div>
 
-		<div class="col-md-10 d-flex justify-content-center align-items-center">
+		<div class="col-md-10 d-flex justify-content-center align-items-center boxtextSlang">
 			<div class="backTextPub mt-4 ">
 				<h5 class="text-white">Immerse yourself in a world where each stroke of the brush tells a story, where every sculpture captures the essence of emotion, and where every photograph freezes a moment in time. From classical masterpieces to contemporary innovations, our gallery celebrates the richness and diversity of artistic expression.</h5>
 
@@ -174,32 +201,32 @@
 {% endblock %}
 {% block javascripts %}
 	 <script>
-																	document.addEventListener('DOMContentLoaded', function () {
-																		 let ratings = document.querySelectorAll('.ratings');
-																								
-																		ratings.forEach(rating => {
-																		let inputs = rating.querySelectorAll('.input');
-																								
-																		 inputs.forEach(input => {
-																								            input.addEventListener('change', () => {
-																		// Récupérer la valeur de l'étoile sélectionnée
-																		 let value = input.value;
-																		// Mettre à jour la valeur du champ caché "grade" avec la valeur de la note sélectionnée
-																		 document.getElementById('grade').setAttribute('value', value);
-																		console.log('Note sélectionnée : ' + value);
-																		// Modifier l'URL d'action du formulaire avec la valeur de la note
-																		 let form = rating;
-																		 let action = form.getAttribute('action');
-																		action = action.replace('__VALUE__', value);
-																		// Remplacer également '__VALUE__' dans l'URL avec la valeur du grade
-																		 action = action.replace('grade=__VALUE__', 'grade=' + value);
-																		console.log(action);
-																		 form.setAttribute('action', action);
-																// Soumettre automatiquement le formulaire
-																		form.submit();
-																	});
-																	});
-																});
-																});
-																</script>
+																								document.addEventListener('DOMContentLoaded', function () {
+																									 let ratings = document.querySelectorAll('.ratings');
+																															
+																									ratings.forEach(rating => {
+																									let inputs = rating.querySelectorAll('.input');
+																															
+																									 inputs.forEach(input => {
+																															            input.addEventListener('change', () => {
+																									// Récupérer la valeur de l'étoile sélectionnée
+																									 let value = input.value;
+																									// Mettre à jour la valeur du champ caché "grade" avec la valeur de la note sélectionnée
+																									 document.getElementById('grade').setAttribute('value', value);
+																									console.log('Note sélectionnée : ' + value);
+																									// Modifier l'URL d'action du formulaire avec la valeur de la note
+																									 let form = rating;
+																									 let action = form.getAttribute('action');
+																									action = action.replace('__VALUE__', value);
+																									// Remplacer également '__VALUE__' dans l'URL avec la valeur du grade
+																									 action = action.replace('grade=__VALUE__', 'grade=' + value);
+																									console.log(action);
+																									 form.setAttribute('action', action);
+																							// Soumettre automatiquement le formulaire
+																									form.submit();
+																								});
+																								});
+																							});
+																							});
+																							</script>
 {% endblock %}
