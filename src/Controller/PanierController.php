@@ -36,7 +36,6 @@ class PanierController extends AbstractController
             return $this->redirectToRoute('app_login');
         }      
         $existingPanier = $panierRepository->findOneBy(['user' => $user, 'paint' => $paint]);    
-        $messages = $messagesRepository->findAll();
         if ($existingPanier) {
             $entityManager->remove($existingPanier);
             $entityManager->flush();
@@ -63,6 +62,7 @@ class PanierController extends AbstractController
         }      
         $existingPanier = $panierRepository->findOneBy(['user' => $user, 'paint' => $paint]);    
         if ($existingPanier) {
+        //    TODO panier count from session -1
             $entityManager->remove($existingPanier);
             $entityManager->flush();
         } else {

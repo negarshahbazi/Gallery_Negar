@@ -29,7 +29,7 @@
 	<div class="row d-flex justify-content-between align-items-center position-relative">
 
 		<div class="col-3">
-			<img class="imageSizeGallery"  src="{{asset('assets/img/8069318-removebg-preview.png')}}" alt="">
+			<img class="imageSizeGallery" src="{{asset('assets/img/8069318-removebg-preview.png')}}" alt="">
 		</div>
 
 		<div class="col-xl-8 col-lg-6 col-md-5 col-sm-4 mr-5">
@@ -38,37 +38,22 @@
 	</div>
 
 	<div class="latest">
+		{% for paint in paints %}
 
-		<div class=" w-100 d-flex justify-content-center align-items-center">
-			<img class="shadow-lg different img-lg " src="{{asset('assets/img/magic2.jpg')}}" alt="">
-		</div>
+			<div class="col-9 w-100 d-flex justify-content-center align-items-center">
+				{% if paint.photo %}
+				{# <div class="titleGallery">
+						<div class="img-title">{{ paint.title }}</div>
+					</div> #}
+						<img class="shadow-lg different img-lg" src="{{ paint.photo }}" alt="{{ paint.title }}">
+					
+				{% else %}
+					<p>No image available for
+						{{ paint.title }}</p>
+				{% endif %}
+			</div>
 
-		<div class=" w-100 d-flex justify-content-center align-items-center">
-			<img class="shadow-lg different img-lg " src="{{asset('assets/img/magic3.jpg')}}" alt="">
-		</div>
-
-		<div class=" w-100 d-flex justify-content-center align-items-center">
-			<img class="shadow-lg different img-lg " src="{{asset('assets/img/magic4.jpg')}}" alt="">
-		</div>
-
-		<div class=" w-100 d-flex justify-content-center align-items-center">
-			<img class="shadow-lg different img-lg " src="{{asset('assets/img/magic7.jpg')}}" alt="">
-		</div>
-
-		<div class=" w-100 d-flex justify-content-center align-items-center">
-			<img class="shadow-lg different img-lg " src="{{asset('assets/img/magic5.jpg')}}" alt="">
-		</div>
-
-		<div class=" w-100 d-flex justify-content-center align-items-center">
-			<img class="shadow-lg different img-lg " src="{{asset('assets/img/magic6.jpg')}}" alt="">
-		</div>
-
-		<div class=" w-100 d-flex justify-content-center align-items-center">
-			<img class="shadow-lg different img-lg " src="{{asset('assets/img/magic8.jpg')}}" alt="">
-		</div>
-		<div class=" w-100 d-flex justify-content-center align-items-center">
-			<img class="shadow-lg different img-lg " src="{{asset('assets/img/magic9.jpg')}}" alt="">
-		</div>
+		{% endfor %}
 	</div>
 
 {% endblock %}

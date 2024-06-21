@@ -40,7 +40,7 @@ class ContactController extends AbstractController
             $entityManager->flush();
 
 
-            $this->addFlash('success', 'Your message has been sent successfully !');
+            $this->addFlash('success', '✅ Your message has been sent successfully !');
 
 
             return $this->redirectToRoute('app_contact_new', [], Response::HTTP_SEE_OTHER);

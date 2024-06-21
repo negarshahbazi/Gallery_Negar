@@ -67,11 +67,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $methodPayment = null;
 
+    /**
+     * @var Collection<int, Stars>
+     */
+    #[ORM\OneToMany(targetEntity: Stars::class, mappedBy: 'user')]
+    private Collection $stars;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
         $this->paniers = new ArrayCollection();
         $this->contacts = new ArrayCollection();
+        $this->stars = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -309,6 +316,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setMethodPayment(?string $methodPayment): static
     {
         $this->methodPayment = $methodPayment;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stars>
+     */
+    public function getStars(): Collection
+    {
+        return $this->stars;
+    }
+
+    public function addStar(Stars $star): static
+    {
+        if (!$this->stars->contains($star)) {
+            $this->stars->add($star);
+            $star->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStar(Stars $star): static
+    {
+        if ($this->stars->removeElement($star)) {
+            // set the owning side to null (unless already changed)
+            if ($star->getUser() === $this) {
+                $star->setUser(null);
+            }
+        }
 
         return $this;
     }

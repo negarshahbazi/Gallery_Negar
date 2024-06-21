@@ -1,14 +1,17 @@
 <!-- Affichage de l'alerte si nécessaire -->
-{% for message in app.flashes('warning') %}
-	<div class="alert alert-danger" role="alert">
-		{{ message }}
-	</div>
-{% endfor %}
 {% for message in app.flashes('info') %}
 	<div class="alert alert-danger" role="alert">
 		{{ message }}
 	</div>
 {% endfor %}
+{% for message in app.flashes('succes') %}
+	<div class="alert alert-danger" role="alert">
+		{{ message }}
+	</div>
+{% endfor %}
+
+
+
 {{ form_start(form, {'attr': {'id': paint.id}}) }}
 {{ form_widget(form) }}
 {# {{ form_row(form.user, {'attr': {'value': app.user.id}}) }} #}

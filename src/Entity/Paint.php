@@ -42,11 +42,6 @@ class Paint
     #[ORM\ManyToOne(inversedBy: 'paints')]
     private ?Status $status = null;
 
-    #[ORM\Column]
-    private ?int $gradeCount = null;
-
-    #[ORM\Column]
-    private ?int $gradeTotal = null;
 
     #[ORM\OneToMany(targetEntity: Messages::class, mappedBy: 'paint')]
     private Collection $messages;
@@ -54,11 +49,26 @@ class Paint
     #[ORM\OneToMany(targetEntity: Panier::class, mappedBy: 'paint')]
     private Collection $paniers;
 
+    /**
+     * @var Collection<int, Stars>
+     */
+    #[ORM\OneToMany(targetEntity: Stars::class, mappedBy: 'paint')]
+    private Collection $stars;
+
+    #[ORM\Column]
+    private ?int $gradeCount = null;
+
+    #[ORM\Column]
+    private ?int $gradeTotal = null;
+
     public function __construct()
     {
-        $this->messages = new ArrayCollection();
-        $this->paniers = new ArrayCollection();
+        $this->stars = new ArrayCollection();
     }
+
+   
+
+ 
   
     public function getId(): ?int
     {
@@ -173,29 +183,11 @@ class Paint
         return $this;
     }
 
-    public function getGradeCount(): ?int
-    {
-        return $this->gradeCount;
-    }
+ 
 
-    public function setGradeCount(int $gradeCount): static
-    {
-        $this->gradeCount = $gradeCount;
+    
 
-        return $this;
-    }
-
-    public function getGradeTotal(): ?int
-    {
-        return $this->gradeTotal;
-    }
-
-    public function setGradeTotal(int $gradeTotal): static
-    {
-        $this->gradeTotal = $gradeTotal;
-
-        return $this;
-    }
+  
 
     /**
      * @return Collection<int, Messages>
@@ -234,6 +226,66 @@ class Paint
     {
         return $this->paniers;
     }
+
+    /**
+     * @return Collection<int, Stars>
+     */
+    public function getStars(): Collection
+    {
+        return $this->stars;
+    }
+
+    public function addStar(Stars $star): static
+    {
+        if (!$this->stars->contains($star)) {
+            $this->stars->add($star);
+            $star->setPaint($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStar(Stars $star): static
+    {
+        if ($this->stars->removeElement($star)) {
+            // set the owning side to null (unless already changed)
+            if ($star->getPaint() === $this) {
+                $star->setPaint(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getGradeCount(): ?int
+    {
+        return $this->gradeCount;
+    }
+
+    public function setGradeCount(int $gradeCount): static
+    {
+        $this->gradeCount = $gradeCount;
+
+        return $this;
+    }
+
+    public function getGradeTotal(): ?int
+    {
+        return $this->gradeTotal;
+    }
+
+    public function setGradeTotal(int $gradeTotal): static
+    {
+        $this->gradeTotal = $gradeTotal;
+
+        return $this;
+    }
+
+  
+
+ 
+
+   
 
 
 

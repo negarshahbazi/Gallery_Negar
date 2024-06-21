@@ -31,7 +31,7 @@ class HomeController extends AbstractController
 
    
         $user = $this->getUser();
-      
+     
         $paniers = $panierRepository->findBy(['user' => $user]);
 
       
@@ -60,27 +60,18 @@ class HomeController extends AbstractController
     public function cart( PaintRepository $paintRepository, CategoryRepository $categoryRepository, PanierRepository $panierRepository, SessionInterface $session): Response
     {  // Initialiser tous les compteurs à zéro
        
-       
-
         $paints = $paintRepository->findAll();
         $categories = $categoryRepository->findAll();
 
    
         $user = $this->getUser();
-        $paniers = $panierRepository->findBy(['user' => $user]);
-
-      
-        $panierCount = 0;
-
-        foreach ($paniers as $key => $value) {
-            $panierCount += $value->getPanierCount();
-        }
+       
 
       // Stockage du nombre total d'articles dans la session
-      $session->set('panierCount', $panierCount);
+      $panierCount = $session->get('panierCount');
        
         return $this->render('cart/index.html.twig', [
-            'paniers' => $paniers,
+            
             'panierCount' => $panierCount,
             'user' => $user,
             'paints' => $paints,

@@ -1,18 +1,20 @@
-<?php
+<?php 
 
 namespace App\Controller;
 
+use App\Entity\Etoile;
 use App\Entity\Messages;
 use App\Entity\Paint;
+use App\Entity\Stars;
 use App\Form\MessagesType;
+use App\Repository\EtoileRepository;
 use App\Repository\MessagesRepository;
-use App\Repository\PaintRepository;
-use App\Repository\PanierRepository;
+use App\Repository\StarsRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -20,15 +22,15 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class PaintController extends AbstractController
 {
     #[Route('/paint/{id}', name: 'app_paint')]
-    public function index(Paint $paint, Request $request,MessagesRepository $messagesRepository, EntityManagerInterface $entityManager, SessionInterface $session): Response
-    {  //Rechercher les messages existants  sur cette peinture
-        $messages = $messagesRepository->findBy(['paint' => $paint]);
-        
-        $message = new Messages();
-        // Vérifier si l'utilisateur a déjà commenté cette peinture
+    public function index(Paint $paint, Request $request, MessagesRepository $messagesRepository, EntityManagerInterface $entityManager, SessionInterface $session): Response
+    {
         $user = $this->getUser();
         $alreadyCommented = false;
-        //   dd($user);
+
+        // Rechercher les messages existants sur cette peinture
+        $messages = $messagesRepository->findBy(['paint' => $paint]);
+
+        $message = new Messages();
         $form = $this->createForm(MessagesType::class, $message);
         $form->handleRequest($request);
 
@@ -37,20 +39,10 @@ class PaintController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$user) {
                 // Stocker le message d'alerte dans la session
-                $this->addFlash('warning', 'You must be logged to submit an application');// Rediriger vers la page de la peinture avec un paramètre pour afficher l'alerte
+                $this->addFlash('info', '⚡ You must be logged in to submit a comment.');
                 return $this->redirectToRoute('app_paint', ['id' => $paint->getId()]);
             }
-            // Rechercher un message existant de cet utilisateur sur cette peinture
-            $existingMessage = $messagesRepository->findOneBy([
-                'paint' => $paint,
-                'user' => $user
-            ]);
-            
-         
-            if ($existingMessage) {
-                $this->addFlash('info', 'You have already commented on this painting.');
-                $alreadyCommented = true;
-            } else {
+           
                 $date = new DateTimeImmutable();
                 $message->setCreatedAt($date);
                 $message->setPaint($paint);
@@ -58,10 +50,12 @@ class PaintController extends AbstractController
 
                 $entityManager->persist($message);
                 $entityManager->flush();
+                $this->addFlash('succes', '✅ Your comment has been submitted.');
 
                 return $this->redirectToRoute('app_paint', ['id' => $paint->getId()], Response::HTTP_SEE_OTHER);
-            }
+            
         }
+
         return $this->render('paint/index.html.twig', [
             'message' => $message,
             'panierCount' => $panierCount,
@@ -73,36 +67,53 @@ class PaintController extends AbstractController
         ]);
     }
 
-    // pour étoile dans la page paints
     #[Route('/paint/{id}/rate/{grade}', name: 'app_rate_paint')]
-    public function ratePaint(Paint $paint, string $grade, EntityManagerInterface $entityManager): RedirectResponse
-    {    // Vérifier si l'utilisateur est authentifié
+    public function ratePaint(Paint $paint, int $grade, EntityManagerInterface $entityManager, StarsRepository $starsRepository, SessionInterface $session): RedirectResponse
+    {
+        // Vérifier si l'utilisateur est authentifié
         $user = $this->getUser();
         if (!$user) {
-            // Stocker le message d'alerte dans la session
-            $this->addFlash('failed', 'You must be logged to submit an application'); // Rediriger vers la page de la peinture avec un paramètre pour afficher l'alerte
+            $this->addFlash('warning', '⚡ You must be logged in to submit a rating.');
             return $this->redirectToRoute('app_paint', ['id' => $paint->getId()]);
         }
+    
         // Vérifier si l'utilisateur a déjà noté cette peinture
-
-        $grade = (int)$grade;
-
-        // Mettre à jour les informations de la peinture
-        $newGradeCount = $paint->getGradeCount() + 1;
-        $paint->setGradeCount($newGradeCount);
-
-        // Calculer le nouveau grade total en utilisant la méthode de l'entité
-        $newGradeTotal = $paint->getGradeTotal() + $grade;
-        $paint->setGradeTotal($newGradeTotal);
-
-        // Enregistrer les modifications dans la base de données
-        $entityManager->persist($paint);
-        $entityManager->flush();
-
-
-        // Rediriger vers la page de détails de la peinture
+        $alreadyNote = false;
+        $existingEtoile = $starsRepository->findOneBy([
+            'paint' => $paint,
+            'user' => $user
+        ]);
+    
+        if ($existingEtoile) {
+            $this->addFlash('warning', ' ⚠️ You have already rated this painting. Your rating has been updated.');
+            $alreadyNote = true;
+        } else {
+            $etoile = new Stars();
+            $etoile->setPaint($paint);
+            $etoile->setUser($user);
+            $etoile->setGradeCount(1);
+            $etoile->setGradeTotal($grade);
+    
+            // Mettre à jour les informations de la peinture
+            $newGradeCount = $paint->getGradeCount() + 1;
+            $paint->setGradeCount($newGradeCount);
+    
+            // Calculer le nouveau grade total en utilisant la méthode de l'entité
+            $newGradeTotal = $paint->getGradeTotal() + $grade;
+            $paint->setGradeTotal($newGradeTotal);
+    
+            // Enregistrer les modifications dans la base de données
+            $entityManager->persist($paint);
+            $entityManager->persist($etoile);
+            $entityManager->flush();
+    
+            $this->addFlash('success', '✅ Your rating has been submitted.');
+        }
+    
+        // Calculer la note moyenne et la stocker dans la session
+        $averageGrade = $paint->getGradeCount() > 0 ? $paint->getGradeTotal() / $paint->getGradeCount() : 0;
+        $session->set('note', $averageGrade);
+    
         return $this->redirectToRoute('app_paint', ['id' => $paint->getId()]);
     }
-
-
 }

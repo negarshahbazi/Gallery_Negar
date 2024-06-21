@@ -22,7 +22,14 @@ class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
-    {
+    { 
+           // Vérifier si l'utilisateur a le rôle 'ROLE_ADMIN'
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            // Si l'utilisateur n'a pas le rôle, lever une exception ou ajouter une alerte
+            $this->addFlash('danger', 'Vous n\'avez pas la permission d\'accéder à cette page.');
+
+            return $this->redirectToRoute('app_home');
+        }
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
@@ -72,7 +79,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData(); // Update the $user variable with the form data
             $methodPayment = $form->get('methodPayment')->getData(); // Get the method payment from the form
-    
+   
             // Set the method payment on the user entity
             $user->setMethodPayment($methodPayment);
     
@@ -82,9 +89,10 @@ class UserController extends AbstractController
 
             if ($methodPayment === 'stripe') {
 
-                Stripe::setApiKey($this->getParameter('stripe_key'));
+                $stripeKey = $this->getParameter('stripe_key');
+                Stripe::setApiKey($stripeKey);
                 header('Content-Type: application/json');
-                $YOUR_DOMAIN = 'http://127.0.0.1:8000/';
+                $YOUR_DOMAIN = 'http://127.0.0.1:8000';
 
                 $paymentIntent = \Stripe\Checkout\Session::create([
                     'payment_method_types' => ['card'],
@@ -98,6 +106,7 @@ class UserController extends AbstractController
                                     // Autres informations sur le produit...
                                 ],
                             ],
+                            
                             'quantity' => $panierCount,
                         ],
                     ],
@@ -105,15 +114,13 @@ class UserController extends AbstractController
                     'success_url' => $YOUR_DOMAIN . '/',
                     'cancel_url' => $YOUR_DOMAIN . '/',
                 ]);
-
-
-
                 return $this->redirect($paymentIntent->url);
             } else if ($methodPayment === 'paypal') {
                 $YOUR_DOMAIN = 'http://127.0.0.1:8000/';
 
-
-                $environment = new SandboxEnvironment($this->getParameter('paypalClientId'), $this->getParameter('paypalSecret'));
+                $paypalClientId = $this->getParameter('paypalClientId');
+                $paypalSecret = $this->getParameter('paypalSecret');
+                $environment = new SandboxEnvironment($paypalClientId, $paypalSecret);
                 $client = new PayPalHttpClient($environment);
 
                 $request = new OrdersCreateRequest();
@@ -130,6 +137,7 @@ class UserController extends AbstractController
                     'cancel_url' => $YOUR_DOMAIN . '/',
                 ];
                 $response = $client->execute($request);
+                dd($response);
                 // Obtenez l'URL d'approbation PayPal
                 $approvalUrl = $response->result->links[1]->href;
 
@@ -143,10 +151,6 @@ class UserController extends AbstractController
                     dump("Approval URL is empty. Handle the error.");
                 }
             }
-
-            
-
-
             return $this->redirectToRoute('app_user_edit', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
         }
 
