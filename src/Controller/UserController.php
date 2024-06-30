@@ -22,8 +22,8 @@ class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
-    { 
-           // Vérifier si l'utilisateur a le rôle 'ROLE_ADMIN'
+    {
+        // Vérifier si l'utilisateur a le rôle 'ROLE_ADMIN'
         if (!$this->isGranted('ROLE_ADMIN')) {
             // Si l'utilisateur n'a pas le rôle, lever une exception ou ajouter une alerte
             $this->addFlash('danger', 'Vous n\'avez pas la permission d\'accéder à cette page.');
@@ -79,13 +79,13 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData(); // Update the $user variable with the form data
             $methodPayment = $form->get('methodPayment')->getData(); // Get the method payment from the form
-   
+
             // Set the method payment on the user entity
             $user->setMethodPayment($methodPayment);
-    
+
             // Persist the user object
             $entityManager->persist($user);
-            $entityManager->flush();         
+            $entityManager->flush();
 
             if ($methodPayment === 'stripe') {
 
@@ -106,7 +106,7 @@ class UserController extends AbstractController
                                     // Autres informations sur le produit...
                                 ],
                             ],
-                            
+
                             'quantity' => $panierCount,
                         ],
                     ],
@@ -137,17 +137,17 @@ class UserController extends AbstractController
                     'cancel_url' => $YOUR_DOMAIN . '/',
                 ];
                 $response = $client->execute($request);
-                dd($response);
+
                 // Obtenez l'URL d'approbation PayPal
                 $approvalUrl = $response->result->links[1]->href;
 
                 // Rediriger vers l'URL d'approbation PayPal
-                
+
                 if (!empty($approvalUrl)) {
                     // dd($approvalUrl) ;
                     return new RedirectResponse($approvalUrl);
                 } else {
-                 
+
                     dump("Approval URL is empty. Handle the error.");
                 }
             }

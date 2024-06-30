@@ -16,9 +16,9 @@ class MessagesType extends AbstractType
             ->add('messages', TextareaType::class, [
                 'label' => ' ',
                 'attr' => [
-                    'class' => 'custom-textarea', // Ajoutez une classe CSS personnalisée
-                    'style' => 'width: 100%;background-color: rgba(255, 255, 255, 0.6);color: white;', // Définissez la largeur de la zone de texte
-                    'placeholder' => 'Enter your message here...', // Ajoutez un texte de rappel (placeholder)  
+                    'class' => 'custom-textarea', 
+                    'style' => 'width: 100%;background-color: rgba(255, 255, 255, 0.6);color: white;',
+                    'placeholder' => 'Enter your message here...', 
                 ],
             ]);
     }

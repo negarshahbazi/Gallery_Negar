@@ -36,24 +36,29 @@
 			<h1 class="text-center  text-white">Don't let the walls of your home be empty and lonely without works of art!</h1>
 		</div>
 	</div>
-
 	<div class="latest">
 		{% for paint in paints %}
-
-			<div class="col-9 w-100 d-flex justify-content-center align-items-center">
+			<div class="bodyCard">
+				<svg width="80" height="60" viewbox="5 0 80 60">
+					<path class="wave" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M 0 37.5 c 7.684299348848887 0 7.172012725592294 -15 15 -15 s 7.172012725592294 15 15 15 s 7.172012725592294 -15 15 -15 s 7.172012725592294 15 15 15 s 7.172012725592294 -15 15 -15 s 7.172012725592294 15 15 15 s 7.172012725592294 -15 15 -15 s 7.172012725592294 15 15 15 s 7.172012725592294 -15 15 -15 s 7.172012725592294 15 15 15 s 7.172012725592294 -15 15 -15 s 7.172012725592294 15 15 15 s 7.172012725592294 -15 15 -15 s 7.172012725592294 15 15 15 s 7.172012725592294 -15 15 -15" $="1$=010.0"/>
+				</svg>
+				<div class="animation-title">
+					{{ paint.title }}
+				</div>
+				<svg width="80" height="60" viewbox="5 0 80 60">
+					<path class="wave" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" d="M 0 37.5 c 7.684299348848887 0 7.172012725592294 -15 15 -15 s 7.172012725592294 15 15 15 s 7.172012725592294 -15 15 -15 s 7.172012725592294 15 15 15 s 7.172012725592294 -15 15 -15 s 7.172012725592294 15 15 15 s 7.172012725592294 -15 15 -15 s 7.172012725592294 15 15 15 s 7.172012725592294 -15 15 -15 s 7.172012725592294 15 15 15 s 7.172012725592294 -15 15 -15 s 7.172012725592294 15 15 15 s 7.172012725592294 -15 15 -15 s 7.172012725592294 15 15 15 s 7.172012725592294 -15 15 -15" $="1$=010.0"/>
+				</svg>
 				{% if paint.photo %}
-				{# <div class="titleGallery">
-						<div class="img-title">{{ paint.title }}</div>
-					</div> #}
+					<a class=" w-100 d-flex justify-content-center align-items-center" target=" _blank" href=" {{ path('app_paint', { 'id': paint.id } ) }}">
 						<img class="shadow-lg different img-lg" src="{{ paint.photo }}" alt="{{ paint.title }}">
-					
+					</a>
 				{% else %}
 					<p>No image available for
 						{{ paint.title }}</p>
 				{% endif %}
 			</div>
-
 		{% endfor %}
 	</div>
+
 
 {% endblock %}

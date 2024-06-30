@@ -106,12 +106,14 @@
 						<!-- Champ caché pour stocker la valeur de la note -->
 						<input type="hidden" id="grade" name="grade" value="">
 						<!-- Génération des étoiles -->
+						<div class="ratingstar">
 						<fieldset class="rating ">
-							{% for star in 1..5 %}
+							{% for star in 5..1 %}
 								<input class="input " type="radio" id="star{{ star }}" name="rating" value="{{ star }}"/>
 								<label class="label full" for="star{{ star }}" title="{{ star }} star">&#9733;</label>
 							{% endfor %}
 						</fieldset>
+						</div>
 						<!-- Affichage de l'alerte si nécessaire -->
 						{% for message in app.flashes('warning') %}
 							<div class="alert alert-danger" role="alert">
@@ -129,19 +131,19 @@
 						<a href="{{ path('app_panier_new', {'id': paint.id}) }}" class="btn bg-gradient text-white w-25">Add to cart</a>
 						<a href="{{ path('app_cart', {'id': paint.id}) }}" class="btn bg-gradient text-white w-25">Cart</a>
 					</div>
-<!-- /=======commentaire========/ -->
+{# commentaire #}
 					<div>
 						<p class="colorTextPaint">Comment:
 						</p>
 						{{ include('messages/_form.html.twig') }}
-						{# {{ dump(messages) }}; #}
+					
 						<div class="message-container">
 							{% if messages is not empty %}
 								{% for message in messages %}
 									<div>
 										<div class="w-100 textareaPaint">
-											<span class="nomTextArea">{{ message.user.firstName }}</span>:
-											{{ message.messages }}
+											<span class="nomTextArea">{{ message.user.firstName }}: </span>
+											<span class="textArea">{{ message.messages }}</span>
 											<span class="dateTextArea">({{ message.createdAt|date('Y-m-d H:i:s') }})</span>
 										</div>
 									</div>

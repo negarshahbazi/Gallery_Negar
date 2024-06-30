@@ -52,7 +52,7 @@
 		</svg>
 		<div class="svgShadow"></div>
 	</div>
-	
+
 	{# cardcute #}
 	<section>
 		<div class="container ">
@@ -93,244 +93,251 @@
 							<span class="textDimention">{{ category.name }}</span>
 						</div>
 					</a>
-				</a>
-			</div>
-		{% endfor %}
-	</div>
-</div>
-{# paints #}
 
-<section class="mb-5">
-	<div class="container mb-5">
-		<div id="carouselExample" class="carousel slide mb-5" data-bs-ride="carousel">
-			<div class="carousel-inner">
-				{% for chunk in paints|batch(9) %}
-					<div class="carousel-item {% if loop.first %}active{% endif %}">
-						<div class="container">
-							<div class="row rowStyle justify-content-center align-items-center ">
-								{% for paint in chunk %}
-									<div class="col-lg-3 backGen col-md-4 col-sm-6 divPaints m-3 text-black text-white">
-										<div class="container">
-											<div
-												class=" divImage mb-4">
-												<!-- Ajout de la classe mb-4 pour l'espacement entre les images -->
-
-												<a href="{{ path('app_paint', { id: paint.id }) }}"><img src="{{ paint.photo }}" alt="" class="img-fluid"></a>
-											</div>
-										</div>
-										<div class="">
-											<h3 class="textColor">{{ paint.title }}</h3>
-											<div class="d-flex justify-content-start  ">
-												<h5 class="fontSize">
-													<span>Type:
-													</span>
-													{{ paint.category }}</h5>
-											</div>
-											<div class="d-flex justify-content-end">
-												<h5>{{ paint.price }}€</h5>
-											</div>
-											<!-- Autres éléments ici -->
-											<div class="d-flex justify-content-between align-items-center">
-												{% set averageGrade = paint.gradeTotal / paint.gradeCount %}
-												<!-- Génération des étoiles -->
-												<fieldset class="rating ">
-													{% for star in 1..5 %}
-														{% if star <= averageGrade %}
-															<span class="yellow-star">&#9733;</span>
-														{% else %}
-															<span class="gray-star">&#9733;</span>
-														{% endif %}
-													{% endfor %}
-												</fieldset>
-
-												<a href="{{ path('app_panier_new', { id: paint.id }) }}" class="panier-link">
-													<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="yellow" class="bi bi-cart4 panierSvg" viewbox="0 0 16 16">
-														<path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
-													</svg>
-													{% for panier in paniers %}
-														{% if panier is not null and panier.paint is not null and panier.paint.id == paint.id %}
-															<span class="count"> 1 </span>
-														{% endif %}
-
-
-													{% endfor %}
-												</a>
-
-											</div>
-										</div>
-									</div>
-
-								{% endfor %}
-							</div>
-						</div>
-					</div>
-				{% endfor %}
-			</div>
-
-			<button class="carousel-control-prev p-0 m-0" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Previous</span>
-			</button>
-
-			<div class="QQQ">
-				<button class="carousel-control-next p-0 m-0" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Next</span>
-				</button>
-			</div>
+				</div>
+			{% endfor %}
 		</div>
 	</div>
+	{# paints #}
 
-</section>
-<div class="wrapper d-flex justify-content-center align-items-center text-center">
-	<div class="circle"></div>
-	<div class="circle"></div>
-	<div class="circle"></div>
-	<div class="shadow"></div>
-	<div class="shadow"></div>
-	<div class="shadow"></div>
-</div>
-{# paint #}
-<!--Timeline carousel-->
-<div class="d-flex justify-content-between align-items-center titrPoster">
-	<div class="d-flex flex-column justify-content-center align-items-center">
-		<img class="vahshi" src="{{ asset('../../assets/img/young-woman-who-is-posing-covered-with-black-paint-removebg-preview.png') }}" alt="photo">
-	</div>
-	<h1 class="text-white">The classification of the arts</h1>
-	<div class="d-flex flex-column justify-content-center align-items-center">
-		<img class="vahshi" src="{{ asset('../../assets/img/portrait-young-woman-who-is-posing-covered-with-black-paint__3_-removebg-preview.png') }}" alt="photo">
+	<section class="mb-5">
+		<div class="container mb-5">
+			<div id="carouselExample" class="carousel slide mb-5" data-bs-ride="carousel">
+				<div class="carousel-inner">
+					{% for chunk in paints|batch(9) %}
+						<div class="carousel-item {% if loop.first %}active{% endif %}">
+							<div class="container">
+								<div class="row rowStyle justify-content-center align-items-center ">
+									{% for paint in chunk %}
+										<div class="col-lg-3 backGen col-md-4 col-sm-6 divPaints m-3 text-black text-white">
+											<div class="container">
+												<div
+													class=" divImage mb-4">
+													<!-- Ajout de la classe mb-4 pour l'espacement entre les images -->
 
-	</div>
-</div>
-<section class="timeline-carousel ">
+													<a href="{{ path('app_paint', { id: paint.id }) }}"><img src="{{ paint.photo }}" alt="" class="img-fluid"></a>
+												</div>
+											</div>
+											<div class="">
+												<h3 class="textColor">{{ paint.title }}</h3>
+												<div class="d-flex justify-content-start  ">
+													<h5 class="fontSize">
+														<span>Type:
+														</span>
+														{{ paint.category }}</h5>
+												</div>
+												<div class="d-flex justify-content-end">
+													<h5>{{ paint.price }}€</h5>
+												</div>
+												
+												<div class="d-flex justify-content-between align-items-center">
+													{% set averageGrade = paint.gradeTotal / paint.gradeCount %}
+													<!-- Génération des étoiles -->
+													<fieldset class="ratingPaint ">
+														{% for star in 1..5 %}
+															{% if star <= averageGrade %}
+																<span class="yellow-star">&#9733;</span>
+															{% else %}
+																<span class="gray-star">&#9733;</span>
+															{% endif %}
 
-	<div class="timeline-carousel__item-wrapper " data-js="timeline-carousel">
+														{% endfor %}
+																<span class="rating-score">({{ averageGrade|round(1) }}/5)</span>
 
-		{% for category in categories %}
-			<div class="timeline-carousel__item ">
-				<div class="row timeline-carousel__image d-flex justify-content-between align-items-center mb-3">
-					<div class="col-xl-3 col-lg-6 media-wrapper media-wrapper--overlay "><img class="media-wrapper rounded" src={{ category.url }}></div>
-					<div class="col-xl-8 col-lg-6 media-wrapper media-wrapper--overlay timeline-carousel__item-inner">
-						<span class="nameCategory ml-3">{{ category.name}}</span>
+													</fieldset>
 
-						<span class="month ml-3">{{ category.year}}</span>
-						<div class="">
-							<p class="ml-3 ">
-								{{ category.explique}}</p>
-							<span class="text-white">
-								<span>
-									<b>The most famous painters in
-										{{ category.name}}:
-									</b>
-								</span>
-								{{ category.famous}}</span>
+													<a href="{{ path('app_panier_new', { id: paint.id }) }}" class="panier-link">
+														<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="yellow" class="bi bi-cart4 panierSvg" viewbox="0 0 16 16">
+															<path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+														</svg>
+														{% for panier in paniers %}
+															{% if panier is not null and panier.paint is not null and panier.paint.id == paint.id %}
+																<span class="count">
+																	1
+																</span>
+															{% endif %}
+
+
+														{% endfor %}
+													</a>
+
+												</div>
+											</div>
+										</div>
+
+									{% endfor %}
+								</div>
+							</div>
 						</div>
-						{# <a href="#" class="read-more mt-3">Read more</a> #}
-						<div class="backGold">
-							<a href="{{ category.readMore}}" class="btn-shine ">Read more</a>
+					{% endfor %}
+				</div>
+
+				<button class="carousel-control-prev p-0 m-0" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+
+				<div class="QQQ">
+					<button class="carousel-control-next p-0 m-0" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+	</section>
+	<div class="wrapper d-flex justify-content-center align-items-center text-center">
+		<div class="circle"></div>
+		<div class="circle"></div>
+		<div class="circle"></div>
+		<div class="shadow"></div>
+		<div class="shadow"></div>
+		<div class="shadow"></div>
+	</div>
+	{# paint #}
+	<!--Timeline carousel-->
+	<div class="d-flex justify-content-between align-items-center titrPoster">
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<img class="vahshi" src="{{ asset('../../assets/img/young-woman-who-is-posing-covered-with-black-paint-removebg-preview.png') }}" alt="photo">
+		</div>
+		<h1 class="text-white">The classification of the arts</h1>
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<img class="vahshi" src="{{ asset('../../assets/img/portrait-young-woman-who-is-posing-covered-with-black-paint__3_-removebg-preview.png') }}" alt="photo">
+
+		</div>
+	</div>
+	<section class="timeline-carousel ">
+
+		<div class="timeline-carousel__item-wrapper " data-js="timeline-carousel">
+
+			{% for category in categories %}
+				<div class="timeline-carousel__item ">
+					<div class="row timeline-carousel__image d-flex justify-content-between align-items-center mb-3">
+						<div class="col-xl-3 col-lg-6 media-wrapper media-wrapper--overlay "><img class="media-wrapper rounded" src={{ category.url }}></div>
+						<div class="col-xl-8 col-lg-6 media-wrapper media-wrapper--overlay timeline-carousel__item-inner">
+							<span class="nameCategory ml-3">{{ category.name}}</span>
+
+							<span class="month ml-3">{{ category.year}}</span>
+							<div class="">
+								<p class="ml-3 ">
+									{{ category.explique}}</p>
+								<span class="text-white">
+									<span>
+										<b>The most famous painters in
+											{{ category.name}}:
+										</b>
+									</span>
+									{{ category.famous}}</span>
+							</div>
+							{# <a href="#" class="read-more mt-3">Read more</a> #}
+							<div class="backGold">
+								<a href="{{ category.readMore}}" class="btn-shine ">Read more</a>
+							</div>
+
 						</div>
 
 					</div>
 
 				</div>
-
-			</div>
-		{% endfor %}
-
-	</div>
-</section>
-{# services #}
-<section>
-	<div class="text-white d-flex flex-column justify-content-center align-items-center bg-gray">
-		<h1 class="mb-4">Our Services</h1>
-		<p class="w-50 text-center">At Negar, we believe in the transformative power of art. Our gallery is a vibrant hub of creativity, offering an exquisite collection of paintings that evoke emotion, inspire imagination, and elevate everyday experiences. Whether you're a seasoned art collector or a first-time buyer, Negar is your premier destination for discovering and acquiring exceptional artworks that speak to your soul.</p>
-	</div>
-	<div class="container d-flex flex-column justify-content-center align-items-center">
-		<div class="row d-flex justify-content-center align-items-start">
-			<div class="col-xl-3  text-center d-flex flex-column justify-content-start align-items-center serviceCol">
-				<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#510000" class="bi bi-bar-chart" viewbox="0 0 16 16">
-					<path d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/>
-				</svg>
-				<h2 class="m-3 titreService">Art Consultation:</h2>
-				<p > Let our expert team guide you through your art-buying journey with personalized art consultation and curation services. Whether you're seeking advice on selecting the right artwork for your home or need assistance in curating a cohesive art collection, we're here to help. Let us guide you in making informed decisions that elevate your space with art.</p>
-			</div>
-			<div class="col-xl-3 text-center d-flex flex-column justify-content-start align-items-center serviceCol">
-				<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#510000" class="bi bi-lightbulb" viewbox="0 0 16 16">
-					<path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13a.5.5 0 0 1 0 1 .5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1 0-1 .5.5 0 0 1 0-1 .5.5 0 0 1-.46-.302l-.761-1.77a2 2 0 0 0-.453-.618A5.98 5.98 0 0 1 2 6m6-5a5 5 0 0 0-3.479 8.592c.263.254.514.564.676.941L5.83 12h4.342l.632-1.467c.162-.377.413-.687.676-.941A5 5 0 0 0 8 1"/>
-				</svg>
-				<h2 class="m-3 titreService">Online Art Sales and Auctions:</h2>
-				<p>Experience the convenience of buying art online through Negar's secure platform. Browse our extensive catalog of paintings from the comfort of your home, and purchase your favorite pieces with confidence. Additionally, stay tuned for exclusive art auctions featuring rare and collectible artworks, where you can bid on coveted pieces and expand your art collection with ease.</p>
-			</div>
-			<div class="col-xl-3 text-center d-flex flex-column justify-content-start align-items-center serviceCol">
-				<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#510000" class="bi bi-palette" viewbox="0 0 16 16">
-					<path d="M8 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3m4 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M5.5 7a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
-					<path d="M16 8c0 3.15-1.866 2.585-3.567 2.07C11.42 9.763 10.465 9.473 10 10c-.603.683-.475 1.819-.351 2.92C9.826 14.495 9.996 16 8 16a8 8 0 1 1 8-8m-8 7c.611 0 .654-.171.655-.176.078-.146.124-.464.07-1.119-.014-.168-.037-.37-.061-.591-.052-.464-.112-1.005-.118-1.462-.01-.707.083-1.61.704-2.314.369-.417.845-.578 1.272-.618.404-.038.812.026 1.16.104.343.077.702.186 1.025.284l.028.008c.346.105.658.199.953.266.653.148.904.083.991.024C14.717 9.38 15 9.161 15 8a7 7 0 1 0-7 7"/>
-				</svg>
-				<h2 class="m-3 titreService">Curated Collections:</h2>
-				<p>Immerse yourself in our meticulously curated collections, showcasing a diverse range of artistic styles, themes, and mediums.  Each painting in our gallery is carefully selected to captivate and inspire our visitors. Explore our curated collections and find the perfect piece to enrich your space and reflect your unique taste.</p>
-			</div>
-		</div>
-	</div>
-</section>
-{# line pub #}
-<section class="d-flex justify-content-center align-items-center text-center">
-	<div class="row backVideo m-5 d-flex justify-content-center align-items-center text-center">
-		<div class="col-7">
-			<video class="videoReel" autoplay loop muted>
-				<source
-				src="{{ asset('assets/img/IMG_7171.MOV') }}" type="video/mp4">
-				<!-- Fournissez un message alternatif pour les navigateurs qui ne prennent pas en charge la balise vidéo -->
-				Votre navigateur ne prend pas en charge la lecture de vidéos.
-			</video>
-		</div>
-		<div class="sp-container col-5">
-			<div class="sp-content">
-				<div class="sp-globe"></div>
-				<h2 class="frame-1">If you like to learn more</h2>
-				<h2 class="frame-2">about art categories,</h2>
-				<h2 class="frame-3">join me</h2>
-				<h2 class="frame-5">
-					<span>NEGAR,</span>
-					<span>ART,</span>
-					<span>GALLERY.</span>
-					{# <div><a class=" text-decoration-none sp-circle-link " href="#">by Negar</a></div> #}
-				</h2>
-			</div>
+			{% endfor %}
 
 		</div>
+	</section>
+	{# services #}
+	<section>
+		<div class="text-white d-flex flex-column justify-content-center align-items-center bg-gray">
+			<h1 class="mb-4">Our Services</h1>
+			<p class="w-50 text-center">At Negar, we believe in the transformative power of art. Our gallery is a vibrant hub of creativity, offering an exquisite collection of paintings that evoke emotion, inspire imagination, and elevate everyday experiences. Whether you're a seasoned art collector or a first-time buyer, Negar is your premier destination for discovering and acquiring exceptional artworks that speak to your soul.</p>
+		</div>
+		<div class="container d-flex flex-column justify-content-center align-items-center">
+			<div class="row d-flex justify-content-center align-items-start">
+				<div class="col-xl-3  text-center d-flex flex-column justify-content-start align-items-center serviceCol">
+					<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#510000" class="bi bi-bar-chart" viewbox="0 0 16 16">
+						<path d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/>
+					</svg>
+					<h2 class="m-3 titreService">Art Consultation:</h2>
+					<p>
+						Let our expert team guide you through your art-buying journey with personalized art consultation and curation services. Whether you're seeking advice on selecting the right artwork for your home or need assistance in curating a cohesive art collection, we're here to help. Let us guide you in making informed decisions that elevate your space with art.</p>
+				</div>
+				<div class="col-xl-3 text-center d-flex flex-column justify-content-start align-items-center serviceCol">
+					<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#510000" class="bi bi-lightbulb" viewbox="0 0 16 16">
+						<path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13a.5.5 0 0 1 0 1 .5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1 0-1 .5.5 0 0 1 0-1 .5.5 0 0 1-.46-.302l-.761-1.77a2 2 0 0 0-.453-.618A5.98 5.98 0 0 1 2 6m6-5a5 5 0 0 0-3.479 8.592c.263.254.514.564.676.941L5.83 12h4.342l.632-1.467c.162-.377.413-.687.676-.941A5 5 0 0 0 8 1"/>
+					</svg>
+					<h2 class="m-3 titreService">Online Art Sales and Auctions:</h2>
+					<p>Experience the convenience of buying art online through Negar's secure platform. Browse our extensive catalog of paintings from the comfort of your home, and purchase your favorite pieces with confidence. Additionally, stay tuned for exclusive art auctions featuring rare and collectible artworks, where you can bid on coveted pieces and expand your art collection with ease.</p>
+				</div>
+				<div class="col-xl-3 text-center d-flex flex-column justify-content-start align-items-center serviceCol">
+					<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#510000" class="bi bi-palette" viewbox="0 0 16 16">
+						<path d="M8 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3m4 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M5.5 7a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+						<path d="M16 8c0 3.15-1.866 2.585-3.567 2.07C11.42 9.763 10.465 9.473 10 10c-.603.683-.475 1.819-.351 2.92C9.826 14.495 9.996 16 8 16a8 8 0 1 1 8-8m-8 7c.611 0 .654-.171.655-.176.078-.146.124-.464.07-1.119-.014-.168-.037-.37-.061-.591-.052-.464-.112-1.005-.118-1.462-.01-.707.083-1.61.704-2.314.369-.417.845-.578 1.272-.618.404-.038.812.026 1.16.104.343.077.702.186 1.025.284l.028.008c.346.105.658.199.953.266.653.148.904.083.991.024C14.717 9.38 15 9.161 15 8a7 7 0 1 0-7 7"/>
+					</svg>
+					<h2 class="m-3 titreService">Curated Collections:</h2>
+					<p>Immerse yourself in our meticulously curated collections, showcasing a diverse range of artistic styles, themes, and mediums.  Each painting in our gallery is carefully selected to captivate and inspire our visitors. Explore our curated collections and find the perfect piece to enrich your space and reflect your unique taste.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	{# line pub #}
+	<section class="d-flex justify-content-center align-items-center text-center">
+		<div class="row backVideo m-5 d-flex justify-content-center align-items-center text-center">
+			<div class="col-7">
+				<video class="videoReel" autoplay loop muted>
+					<source
+					src="{{ asset('assets/img/IMG_7171.MOV') }}" type="video/mp4">
+					<!-- Fournissez un message alternatif pour les navigateurs qui ne prennent pas en charge la balise vidéo -->
+					Votre navigateur ne prend pas en charge la lecture de vidéos.
+				</video>
+			</div>
+			<div class="sp-container col-5">
+				<div class="sp-content">
+					<div class="sp-globe"></div>
+					<h2 class="frame-1">If you like to learn more</h2>
+					<h2 class="frame-2">about art categories,</h2>
+					<h2 class="frame-3">join me</h2>
+					<h2 class="frame-5">
+						<span>NEGAR,</span>
+						<span>ART,</span>
+						<span>GALLERY.</span>
+						{# <div><a class=" text-decoration-none sp-circle-link " href="#">by Negar</a></div> #}
+					</h2>
+				</div>
+
+			</div>
 
 
-	</div>
-</section>
+		</div>
+	</section>
 
 
-
-{% endblock %}{% block javascripts %}
- <script>
-							$.js = function (el) {
-							    return $('[data-js=' + el + ']')
-							};
-							
-							function carousel() {
-							  $.js('timeline-carousel').slick({
-							    infinite: false,
-							    arrows: false,
-							    dots: true,
-							    autoplay: false,
-							    speed: 1100,
-							    slidesToShow: 2,
-							    slidesToScroll: 2,
-							    responsive: [
-							      {
-							        breakpoint: 800,
-							        settings: {
-							          slidesToShow: 1,
-							          slidesToScroll: 1
-							        }
-							      }]
-							  });
-							}
-							
-							carousel();
-							
-							</script>{% endblock %}
+{% endblock %}
+{% block javascripts %}
+	 <script>
+								$.js = function (el) {
+								    return $('[data-js=' + el + ']')
+								};
+								
+								function carousel() {
+								  $.js('timeline-carousel').slick({
+								    infinite: false,
+								    arrows: false,
+								    dots: true,
+								    autoplay: false,
+								    speed: 1100,
+								    slidesToShow: 2,
+								    slidesToScroll: 2,
+								    responsive: [
+								      {
+								        breakpoint: 800,
+								        settings: {
+								          slidesToShow: 1,
+								          slidesToScroll: 1
+								        }
+								      }]
+								  });
+								}
+								
+								carousel();
+								
+								</script>
+{% endblock %}

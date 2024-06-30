@@ -28,7 +28,7 @@ class PaintController extends AbstractController
         $alreadyCommented = false;
 
         // Rechercher les messages existants sur cette peinture
-        $messages = $messagesRepository->findBy(['paint' => $paint]);
+        $messages = $messagesRepository->findBy(['paint' => $paint], ['id' => 'DESC']);
 
         $message = new Messages();
         $form = $this->createForm(MessagesType::class, $message);
@@ -85,7 +85,7 @@ class PaintController extends AbstractController
         ]);
     
         if ($existingEtoile) {
-            $this->addFlash('warning', ' ⚠️ You have already rated this painting. Your rating has been updated.');
+            $this->addFlash('warning', ' ⚠️ You have already rated this painting.');
             $alreadyNote = true;
         } else {
             $etoile = new Stars();
