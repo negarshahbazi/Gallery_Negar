@@ -226,7 +226,7 @@
 							<span class="nameCategory ml-3">{{ category.name}}</span>
 
 							<span class="month ml-3">{{ category.year}}</span>
-							<div class="">
+							<div>
 								<p class="ml-3 ">
 									{{ category.explique}}</p>
 								<span class="text-white">
@@ -318,31 +318,31 @@
 {% endblock %}
 {% block javascripts %}
 	 <script>
-														$.js = function (el) {
-														    return $('[data-js=' + el + ']')
-														};
-														
-														function carousel() {
-														  $.js('timeline-carousel').slick({
-														    infinite: false,
-														    arrows: false,
-														    dots: true,
-														    autoplay: false,
-														    speed: 1100,
-														    slidesToShow: 2,
-														    slidesToScroll: 2,
-														    responsive: [
-														      {
-														        breakpoint: 800,
-														        settings: {
-														          slidesToShow: 1,
-														          slidesToScroll: 1
-														        }
-														      }]
-														  });
-														}
-														
-														carousel();
-														
-														</script>
+	$.js = function (el) {
+	    return $('[data-js=' + el + ']')
+	};
+	
+	function carousel() {
+	  $.js('timeline-carousel').slick({
+	    infinite: false,
+	    arrows: false,
+	    dots: true,
+	    autoplay: false,
+	    speed: 1100,
+	    slidesToShow: 2,
+	    slidesToScroll: 2,
+	    responsive: [
+	      {
+	        breakpoint: 800,
+	        settings: {
+	          slidesToShow: 1,
+	          slidesToScroll: 1
+	        }
+	      }]
+	  });
+	}
+	
+	carousel();
+	
+	</script>
 {% endblock %}
