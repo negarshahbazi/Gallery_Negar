@@ -85,13 +85,13 @@ class HomeController extends AbstractController
     {   
       $panierCount = $session->get('panierCount', 0);
       $paints = $paintRepository->findAll();
-   
+      shuffle($paints);
 
 
      
     
     return $this->render('home/gallery.html.twig', [
-        'paints' => $paints,
+        'paints' => array_slice($paints, 0, 3),
         'panierCount' => $panierCount
     ]);
 }

@@ -7,7 +7,8 @@
 			{% block title %}{% endblock %}
 		</title>
 		<link href="/assets/css/main.css" rel="stylesheet">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+		<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 		<!-- logo in link -->
 		<link rel="icon" href="{{ asset('assets/img/IMG_2162-removebg-preview.png') }}">
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"> {% block stylesheets %}{% endblock %}
@@ -24,7 +25,7 @@
 			{{ importmap('app') }}
 		{% endblock %}
 	{% endblock %}
-	
+
 	</head>
 		<body>
 
@@ -38,13 +39,19 @@
 				<div class="collapse navbar-collapse " id="navbarScroll">
 					<ul class="navbar-nav navbar-nav-scroll " style="--bs-scroll-height: 100px;">
 						<li class="nav-item ">
-							<a class="nav-link text-white " aria-current="page" href="{{ path('app_home') }}"><p class="tailleReg">Home</p></a>
+							<a class="nav-link text-white " aria-current="page" href="{{ path('app_home') }}">
+								<p class="tailleReg">Home</p>
+							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-white " href="{{ path('app_about') }}"><p class="tailleReg">About Us</p></a>
+							<a class="nav-link text-white " href="{{ path('app_about') }}">
+								<p class="tailleReg">About Us</p>
+							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-white " aria-disabled="true" href="{{ path('app_contact_new') }}"><p class="tailleReg">Contact</p></a>
+							<a class="nav-link text-white " aria-disabled="true" href="{{ path('app_contact_new') }}">
+								<p class="tailleReg">Contact</p>
+							</a>
 						</li>
 					</ul>
 				</div>
@@ -78,11 +85,15 @@
 						{% if app.user %}
 							<li class="nav-item">
 
-								<a class="nav-link text-white borderLeft tailleReg" href="{{ path('app_logout') }}"><p class="tailleReg">Log out</p></a>
+								<a class="nav-link text-white borderLeft tailleReg" href="{{ path('app_logout') }}">
+									<p class="tailleReg">Log out</p>
+								</a>
 							</li>
 						{% else %}
 							<li class="nav-item">
-								<a class="nav-link text-white border-start border-dark-subtle tailleReg" href="{{ path('app_register') }}"><p class="tailleReg">Register</p></a>
+								<a class="nav-link text-white border-start border-dark-subtle tailleReg" href="{{ path('app_register') }}">
+									<p class="tailleReg">Register</p>
+								</a>
 							</li>
 						{% endif %}
 						<li class="nav-item">
@@ -124,11 +135,19 @@
 
 		{% block body %}{% endblock %}
 		<div class="BtnFooter">
-			<a href="#" class="Btn">
+			<a href="#" class="">
 
-				<svg height="1.2em" class="arrow" viewbox="0 0 512 512">
-					<path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"></path>
+				<svg width="64" height="62" viewbox="0 0 64 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<g clip-path="url(#clip0_38_241)">
+						<path d="M64 31C64 22.7783 60.6286 14.8933 54.6274 9.07969C48.6263 3.26606 40.4869 0 32 0C23.5131 0 15.3737 3.26606 9.37258 9.07969C3.37142 14.8933 0 22.7783 0 31C0 39.2217 3.37142 47.1067 9.37258 52.9203C15.3737 58.7339 23.5131 62 32 62C40.4869 62 48.6263 58.7339 54.6274 52.9203C60.6286 47.1067 64 39.2217 64 31ZM34 44.5625C34 45.0764 33.7893 45.5692 33.4142 45.9325C33.0391 46.2959 32.5304 46.5 32 46.5C31.4696 46.5 30.9609 46.2959 30.5858 45.9325C30.2107 45.5692 30 45.0764 30 44.5625V22.1146L21.416 30.4342C21.0405 30.7981 20.5311 31.0024 20 31.0024C19.4689 31.0024 18.9595 30.7981 18.584 30.4342C18.2085 30.0704 17.9975 29.577 17.9975 29.0625C17.9975 28.548 18.2085 28.0546 18.584 27.6908L30.584 16.0658C30.7698 15.8853 30.9905 15.7422 31.2335 15.6445C31.4764 15.5468 31.7369 15.4965 32 15.4965C32.2631 15.4965 32.5236 15.5468 32.7665 15.6445C33.0095 15.7422 33.2302 15.8853 33.416 16.0658L45.416 27.6908C45.7915 28.0546 46.0025 28.548 46.0025 29.0625C46.0025 29.577 45.7915 30.0704 45.416 30.4342C45.0405 30.7981 44.5311 31.0024 44 31.0024C43.4689 31.0024 42.9595 30.7981 42.584 30.4342L34 22.1146V44.5625Z" fill="#B78727"/>
+					</g>
+					<defs>
+						<clipPath id="clip0_38_241">
+							<rect width="64" height="62" fill="white"/>
+						</clipPath>
+					</defs>
 				</svg>
+
 				<p class="text">Back to Top</p>
 			</a>
 		</div>
@@ -254,10 +273,10 @@
 						<div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
 							<div class="footer-menu">
 								<ul>
-									<li><a href="{{path('app_home')}}">Home</a></li>
-									<li><a href="{{path('app_about')}}">About Us</a></li>
+									<li><ahref="{{path('app_home')}}">Home</a></li>
+									<li><ahref="{{path('app_about')}}">About Us</a></li>
 									<li><a href="#">Privacy Policy.</a></li>
-									<li><a href="{{path('app_contact_new')}}">Contact</a></li>
+									<li><ahref="{{path('app_contact_new')}}">Contact</a></li>
 								</ul>
 							</div>
 						</div>
