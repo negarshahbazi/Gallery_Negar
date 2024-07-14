@@ -71,7 +71,6 @@ class UserController extends AbstractController
     {
         $panierCount = $session->get('panierCount', 0);
         $totalPrice = $session->get('totalPrice', 0);
-        // dd($totalPrice);
 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);

@@ -81,17 +81,19 @@ class HomeController extends AbstractController
     }
   
     #[Route('/paint/gallery', name: 'app_gallery')]
-    public function gallery(PaintRepository $paintRepository,  SessionInterface $session, EntityManagerInterface $entityManager): Response
+    public function gallery(PaintRepository $paintRepository,  SessionInterface $session, EntityManagerInterface $entityManager,CategoryRepository $categoryRepository): Response
     {   
       $panierCount = $session->get('panierCount', 0);
-      $paints = $paintRepository->findAll();
-      shuffle($paints);
-
-
-     
+      $category = $categoryRepository->findOneBy(['name' => 'Expressionism']);
+      if (!$category) {
+        throw $this->createNotFoundException('Category not found');
+    }
+    $expressionismPaints = $paintRepository->findBy(['category' => $category]);
+  
+      shuffle($expressionismPaints);
     
     return $this->render('home/gallery.html.twig', [
-        'paints' => array_slice($paints, 0, 3),
+        'paints' => array_slice($expressionismPaints, 0, 3),
         'panierCount' => $panierCount
     ]);
 }

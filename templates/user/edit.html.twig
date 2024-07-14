@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 
 
-
 {% block body %}
-  <style>
-        body {
-            background: linear-gradient(#510000, #820101);
-        }
-    </style>
+	<style>
+		body {
+			background: linear-gradient(#510000, #820101);
+		}
+	</style>
 
 	<div class="d-flex justify-content-between align-items-center titrPoster">
 		<div class="d-flex flex-column justify-content-center align-items-center">
@@ -20,25 +19,23 @@
 		</div>
 	</div>
 	<section class="section-container">
-		<div class="w-100">
+		<div>
 			<a class="text-center text-decoration-none text-white mx-auto" href="{{ path('app_cart') }}"><img class="backButton  d-flex justify-content-start align-items-center" src="{{asset('../../assets/img/left-arrow_4518010-removebg-preview.png')}}" alt=""></a>
 		</div>
-		<div class="row d-flex justify-content-center align-items-center ">
-
-
-			<div class="col-10 d-flex justify-content-center align-items-center m-5">
-				<div
-					class="form-container">
-				
+		<div class="d-flex justify-content-center align-items-center ">
+			<div class="row">
+				<div class="col-6 form-container mt-5 mb-5">
+					<p class="text-center">⚠️Make sure the following information is correct and correct it if necessary!</p>
 					{{ include('user/_form.html.twig') }}
-                    
+
+				</div>
+				<div class="col-6 d-flex flex-column justify-content-end align-items-center">
+					<img class="border-bottom border-black shadow-bottom-lg divdiv" src="../../assets/img/female-person-silhouette-sitting-chair-writing-down-shadow-white-background-young-removebg-preview.png" alt="">
 				</div>
 			</div>
-		</section>
-	</div>
-	<div class="col-9 d-flex justify-content-end align-items-center divdiv">
-		<img class="imageCart border-bottom border-black shadow-bottom-lg" src="../../assets/img/female-person-silhouette-sitting-chair-writing-down-shadow-white-background-young-removebg-preview.png" alt="">
-	</div>
+		</div>
+	</section>
+
 
 	{# <a href="{{ path('app_user_index') }}">back to list</a> #}
 
