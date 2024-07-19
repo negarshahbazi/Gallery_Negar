@@ -25,9 +25,7 @@ class PanierController extends AbstractController
     public function index(SessionInterface $session, PanierRepository $panierRepository, PaintRepository $paintRepository, PhotoRepository $photoRepository): Response
     {
         $panierCount = $session->get('panierCount', 0);
-        if ($panierCount === 0) {
-            $this->addFlash('notice', '📢Your cart is empty.');
-        }
+       
         $user = $this->getUser();
         if (!$user) {
             return $this->redirectToRoute('app_login');
@@ -117,7 +115,10 @@ class PanierController extends AbstractController
         } else {
             echo "panier not found";
         }
-    
+        $panierCount = $session->get('panierCount', 0);
+        if ($panierCount === 0) {
+            $this->addFlash('notice', '📢Your cart is empty.');
+        }
         return $this->redirectToRoute('app_panier_index');
     }
 }

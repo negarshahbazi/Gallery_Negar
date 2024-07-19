@@ -10,6 +10,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use PayPalHttp\HttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -86,13 +87,14 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            $YOUR_DOMAIN = 'http://localhost:8000';
+
+
             if ($methodPayment === 'stripe') {
 
                 $stripeKey = $this->getParameter('stripe_key');
                 Stripe::setApiKey($stripeKey);
-                header('Content-Type: application/json');
-                $YOUR_DOMAIN = 'http://127.0.0.1:8000';
-
+           
                 $paymentIntent = \Stripe\Checkout\Session::create([
                     'payment_method_types' => ['card'],
                     'line_items' => [
@@ -110,18 +112,17 @@ class UserController extends AbstractController
                         ],
                     ],
                     'mode' => 'payment',
-                    'success_url' => $YOUR_DOMAIN . '/',
-                    'cancel_url' => $YOUR_DOMAIN . '/',
+                    'success_url' => $YOUR_DOMAIN .'/success' ,
+                    'cancel_url' => $YOUR_DOMAIN . '/cancel',
                 ]);
+            //    dd($paymentIntent->url);
                 return $this->redirect($paymentIntent->url);
             } else if ($methodPayment === 'paypal') {
-                $YOUR_DOMAIN = 'http://127.0.0.1:8000/';
-
                 $paypalClientId = $this->getParameter('paypalClientId');
                 $paypalSecret = $this->getParameter('paypalSecret');
                 $environment = new SandboxEnvironment($paypalClientId, $paypalSecret);
                 $client = new PayPalHttpClient($environment);
-
+                
                 $request = new OrdersCreateRequest();
                 $request->prefer('return=representation');
                 $request->body = [
@@ -130,26 +131,24 @@ class UserController extends AbstractController
                         "amount" => [
                             "currency_code" => "EUR",
                             "value" =>  $totalPrice // Montant à payer
-                        ]
-                    ]],
-                    'success_url' => $YOUR_DOMAIN . '/',
-                    'cancel_url' => $YOUR_DOMAIN . '/',
-                ];
-                $response = $client->execute($request);
-
-                // Obtenez l'URL d'approbation PayPal
-                $approvalUrl = $response->result->links[1]->href;
-
-                // Rediriger vers l'URL d'approbation PayPal
-
-                if (!empty($approvalUrl)) {
-                    // dd($approvalUrl) ;
-                    return new RedirectResponse($approvalUrl);
-                } else {
-
-                    dump("Approval URL is empty. Handle the error.");
-                }
-            }
+                            ]
+                            ]],
+                            'success_url' => $YOUR_DOMAIN . '/success' ,
+                            'cancel_url' => $YOUR_DOMAIN . '/cancel' ,
+                        ];
+                        try {
+                            $response = $client->execute($request);
+                            foreach ($response->result->links as $link) {
+                                if ($link->rel === 'approve') {
+                                    return $this->redirect($link->href);
+                                }
+                            }
+                        } catch (HttpException $ex) {
+                            dump($ex->statusCode);
+                            dump($ex->getMessage());
+                        }
+                    }
+            
             return $this->redirectToRoute('app_user_edit', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
         }
 
