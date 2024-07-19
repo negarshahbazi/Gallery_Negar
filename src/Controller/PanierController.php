@@ -117,11 +117,7 @@ class PanierController extends AbstractController
         } else {
             echo "panier not found";
         }
-        // Check if the cart is empty after removing the item
-        $panierCount = $session->get('panierCount', 0);
-        if ($panierCount === 0) {
-            $this->addFlash('notice', '📢Your cart is empty.');
-        }
+    
         return $this->redirectToRoute('app_panier_index');
     }
 }

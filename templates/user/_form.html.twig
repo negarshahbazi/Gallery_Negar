@@ -20,7 +20,9 @@
 	{{ form_widget(form.tel, { 'attr': {'class': 'gt', 'placeholder': user.tel} }) }}
 
 </div>
-
+<div class="d-flex flex-column justify-content-end align-items-center">
+	<img class="shadow-bottom-lg divdiv" src="../../assets/img/female-person-silhouette-sitting-chair-writing-down-shadow-white-background-young-removebg-preview.png" alt="">
+</div>
 
 <div class="form-group optional">
 	<div class="mt-5 d-flex justify-content-start align-items-center">
@@ -38,7 +40,7 @@
 	</div>
 </div>
 
-    <button type="submit" class="btn form-submit-btn text-center">{{ button_label|default('Submit') }}</button>
+<button type="submit" class="btn form-submit-btn text-center">{{ button_label|default('Submit') }}</button>
 
 
 {{ form_end(form) }}
