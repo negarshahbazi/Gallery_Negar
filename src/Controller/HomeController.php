@@ -56,29 +56,6 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/cart', name: 'app_home_cart')]
-    public function cart( PaintRepository $paintRepository, CategoryRepository $categoryRepository, PanierRepository $panierRepository, SessionInterface $session): Response
-    {  // Initialiser tous les compteurs à zéro
-       
-        $paints = $paintRepository->findAll();
-        $categories = $categoryRepository->findAll();
-
-   
-        $user = $this->getUser();
-       
-
-      // Stockage du nombre total d'articles dans la session
-      $panierCount = $session->get('panierCount');
-       
-        return $this->render('cart/index.html.twig', [
-            
-            'panierCount' => $panierCount,
-            'user' => $user,
-            'paints' => $paints,
-            'categories' => $categories
-
-        ]);
-    }
   
     #[Route('/paint/gallery', name: 'app_gallery')]
     public function gallery(PaintRepository $paintRepository,  SessionInterface $session, EntityManagerInterface $entityManager,CategoryRepository $categoryRepository): Response

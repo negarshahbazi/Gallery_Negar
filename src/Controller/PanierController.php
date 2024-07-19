@@ -7,11 +7,14 @@ use App\Entity\Paint;
 use App\Entity\Panier;
 use App\Form\PanierType;
 use App\Repository\MessagesRepository;
+use App\Repository\PaintRepository;
 use App\Repository\PanierRepository;
+use App\Repository\PhotoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/panier')]
@@ -19,23 +22,50 @@ class PanierController extends AbstractController
 {
 
     #[Route('/', name: 'app_panier_index', methods: ['GET'])]
-    public function index(PanierRepository $panierRepository): Response
+    public function index(SessionInterface $session, PanierRepository $panierRepository, PaintRepository $paintRepository, PhotoRepository $photoRepository): Response
     {
+        $panierCount = $session->get('panierCount', 0);
+        if ($panierCount === 0) {
+            $this->addFlash('notice', '📢Your cart is empty.');
+        }
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+        $panierItems = $panierRepository->findBy(['user' => $user]);
+        $paintDetails = [];
+        $totalPrice = 0;
+        foreach ($panierItems as $item) {
+            $paintId = $item->getPaint();
+            $paints = $paintRepository->findBy(['id' => $paintId]);
+            foreach ($paints as $paint) {
+                $paintDetails[] = $paint;
+                $totalPrice += $paint->getPrice();
+            }
+        }
+        // Stocker le totalPrice dans la session
+        $session->set('totalPrice', $totalPrice);
+
         return $this->render('panier/index.html.twig', [
-            'paniers' => $panierRepository->findAll(),
+            'controller_name' => 'CartController',
+            'panierCount' => $panierCount,
+            'paints' => $paintDetails,
+            'totalPrice' => $totalPrice,
+
+
         ]);
     }
 
 
 
     #[Route('/{id}', name: 'app_panier_new')]
-    public function myPanier(Paint $paint, EntityManagerInterface $entityManager, PanierRepository $panierRepository,MessagesRepository $messagesRepository): Response
-    {  
+    public function myPanier(Paint $paint, EntityManagerInterface $entityManager, PanierRepository $panierRepository, MessagesRepository $messagesRepository): Response
+    {
         $user = $this->getUser();
         if (!$user) {
             return $this->redirectToRoute('app_login');
-        }      
-        $existingPanier = $panierRepository->findOneBy(['user' => $user, 'paint' => $paint]);    
+        }
+        $existingPanier = $panierRepository->findOneBy(['user' => $user, 'paint' => $paint]);
         if ($existingPanier) {
             $entityManager->remove($existingPanier);
             $entityManager->flush();
@@ -44,41 +74,14 @@ class PanierController extends AbstractController
             $newPanier->setPaint($paint);
             $newPanier->setUser($user);
             $newPanier->setPanierCount(1);
-           
-    
+
+
             $entityManager->persist($newPanier);
             $entityManager->flush();
         }
-    
+
         return $this->redirectToRoute('app_home');
     }
-    
-    #[Route('/cart/{id}', name: 'app_panier_cart')]
-    public function myCart(Paint $paint, EntityManagerInterface $entityManager, PanierRepository $panierRepository): Response
-    {  
-        $user = $this->getUser();
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
-        }      
-        $existingPanier = $panierRepository->findOneBy(['user' => $user, 'paint' => $paint]);    
-        if ($existingPanier) {
-        //    TODO panier count from session -1
-            $entityManager->remove($existingPanier);
-            $entityManager->flush();
-        } else {
-            $newPanier = new Panier();
-            $newPanier->setPaint($paint);
-            $newPanier->setUser($user);
-            $newPanier->setPanierCount(1);
-           
-    
-            $entityManager->persist($newPanier);
-            $entityManager->flush();
-        }
-    
-        return $this->redirectToRoute('app_home_cart');
-    }
-
 
 
     #[Route('/{id}/edit', name: 'app_panier_edit', methods: ['GET', 'POST'])]
@@ -98,15 +101,27 @@ class PanierController extends AbstractController
             'form' => $form,
         ]);
     }
-
-    #[Route('/{id}', name: 'app_panier_delete', methods: ['POST'])]
-    public function delete(Request $request, Panier $panier, EntityManagerInterface $entityManager): Response
+    #[Route('/cart/{id}', name: 'app_panier_delete')]
+    public function myCart(Paint $paint, EntityManagerInterface $entityManager, PanierRepository $panierRepository, SessionInterface $session): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $panier->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($panier);
-            $entityManager->flush();
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
         }
+        $existingPanier = $panierRepository->findOneBy(['user' => $user, 'paint' => $paint]);
+        if ($existingPanier) {
+            $session->set('panierCount', $session->get('panierCount') - 1);
 
-        return $this->redirectToRoute('app_panier_index', [], Response::HTTP_SEE_OTHER);
+            $entityManager->remove($existingPanier);
+            $entityManager->flush();
+        } else {
+            echo "panier not found";
+        }
+        // Check if the cart is empty after removing the item
+        $panierCount = $session->get('panierCount', 0);
+        if ($panierCount === 0) {
+            $this->addFlash('notice', '📢Your cart is empty.');
+        }
+        return $this->redirectToRoute('app_panier_index');
     }
 }
