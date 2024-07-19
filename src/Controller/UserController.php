@@ -115,7 +115,7 @@ class UserController extends AbstractController
                     'success_url' => $YOUR_DOMAIN .'/success' ,
                     'cancel_url' => $YOUR_DOMAIN . '/cancel',
                 ]);
-            //    dd($paymentIntent->url);
+               dd($paymentIntent->url);
                 return $this->redirect($paymentIntent->url);
             } else if ($methodPayment === 'paypal') {
                 $paypalClientId = $this->getParameter('paypalClientId');
