@@ -217,7 +217,7 @@
 										<a href="{{path('app_home')}}">Home</a>
 									</li>
 									<li>
-										<a href="#">About us</a>
+										<a href="{{path('app_about')}}">About us</a>
 									</li>
 
 									<li>
@@ -234,7 +234,7 @@
 						<div class="col-xl-4 col-lg-4 col-md-12">
 							<div class="footer-widget">
 								<div class="footer-logo d-flex justify-content-center align-items-center">
-									<a href="{{ path('app_home') }}"><img src="./assets/img/télécharger.webp" class="img-fluid rounded-pill opacity-75" alt="logo"></a>
+									<a href="{{ path('app_home') }}"><img src="{{asset('assets/img/télécharger.webp')}}" class="img-fluid rounded-pill opacity-75" alt="logo"></a>
 								</div>
 								<div class="footer-text text-white opacity-50 ">
 									<p>At Negar Art Gallery, we are committed to fostering a culture of artistic appreciation and expression. Join us on a journey of discovery, creativity, and inspiration as we celebrate the beauty and power of art together.</p>
@@ -279,10 +279,10 @@
 						<div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
 							<div class="footer-menu">
 								<ul>
-									<li><ahref="{{path('app_home')}}">Home</a></li>
-									<li><ahref="{{path('app_about')}}">About Us</a></li>
+									<li><a  href="{{path('app_home')}}">Home</a></li>
+									<li><a  href="{{path('app_about')}}">About Us</a></li>
 									<li><a href="#">Privacy Policy.</a></li>
-									<li><ahref="{{path('app_contact_new')}}">Contact</a></li>
+									<li><a  href="{{path('app_contact_new')}}">Contact</a></li>
 								</ul>
 							</div>
 						</div>

@@ -77,52 +77,51 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $form->getData(); // Update the $user variable with the form data
-            $methodPayment = $form->get('methodPayment')->getData(); // Get the method payment from the form
+            $user = $form->getData();
+            $methodPayment = $form->get('methodPayment')->getData();
 
-            // Set the method payment on the user entity
             $user->setMethodPayment($methodPayment);
 
-            // Persist the user object
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $YOUR_DOMAIN = 'http://localhost:8000';
+            $YOUR_DOMAIN = 'http://127.0.0.1:8000';
 
 
-            if ($methodPayment === 'stripe') {
+            if ($methodPayment === "stripe") {
+               
 
                 $stripeKey = $this->getParameter('stripe_key');
                 Stripe::setApiKey($stripeKey);
-           
+
                 $paymentIntent = \Stripe\Checkout\Session::create([
                     'payment_method_types' => ['card'],
                     'line_items' => [
                         [
                             'price_data' => [
-                                'unit_amount' => $totalPrice * 100, // Convertir le prix total en centimes
                                 'currency' => 'eur',
                                 'product_data' => [
-                                    'name' => 'Nom du produit',
-                                    // Autres informations sur le produit...
+                                    'name' => 'Gallery',
                                 ],
+                                'unit_amount' => $totalPrice * 100,
                             ],
 
-                            'quantity' => $panierCount,
+                            'quantity' => 1,
                         ],
                     ],
                     'mode' => 'payment',
-                    'success_url' => $YOUR_DOMAIN .'/success' ,
-                    'cancel_url' => $YOUR_DOMAIN . '/cancel',
+                    'success_url' => $YOUR_DOMAIN . '/',
+                    'cancel_url' => $YOUR_DOMAIN . '/',
                 ]);
-               dd($paymentIntent->url);
-                return $this->redirect($paymentIntent->url);
+                $url = $paymentIntent->url;
+               
+                return $this->redirect($url);
             } else if ($methodPayment === 'paypal') {
                 $paypalClientId = $this->getParameter('paypalClientId');
                 $paypalSecret = $this->getParameter('paypalSecret');
                 $environment = new SandboxEnvironment($paypalClientId, $paypalSecret);
                 $client = new PayPalHttpClient($environment);
-                
+
                 $request = new OrdersCreateRequest();
                 $request->prefer('return=representation');
                 $request->body = [
@@ -130,25 +129,25 @@ class UserController extends AbstractController
                     "purchase_units" => [[
                         "amount" => [
                             "currency_code" => "EUR",
-                            "value" =>  $totalPrice // Montant à payer
-                            ]
-                            ]],
-                            'success_url' => $YOUR_DOMAIN . '/success' ,
-                            'cancel_url' => $YOUR_DOMAIN . '/cancel' ,
-                        ];
-                        try {
-                            $response = $client->execute($request);
-                            foreach ($response->result->links as $link) {
-                                if ($link->rel === 'approve') {
-                                    return $this->redirect($link->href);
-                                }
-                            }
-                        } catch (HttpException $ex) {
-                            dump($ex->statusCode);
-                            dump($ex->getMessage());
+                            "value" =>  $totalPrice
+                        ]
+                    ]],
+                    'success_url' => $YOUR_DOMAIN . '/',
+                    'cancel_url' => $YOUR_DOMAIN . '/',
+                ];
+                try {
+                    $response = $client->execute($request);
+                    foreach ($response->result->links as $link) {
+                        if ($link->rel === 'approve') {
+                            return $this->redirect($link->href);
                         }
                     }
-            
+                } catch (HttpException $ex) {
+                    dump($ex->statusCode);
+                    dump($ex->getMessage());
+                }
+            }
+
             return $this->redirectToRoute('app_user_edit', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
         }
 
