@@ -85,67 +85,10 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $YOUR_DOMAIN = 'http://127.0.0.1:8000';
-
-
             if ($methodPayment === "stripe") {
-               
-
-                $stripeKey = $this->getParameter('stripe_key');
-                Stripe::setApiKey($stripeKey);
-
-                $paymentIntent = \Stripe\Checkout\Session::create([
-                    'payment_method_types' => ['card'],
-                    'line_items' => [
-                        [
-                            'price_data' => [
-                                'currency' => 'eur',
-                                'product_data' => [
-                                    'name' => 'Gallery',
-                                ],
-                                'unit_amount' => $totalPrice * 100,
-                            ],
-
-                            'quantity' => 1,
-                        ],
-                    ],
-                    'mode' => 'payment',
-                    'success_url' => $YOUR_DOMAIN . '/',
-                    'cancel_url' => $YOUR_DOMAIN . '/',
-                ]);
-                $url = $paymentIntent->url;
-               
-                return $this->redirect($url);
+                return $this->redirectToRoute('app_user_stripe');
             } else if ($methodPayment === 'paypal') {
-                $paypalClientId = $this->getParameter('paypalClientId');
-                $paypalSecret = $this->getParameter('paypalSecret');
-                $environment = new SandboxEnvironment($paypalClientId, $paypalSecret);
-                $client = new PayPalHttpClient($environment);
-
-                $request = new OrdersCreateRequest();
-                $request->prefer('return=representation');
-                $request->body = [
-                    "intent" => "CAPTURE",
-                    "purchase_units" => [[
-                        "amount" => [
-                            "currency_code" => "EUR",
-                            "value" =>  $totalPrice
-                        ]
-                    ]],
-                    'success_url' => $YOUR_DOMAIN . '/',
-                    'cancel_url' => $YOUR_DOMAIN . '/',
-                ];
-                try {
-                    $response = $client->execute($request);
-                    foreach ($response->result->links as $link) {
-                        if ($link->rel === 'approve') {
-                            return $this->redirect($link->href);
-                        }
-                    }
-                } catch (HttpException $ex) {
-                    dump($ex->statusCode);
-                    dump($ex->getMessage());
-                }
+                return $this->redirectToRoute('app_user_paypal');
             }
 
             return $this->redirectToRoute('app_user_edit', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
@@ -154,9 +97,103 @@ class UserController extends AbstractController
         return $this->render('user/edit.html.twig', [
             'user' => $user,
             'form' => $form,
-            'panierCount' => $panierCount
+            'panierCount' => $panierCount,
+            'totalPrice' => $totalPrice
         ]);
     }
+
+    #[Route('/stripe/stripe_checkout', name: 'app_user_stripe', methods: ['GET', 'POST'])]
+    public function stripe_checkout(SessionInterface $session): RedirectResponse
+    {
+
+        $totalPrice = $session->get('totalPrice', 0);
+
+        $YOUR_DOMAIN = 'http://127.0.0.1:8000';
+        $stripeKey = $_ENV['STRIPE_SECRET_KEY'];
+        Stripe::setApiKey($stripeKey);
+
+        $paymentIntent = \Stripe\Checkout\Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [
+                [
+                    'price_data' => [
+                        'currency' => 'eur',
+                        'product_data' => [
+                            'name' => 'Gallery',
+                        ],
+                        'unit_amount' => $totalPrice * 100,
+                    ],
+
+                    'quantity' => 1,
+                ],
+            ],
+            'mode' => 'payment',
+            'success_url' => $YOUR_DOMAIN . '/success',
+            'cancel_url' => $YOUR_DOMAIN . '/cancel',
+        ]);
+        $url = $paymentIntent->url;
+
+        return new RedirectResponse($url);
+    }
+
+    #[Route('/cancel', name: 'app_user_cancel', methods: ['GET'])]
+    public function cancel(SessionInterface $session ): Response
+    {   $panierCount = $session->get('panierCount', 0);
+        $totalPrice = $session->get('totalPrice', 0);
+
+        return $this->render('user/cancel.html.twig', [
+            'panierCount' => $panierCount,
+            'totalPrice' => $totalPrice
+        ]);
+    }
+
+    #[Route('/success', name: 'app_user_success', methods: ['GET'])]
+    public function success(SessionInterface $session): Response
+    {   $panierCount = $session->get('panierCount', 0);
+        $totalPrice = $session->get('totalPrice', 0);
+
+        return $this->render('user/success.html.twig', [
+            'panierCount' => $panierCount,
+            'totalPrice' => $totalPrice
+        ]);
+    }
+
+    #[Route('/paypal/paypal_checkout', name: 'app_user_paypal', methods: ['GET', 'POST'])]
+    public function paypal_checkout(SessionInterface $session): RedirectResponse
+    {
+        $paypalClientId = $_ENV['PAYPAL_CLIENT_ID'];
+        $paypalSecret = $_ENV['PAYPAL_SECRET'];
+        $environment = new SandboxEnvironment($paypalClientId, $paypalSecret);
+        $client = new PayPalHttpClient($environment);
+        $YOUR_DOMAIN = 'http://127.0.0.1:8000';
+        $totalPrice = $session->get('totalPrice', 0);
+
+        $request = new OrdersCreateRequest();
+        $request->prefer('return=representation');
+        $request->body = [
+            "intent" => "CAPTURE",
+            "purchase_units" => [[
+                "amount" => [
+                    "currency_code" => "EUR",
+                    "value" =>  $totalPrice
+                ]
+            ]],
+            'success_url' => $YOUR_DOMAIN . '/success',
+            'cancel_url' => $YOUR_DOMAIN . '/cancel',
+        ];
+        try {
+            $response = $client->execute($request);
+            foreach ($response->result->links as $link) {
+                if ($link->rel === 'approve') {
+                    return $this->redirect($link->href);
+                }
+            }
+        } catch (HttpException $ex) {
+            dump($ex->statusCode);
+            dump($ex->getMessage());
+        }
+    }
+
 
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response

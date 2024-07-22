@@ -1,4 +1,8 @@
-{{ form_start(form, { 'attr': {'class': 'form'},'action': path('app_user_edit', {'id': user.id}) })}}
+{# {{ form_start(form, { 'attr': {'class': 'form'},'action': path('app_user_edit', {'id': user.id}) })}} #}
+
+<form action={{path('app_user_edit', {'id': user.id})}} class="form" method="POST">
+{{ form_widget(form._token) }}
+
 
 <div class="form-group optional">
 	{{ form_label(form.firstName, 'First Name') }}
@@ -43,4 +47,6 @@
 <button type="submit" class="btn form-submit-btn text-center">{{ button_label|default('Submit') }}</button>
 
 
-{{ form_end(form) }}
+</form>
+
+

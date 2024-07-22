@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+	<style>
+		body {
+			background: linear-gradient(#510000, #820101);
+		}
+	</style>
+	<div class="d-flex justify-content-between align-items-center titrPoster">
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<img class="vahshi" src="{{ asset('../../assets/img/young-woman-who-is-posing-covered-with-black-paint-removebg-preview.png') }}" alt="photo">
+		</div>
+		<h1 class="text-white">Cancel</h1>
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<img class="vahshi" src="{{ asset('../../assets/img/portrait-young-woman-who-is-posing-covered-with-black-paint__3_-removebg-preview.png') }}" alt="photo">
+
+		</div>
+	</div>
+	<div class=" divLogin text-center form-container">
+		<p>Your payment has been cancelled.
+							
+			We regret to inform you that your payment was not processed successfully and has been cancelled. No charges have been made to your account.
+			
+			Total Amount:{{ totalPrice }}
+			If you believe this is an error or if you have any questions, please contact our customer support at [Customer Support Email/Phone Number]. We are here to assist you.
+			
+			Thank you for your understanding.
+						
+						Best regards,
+						Negar Gallery!</p>
+	</div>
+
+
+{% endblock %}
