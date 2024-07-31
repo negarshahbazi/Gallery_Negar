@@ -52,10 +52,8 @@
 						<path d="M21.0499 5.37268H43.2342V8.21267H21.0499V5.37268Z" fill="#342E2E"/>
 					</svg>
 				</a>
-				<p class="text-secondary">🎉Click on the button above to see my latest paintings!</p>
-
+				<h5 class="text-secondary">🎉Click on the button above to see my latest paintings!</h5>
 			</div>
-
 			<div class="col-3 d-flex justify-content-center align-items-end hightDiv"><img class="img2 d-flex justify-content-center align-items-end" src="../../assets/img/side-view-woman-posing-with-sky-background-removebg-preview.png" alt=""></div>
 		</div>
 
@@ -72,8 +70,7 @@
 				</a>
 			</div>
 			{% for category in categories %}
-				<div
-					class="col-auto m-3">
+				<div class="col-auto m-3">
 					<!-- Utilisez la classe col-auto pour ajuster la largeur en fonction du contenu -->
 					<a class="text-decoration-none" href="{{ path('app_category_show', { id: category.id }) }}">
 						<div class="dimention">
@@ -203,15 +200,15 @@
 
 							<span class="month ml-3">{{ category.year}}</span>
 							<div>
-								<p class="ml-3 ">
+								<p class="ml-3 text-white">
 									{{ category.explique}}</p>
-								<span class="text-white">
+								<p class="text-white">
 									<span>
 										<b>The most famous painters in
 											{{ category.name}}:
 										</b>
 									</span>
-									{{ category.famous}}</span>
+									{{ category.famous}}</p>
 							</div>
 							<div class="backGold">
 								<a href="{{ category.readMore}}" class="btn-shine " target="_blank">Read more</a>
@@ -332,7 +329,8 @@
 				    };
 				
 				    (function(d, s) {
-				        var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
+				        var t = d.getElementsByTagName(s)[0],
+						e = d.createElement(s);
 				        e.async = true;
 				        e.src = "//static.axept.io/sdk.js";
 				        t.parentNode.insertBefore(e, t);

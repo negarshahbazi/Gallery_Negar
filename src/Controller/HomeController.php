@@ -21,23 +21,16 @@ class HomeController extends AbstractController
         $this->entityManager = $entityManager;
     }
     #[Route('/', name: 'app_home')]
-    public function panier( PaintRepository $paintRepository, CategoryRepository $categoryRepository, PanierRepository $panierRepository, SessionInterface $session): Response
-    {  // Initialiser tous les compteurs à zéro
-       
-       
-
+    public function panier(PaintRepository $paintRepository, CategoryRepository $categoryRepository, PanierRepository $panierRepository, SessionInterface $session): Response
+    {  
         $paints = $paintRepository->findAll();
         $categories = $categoryRepository->findAll();
 
-   
         $user = $this->getUser();
      
         $paniers = $panierRepository->findBy(['user' => $user]);
 
-      
         $panierCount = 0;
-
-
 
         foreach ($paniers as $key => $value) {
             $panierCount += $value->getPanierCount();
@@ -56,9 +49,8 @@ class HomeController extends AbstractController
         ]);
     }
 
-  
     #[Route('/paint/gallery', name: 'app_gallery')]
-    public function gallery(PaintRepository $paintRepository,  SessionInterface $session, EntityManagerInterface $entityManager,CategoryRepository $categoryRepository): Response
+    public function gallery(PaintRepository $paintRepository,  SessionInterface $session,CategoryRepository $categoryRepository): Response
     {   
       $panierCount = $session->get('panierCount', 0);
       $category = $categoryRepository->findOneBy(['name' => 'Expressionism']);

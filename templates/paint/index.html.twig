@@ -63,8 +63,8 @@
 							</svg>
 							Size:</span>
 						{{ paint.sizeW }}W *
-						{{ paint.sizeH }}H *
-						{{ paint.sizeD }}D
+						{{ paint.sizeH }}H
+
 					</p>
 					<p>
 						<span class="colorTextPaint">
@@ -88,19 +88,26 @@
 								<path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8"/>
 							</svg>
 							Status:</span>
-						{{ paint.status}}</p>
-{# etoile #}
-					<form class="ratings" action="{{ path('app_rate_paint', {'id': paint.id, 'grade': '__VALUE__'}) }}">
+						{% if paint.available == 1 %}
+							Available
+						{% else %}
+							Sold
+						{% endif %}
+					</p>
+					{# etoile #}
+					<form
+						class="ratings" action="{{ path('app_rate_paint', {'id': paint.id, 'grade': '__VALUE__'}) }}">
 						<!-- Champ caché pour stocker la valeur de la note -->
-						<input type="hidden" id="grade" name="grade" value="">
+						<input
+						type="hidden" id="grade" name="grade" value="">
 						<!-- Génération des étoiles -->
 						<div class="ratingstar">
-						<fieldset class="rating ">
-							{% for star in 5..1 %}
-								<input class="input " type="radio" id="star{{ star }}" name="rating" value="{{ star }}"/>
-								<label class="label full" for="star{{ star }}" title="{{ star }} star">&#9733;</label>
-							{% endfor %}
-						</fieldset>
+							<fieldset class="rating ">
+								{% for star in 5..1 %}
+									<input class="input " type="radio" id="star{{ star }}" name="rating" value="{{ star }}"/>
+									<label class="label full" for="star{{ star }}" title="{{ star }} star">&#9733;</label>
+								{% endfor %}
+							</fieldset>
 						</div>
 						<!-- Affichage de l'alerte si nécessaire -->
 						{% for message in app.flashes('warning') %}
@@ -119,18 +126,19 @@
 						<a href="{{ path('app_panier_new', {'id': paint.id}) }}" class="btn bg-gradient text-white w-25">Add to cart</a>
 						<a href="{{ path('app_panier_index') }}" class="btn bg-gradient text-white w-25">Cart</a>
 					</div>
-{# commentaire #}
+					{# commentaire #}
 					<div>
 						<p class="colorTextPaint">Comment:
 						</p>
 						{{ include('messages/_form.html.twig') }}
-					
+
 						<div class="message-container">
 							{% if messages is not empty %}
 								{% for message in messages %}
 									<div>
 										<div class="w-100 textareaPaint">
-											<span class="nomTextArea">{{ message.user.firstName }}: </span>
+											<span class="nomTextArea">{{ message.user.firstName }}:
+											</span>
 											<span class="textArea">{{ message.messages }}</span>
 											<span class="dateTextArea">({{ message.createdAt|date('Y-m-d H:i:s') }})</span>
 										</div>
@@ -179,43 +187,37 @@
 		<div class="col-md-10 d-flex justify-content-center align-items-center boxtextSlang">
 			<div class="backTextPub mt-4 ">
 				<h5 class="text-white">Immerse yourself in a world where each stroke of the brush tells a story, where every sculpture captures the essence of emotion, and where every photograph freezes a moment in time. From classical masterpieces to contemporary innovations, our gallery celebrates the richness and diversity of artistic expression.</h5>
-
-
 			</div>
-
-
 		</div>
 
 	</div>
 {% endblock %}
 {% block javascripts %}
 	 <script>
-																								document.addEventListener('DOMContentLoaded', function () {
-																									 let ratings = document.querySelectorAll('.ratings');
-																															
-																									ratings.forEach(rating => {
-																									let inputs = rating.querySelectorAll('.input');
-																															
-																									 inputs.forEach(input => {
-																															            input.addEventListener('change', () => {
-																									// Récupérer la valeur de l'étoile sélectionnée
-																									 let value = input.value;
-																									// Mettre à jour la valeur du champ caché "grade" avec la valeur de la note sélectionnée
-																									 document.getElementById('grade').setAttribute('value', value);
-																									console.log('Note sélectionnée : ' + value);
-																									// Modifier l'URL d'action du formulaire avec la valeur de la note
-																									 let form = rating;
-																									 let action = form.getAttribute('action');
-																									action = action.replace('__VALUE__', value);
-																									// Remplacer également '__VALUE__' dans l'URL avec la valeur du grade
-																									 action = action.replace('grade=__VALUE__', 'grade=' + value);
-																									console.log(action);
-																									 form.setAttribute('action', action);
-																							// Soumettre automatiquement le formulaire
-																									form.submit();
-																								});
-																								});
-																							});
-																							});
-																							</script>
+				    document.addEventListener('DOMContentLoaded', function () {
+					 let ratings = document.querySelectorAll('.ratings');
+											
+					ratings.forEach(rating => {
+					let inputs = rating.querySelectorAll('.input');
+											
+					 inputs.forEach(input => {
+					 input.addEventListener('change', () => {
+					// Récupérer la valeur de l'étoile sélectionnée
+					 let value = input.value;
+					// Mettre à jour la valeur du champ caché "grade" avec la valeur de la note sélectionnée
+					 document.getElementById('grade').setAttribute('value', value);
+					console.log('Note sélectionnée : ' + value);
+					// Modifier l'URL d'action du formulaire avec la valeur de la note
+					 let form = rating;
+					 let action = form.getAttribute('action');
+					action = action.replace('__VALUE__', value);
+					 action = action.replace('grade=__VALUE__', 'grade=' + value);
+					console.log(action);
+					 form.setAttribute('action', action);
+					form.submit();
+				});
+				});
+			});
+			});
+			</script>
 {% endblock %}

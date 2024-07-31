@@ -1,19 +1,62 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
- <style>
-        body {
-            background: linear-gradient(#510000, #820101);
-        }
-    </style>
+	<style>
+		body {
+			background: linear-gradient(#510000, #820101);
+		}
+	</style>
+    	<div class="d-flex justify-content-between align-items-center titrPoster">
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<img class="vahshi" src="{{ asset('../../assets/img/young-woman-who-is-posing-covered-with-black-paint-removebg-preview.png') }}" alt="photo">
+		</div>
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<h1 class="text-white">Privacy Policy</h1>
+			{# <h5 class="text-white text-center  textContact">Thank you for your interest in contacting us. We value your feedback, inquiries, and suggestions. Please feel free to reach out to us using the contact information provided below or by filling out the contact form. We will do our best to respond to you as soon as possible.</h5> #}
+		</div>
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<img class="vahshi" src="{{ asset('../../assets/img/portrait-young-woman-who-is-posing-covered-with-black-paint__3_-removebg-preview.png') }}" alt="photo">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+		</div>
+	</div>
+	<div class="container ">
+		<div class="policy-wrapper text-white ">
+			
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/laragon/www/negar_gallery/src/Controller/PolicyController.php</code></li>
-        <li>Your template at <code>C:/laragon/www/negar_gallery/templates/policy/index.html.twig</code></li>
-    </ul>
-</div>
+			<p>Welcome to our art gallery! We are committed to protecting your privacy. This Privacy Policy outlines our practices regarding the collection, use, and protection of your personal data.</p>
+
+			<h2>Information We Collect</h2>
+			<p>We may collect the following types of information:</p>
+			<ul>
+				<li>Personal identification information (Name, email address, phone number, etc.)</li>
+				<li>Usage data (pages visited, time spent on pages, clicks, etc.)</li>
+			</ul>
+
+			<h2>How We Use Your Information</h2>
+			<p>Your data is used to provide and improve our services. Specifically, we use your information to:</p>
+			<ul>
+				<li>Personalize your experience on our website</li>
+				<li>Send periodic emails regarding our services or other updates</li>
+				<li>Analyze usage patterns to enhance our website</li>
+			</ul>
+
+			<h2>How We Protect Your Information</h2>
+			<p>We implement a variety of security measures to maintain the safety of your personal information. Your data is stored securely and is only accessible to authorized personnel.</p>
+
+			<h2>Third-Party Disclosure</h2>
+			<p>We do not sell, trade, or otherwise transfer your personal information to outside parties except as required by law.</p>
+
+			<h2>Changes to Our Privacy Policy</h2>
+			<p>We may update our Privacy Policy from time to time. Any changes will be posted on this page. We encourage you to review this page periodically for any updates.</p>
+
+			<h2>Contact Us</h2>
+			<p>If you have any questions about this Privacy Policy, please contact us at:</p>
+			<ul>
+				<li class="colorText">Email: negar.shahbazi70@gmail.com</li>
+				<li class="colorText">Phone: +601762669</li>
+			</ul>
+
+			<p>This Privacy Policy is effective as of 2024.</p>
+		</div>
+	</div>
 {% endblock %}

@@ -63,7 +63,4 @@ class RegistrationController extends AbstractController
             'panierCount' => $panierCount,
         ]);
     }
-
-
- 
 }

@@ -116,4 +116,5 @@ class PaintController extends AbstractController
     
         return $this->redirectToRoute('app_paint', ['id' => $paint->getId()]);
     }
+    
 }

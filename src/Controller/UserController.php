@@ -102,6 +102,7 @@ class UserController extends AbstractController
         ]);
     }
 
+
     #[Route('/stripe/stripe_checkout', name: 'app_user_stripe', methods: ['GET', 'POST'])]
     public function stripe_checkout(SessionInterface $session): RedirectResponse
     {
@@ -128,35 +129,14 @@ class UserController extends AbstractController
                 ],
             ],
             'mode' => 'payment',
-            'success_url' => $YOUR_DOMAIN . '/success',
-            'cancel_url' => $YOUR_DOMAIN . '/cancel',
+            'success_url' => $YOUR_DOMAIN . '/user/payment/success',
+            'cancel_url' => $YOUR_DOMAIN . '/user/payment/cancel',
         ]);
         $url = $paymentIntent->url;
 
         return new RedirectResponse($url);
     }
 
-    #[Route('/cancel', name: 'app_user_cancel', methods: ['GET'])]
-    public function cancel(SessionInterface $session ): Response
-    {   $panierCount = $session->get('panierCount', 0);
-        $totalPrice = $session->get('totalPrice', 0);
-
-        return $this->render('user/cancel.html.twig', [
-            'panierCount' => $panierCount,
-            'totalPrice' => $totalPrice
-        ]);
-    }
-
-    #[Route('/success', name: 'app_user_success', methods: ['GET'])]
-    public function success(SessionInterface $session): Response
-    {   $panierCount = $session->get('panierCount', 0);
-        $totalPrice = $session->get('totalPrice', 0);
-
-        return $this->render('user/success.html.twig', [
-            'panierCount' => $panierCount,
-            'totalPrice' => $totalPrice
-        ]);
-    }
 
     #[Route('/paypal/paypal_checkout', name: 'app_user_paypal', methods: ['GET', 'POST'])]
     public function paypal_checkout(SessionInterface $session): RedirectResponse
@@ -178,8 +158,8 @@ class UserController extends AbstractController
                     "value" =>  $totalPrice
                 ]
             ]],
-            'success_url' => $YOUR_DOMAIN . '/success',
-            'cancel_url' => $YOUR_DOMAIN . '/cancel',
+            'success_url' => $YOUR_DOMAIN . '/user/payment/success',
+            'cancel_url' => $YOUR_DOMAIN . '/user/payment/cancel',
         ];
         try {
             $response = $client->execute($request);
@@ -193,8 +173,28 @@ class UserController extends AbstractController
             dump($ex->getMessage());
         }
     }
+    #[Route('/payment/cancel', name: 'app_user_cancel', methods: ['GET', 'POST'])]
+    public function cancel(SessionInterface $session ): Response
+    {   $panierCount = $session->get('panierCount', 0);
+        $totalPrice = $session->get('totalPrice', 0);
 
+        return $this->render('user/cancel.html.twig', [
+            'panierCount' => $panierCount,
+            'totalPrice' => $totalPrice
+        ]);
+    }
 
+    #[Route('/payment/success', name: 'app_user_success', methods: ['GET'])]
+    public function success(SessionInterface $session): Response
+    {   $panierCount = $session->get('panierCount', 0);
+        $totalPrice = $session->get('totalPrice', 0);
+
+        return $this->render('user/success.html.twig', [
+            'panierCount' => $panierCount,
+            'totalPrice' => $totalPrice
+        ]);
+    }
+    // je vais ajouter le code pour le delete
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
@@ -205,4 +205,5 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

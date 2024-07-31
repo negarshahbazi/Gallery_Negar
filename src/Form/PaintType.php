@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Category;
 use App\Entity\Paint;
 use App\Entity\Photo;
-use App\Entity\Status;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,10 +31,7 @@ class PaintType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'id',
             ])
-            ->add('status', EntityType::class, [
-                'class' => Status::class,
-                'choice_label' => 'id',
-            ])
+            ->add('available')
         ;
     }
 

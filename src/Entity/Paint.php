@@ -39,8 +39,6 @@ class Paint
     #[ORM\ManyToOne(inversedBy: 'paints')]
     private ?Category $category = null;
 
-    #[ORM\ManyToOne(inversedBy: 'paints')]
-    private ?Status $status = null;
 
 
     #[ORM\OneToMany(targetEntity: Messages::class, mappedBy: 'paint')]
@@ -60,6 +58,9 @@ class Paint
 
     #[ORM\Column]
     private ?int $gradeTotal = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $available = null;
 
     public function __construct()
     {
@@ -171,23 +172,6 @@ class Paint
         return $this;
     }
 
-    public function getStatus(): ?Status
-    {
-        return $this->status;
-    }
-
-    public function setStatus(?Status $status): static
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
- 
-
-    
-
-  
 
     /**
      * @return Collection<int, Messages>
@@ -277,6 +261,18 @@ class Paint
     public function setGradeTotal(int $gradeTotal): static
     {
         $this->gradeTotal = $gradeTotal;
+
+        return $this;
+    }
+
+    public function isAvailable(): ?bool
+    {
+        return $this->available;
+    }
+
+    public function setAvailable(?bool $available): static
+    {
+        $this->available = $available;
 
         return $this;
     }

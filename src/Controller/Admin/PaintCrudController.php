@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Paint;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -29,12 +30,12 @@ class PaintCrudController extends AbstractCrudController
             TextField::new('typeOfWork'),
             IdField::new('gradeCount'),
             IdField::new('gradeTotal'),
+            BooleanField::new('available'),
 
 
             ////////////////////////////////////// relations /////////////////////////////////////////////////////////////
             AssociationField::new('photo'),
             AssociationField::new('category'),
-            AssociationField::new('status'),
            
 
         ];
